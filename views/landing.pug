@@ -1,0 +1,102 @@
+extends layout
+
+block header
+  nav.nav-extended.nav-full-header.z-depth-0.light-blue.darken-4
+    .nav-background
+      img(src='images/surf.jpg', alt='surf')
+      img.active(src='images/photos/paddleboard.jpg', alt='paddleboard')
+    .nav-wrapper.container
+      a.brand-logo(href='#')
+        img(src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png', alt='Logo')
+      ul.right.hide-on-med-and-down
+        li.active
+          a(href='#') Discover Plans
+        li
+          a(href='#') Create Plans
+        li
+          a(href='#') Blog
+        li
+          a.dropdown-button(href='#', data-activates='feature-dropdown', data-beloworigin='true', data-constrainwidth='false')
+            | Alvaro
+            i.material-icons.right arrow_drop_down
+      ul#feature-dropdown.dropdown-content
+        li
+          a(href='#') My Account
+        li
+          a(href='#') Logout
+    .nav-header.valign-wrapper
+      .container
+        .center-align
+          h1 Your People. Your Adventure.
+          p.flow-text.sub-uvp
+            | Discover outdoor plans for every skill level.
+          p.flow-text.sub-uvp
+            | Join like-minded people on outdoor outings.
+          br
+          a.waves-effect.waves-light.btn-large.light-blue.darken-3(data-scroll='', href='#search-nav')
+            i.material-icons.left.fa.fa-hand-o-down(aria-hidden='true')
+            | Discover Plans
+          a.waves-effect.waves-light.btn-large.light-blue.darken-3
+            i.material-icons.left.fa.fa-group(aria-hidden='true')
+            | Join us
+    .fixed-action-btn
+      a.button-floating.button-collapse.btn.light-blue.darken-3.show-on-large(data-activates='slide-out') Filters
+      a.button-floating.btn.green Map
+    ul#slide-out.side-nav
+      li
+        a(href='')
+          h3 Filters
+      br
+      li
+        .divider
+      li
+        a(href='#')
+          .switch
+            label
+              input(type='checkbox')
+              span.lever
+              |           Suggested Plans
+      li
+        a(href='#')
+          .switch
+            label
+              input(type='checkbox')
+              span.lever
+              |           Collective Plans
+      li
+        a(href='')
+          input#pick-up(type='checkbox')
+          label(for='pick-up') Pick up
+      li
+        a(href='')
+          input#test6(type='checkbox')
+          label(for='test6') Yellow
+      li
+        a(href='')
+          .input-field.col.s12
+            select(multiple='')
+              option(value='', disabled='', selected='') Choose your option
+              option(value='1') Option 1
+              option(value='2') Option 2
+              option(value='3') Option 3
+            label Activity
+    // Fixed Masonry Filters
+    #search-nav.categories-wrapper
+      .categories-container
+        ul.categories.container
+          li
+            a.button-collapse.show-on-large(href='#', data-activates='nav-mobile')
+              i.material-icons(style='padding-top:15px;') menu
+          li
+            a#toggle-search(href='#!')
+              i.material-icons search
+          li.active
+            a(href='#all') All
+          li
+            a(href='#adventure') Outdoor Adventures
+          li
+            a(href='#collective') Collective Plans
+          li
+            a(href='#') Map
+
+  
