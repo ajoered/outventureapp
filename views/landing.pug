@@ -3,7 +3,7 @@ extends layout
 block header
   nav.nav-extended.nav-full-header.z-depth-0.light-blue.darken-4
     .nav-background
-      img(src='images/surf.jpg', alt='surf')
+      img(src='images/photos/surf.jpg', alt='surf')
       img.active(src='images/photos/paddleboard.jpg', alt='paddleboard')
     .nav-wrapper.container
       a.brand-logo(href='#')
@@ -100,3 +100,151 @@ block header
             a(href='#') Map
 
   
+block content
+  #search.row.white-text.grey.darken-4
+    .container
+      form(method='get', action='https://www.google.com/search')
+        input.form-control(type='text', placeholder='Search ...', name='q')
+        input(type='hidden', value='makoframework.com', name='as_sitesearch')
+  ul#nav-mobile.side-nav
+    li
+      a(href='#')
+        i.material-icons camera
+        | Profile
+    li.active
+      a(href='#')
+        i.material-icons brightness_3
+        | Discover Plans
+    li
+      a(href='#')
+        i.material-icons edit
+        | Create Plans
+    li
+      a(href='#')
+        i.material-icons school
+        | Blog
+    li
+      a(href='#')
+        i.material-icons fullscreen
+        | Activities
+    li
+      a(href='#')
+        i.material-icons swap_horiz
+        | FAQ
+  #portfolio.section.white
+    div
+      #results.gallery.row
+        .col.l4.m6.s12.gallery-item.gallery-expand.gallery-filter.adventure
+          .gallery-curve-wrapper
+            a.gallery-cover.gray(style='height: 250px;')
+              img(src='images/photos/camping.jpg', style='height: 100%; width: auto;', alt='placeholder')
+            .gallery-header
+              span Surf Venice Pier
+            .gallery-body
+              .title-wrapper
+                h3 Surf Venice Pier
+              p.description
+                | Literally venmo before they sold out, DIY heirloom forage polaroid offal yr pop-up selfies health goth. Typewriter scenester hammock truffaut meditation, squid before they sold out polaroid portland tousled taxidermy vice. Listicle butcher thundercats, taxidermy pitchfork next level roof party crucifix narwhal kinfolk you probably haven't heard of them portland small batch.
+              p.description
+                hr
+                |                   Ea salvia adipisicing vegan man bun. Flexitarian cupidatat skateboard flannel. Drinking vinegar marfa you probably haven't heard of them consequat post-ironic, shabby chic williamsburg raclette vaporware readymade selfies brunch. Venmo selvage biodiesel marfa. Tbh literally 3 wolf moon, proident elit raclette chambray consequat edison bulb four loko accusamus. Semiotics godard eiusmod, ex esse air plant quinoa vaporware selfies keytar. Actually yuccie ennui flannel single-origin coffee, williamsburg cardigan banjo forage pug distillery tumblr hexagon vinyl occaecat.
+            .gallery-action
+              a.btn-floating.btn-large.waves-effect.waves-light
+                i.material-icons favorite
+              a.btn-floating.btn-large.waves-effect.waves-light
+                i.material-icons add
+        .col.l4.m6.s12.gallery-item.gallery-expand.gallery-filter.collective
+          .gallery-curve-wrapper
+            a.gallery-cover.gray(style='height: 300px;display: flex;')
+              img(src='images/photos/paddleboard.jpg', style='height: 100%;width: auto;flex-shrink: 0;', alt='placeholder')
+            .gallery-header
+              span Surf Venice Pier
+            .gallery-body
+              .title-wrapper
+                h3 Surf Venice Pier
+              p.description
+                | Literally venmo before they sold out, DIY heirloom forage polaroid offal yr pop-up selfies health goth. Typewriter scenester hammock truffaut meditation, squid before they sold out polaroid portland tousled taxidermy vice. Listicle butcher thundercats, taxidermy pitchfork next level roof party crucifix narwhal kinfolk you probably haven't heard of them portland small batch.
+              p.description
+                hr
+                |                       Ea salvia adipisicing vegan man bun. Flexitarian cupidatat skateboard flannel. Drinking vinegar marfa you probably haven't heard of them consequat post-ironic, shabby chic williamsburg raclette vaporware readymade selfies brunch. Venmo selvage biodiesel marfa. Tbh literally 3 wolf moon, proident elit raclette chambray consequat edison bulb four loko accusamus. Semiotics godard eiusmod, ex esse air plant quinoa vaporware selfies keytar. Actually yuccie ennui flannel single-origin coffee, williamsburg cardigan banjo forage pug distillery tumblr hexagon vinyl occaecat.
+            .gallery-action
+              a.btn-floating.btn-large.waves-effect.waves-light
+                i.material-icons favorite
+              a.btn-floating.btn-large.waves-effect.waves-light
+                i.material-icons add
+        .col.l4.m6.s12.gallery-item.gallery-expand.gallery-filter.adventure
+          .gallery-curve-wrapper
+            a.gallery-cover.gray(style='height: 200px;')
+              img(src='images/photos/surf.jpg', style='height: 100%; width: auto;', alt='placeholder')
+            .gallery-header
+              span Surf Venice Pier
+            .gallery-body
+              .title-wrapper
+                h3 Surf Venice Pier
+              p.description
+                | Literally venmo before they sold out, DIY heirloom forage polaroid offal yr pop-up selfies health goth. Typewriter scenester hammock truffaut meditation, squid before they sold out polaroid portland tousled taxidermy vice. Listicle butcher thundercats, taxidermy pitchfork next level roof party crucifix narwhal kinfolk you probably haven't heard of them portland small batch.
+              p.description
+                hr
+                |                           Ea salvia adipisicing vegan man bun. Flexitarian cupidatat skateboard flannel. Drinking vinegar marfa you probably haven't heard of them consequat post-ironic, shabby chic williamsburg raclette vaporware readymade selfies brunch. Venmo selvage biodiesel marfa. Tbh literally 3 wolf moon, proident elit raclette chambray consequat edison bulb four loko accusamus. Semiotics godard eiusmod, ex esse air plant quinoa vaporware selfies keytar. Actually yuccie ennui flannel single-origin coffee, williamsburg cardigan banjo forage pug distillery tumblr hexagon vinyl occaecat.
+            .gallery-action
+              a.btn-floating.btn-large.waves-effect.waves-light
+                i.material-icons favorite
+              a.btn-floating.btn-large.waves-effect.waves-light
+                i.material-icons add
+        .col.l4.m6.s12.gallery-item.gallery-expand.gallery-filter.adventure
+          .gallery-curve-wrapper
+            a.gallery-cover.gray(style='height: 250px;')
+              img(src='images/photos/surf.jpg', style='height: 100%; width: auto;', alt='placeholder')
+            .gallery-header
+              span Surf Venice Pier
+            .gallery-body
+              .title-wrapper
+                h3 Surf Venice Pier
+              p.description
+                | Literally venmo before they sold out, DIY heirloom forage polaroid offal yr pop-up selfies health goth. Typewriter scenester hammock truffaut meditation, squid before they sold out polaroid portland tousled taxidermy vice. Listicle butcher thundercats, taxidermy pitchfork next level roof party crucifix narwhal kinfolk you probably haven't heard of them portland small batch.
+              p.description
+                hr
+                |                               Ea salvia adipisicing vegan man bun. Flexitarian cupidatat skateboard flannel. Drinking vinegar marfa you probably haven't heard of them consequat post-ironic, shabby chic williamsburg raclette vaporware readymade selfies brunch. Venmo selvage biodiesel marfa. Tbh literally 3 wolf moon, proident elit raclette chambray consequat edison bulb four loko accusamus. Semiotics godard eiusmod, ex esse air plant quinoa vaporware selfies keytar. Actually yuccie ennui flannel single-origin coffee, williamsburg cardigan banjo forage pug distillery tumblr hexagon vinyl occaecat.
+            .gallery-action
+              a.btn-floating.btn-large.waves-effect.waves-light
+                i.material-icons favorite
+              a.btn-floating.btn-large.waves-effect.waves-light
+                i.material-icons add
+        .col.l4.m6.s12.gallery-item.gallery-expand.gallery-filter.collective
+          .gallery-curve-wrapper
+            a.gallery-cover.gray(style='height: 300px;display: flex;')
+              img(src='images/photos/paddleboard.jpg', style='height: 100%;width: auto;flex-shrink: 0;', alt='placeholder')
+            .gallery-header
+              span Surf Venice Pier
+            .gallery-body
+              .title-wrapper
+                h3 Surf Venice Pier
+              p.description
+                | Literally venmo before they sold out, DIY heirloom forage polaroid offal yr pop-up selfies health goth. Typewriter scenester hammock truffaut meditation, squid before they sold out polaroid portland tousled taxidermy vice. Listicle butcher thundercats, taxidermy pitchfork next level roof party crucifix narwhal kinfolk you probably haven't heard of them portland small batch.
+              p.description
+                hr
+                |                                   Ea salvia adipisicing vegan man bun. Flexitarian cupidatat skateboard flannel. Drinking vinegar marfa you probably haven't heard of them consequat post-ironic, shabby chic williamsburg raclette vaporware readymade selfies brunch. Venmo selvage biodiesel marfa. Tbh literally 3 wolf moon, proident elit raclette chambray consequat edison bulb four loko accusamus. Semiotics godard eiusmod, ex esse air plant quinoa vaporware selfies keytar. Actually yuccie ennui flannel single-origin coffee, williamsburg cardigan banjo forage pug distillery tumblr hexagon vinyl occaecat.
+            .gallery-action
+              a.btn-floating.btn-large.waves-effect.waves-light
+                i.material-icons favorite
+              a.btn-floating.btn-large.waves-effect.waves-light
+                i.material-icons add
+        .col.l4.m6.s12.gallery-item.gallery-expand.gallery-filter.adventure
+          .gallery-curve-wrapper
+            a.gallery-cover.gray(style='height: 200px;')
+              img(src='images/photos/surf.jpg', style='height: 100%; width: auto;', alt='placeholder')
+            .gallery-header
+              span Surf Venice Pier
+            .gallery-body
+              .title-wrapper
+                h3 Surf Venice Pier
+              p.description
+                | Literally venmo before they sold out, DIY heirloom forage polaroid offal yr pop-up selfies health goth. Typewriter scenester hammock truffaut meditation, squid before they sold out polaroid portland tousled taxidermy vice. Listicle butcher thundercats, taxidermy pitchfork next level roof party crucifix narwhal kinfolk you probably haven't heard of them portland small batch.
+              p.description
+                hr
+                |                                       Ea salvia adipisicing vegan man bun. Flexitarian cupidatat skateboard flannel. Drinking vinegar marfa you probably haven't heard of them consequat post-ironic, shabby chic williamsburg raclette vaporware readymade selfies brunch. Venmo selvage biodiesel marfa. Tbh literally 3 wolf moon, proident elit raclette chambray consequat edison bulb four loko accusamus. Semiotics godard eiusmod, ex esse air plant quinoa vaporware selfies keytar. Actually yuccie ennui flannel single-origin coffee, williamsburg cardigan banjo forage pug distillery tumblr hexagon vinyl occaecat.
+            .gallery-action
+              a.btn-floating.btn-large.waves-effect.waves-light
+                i.material-icons favorite
+              a.btn-floating.btn-large.waves-effect.waves-light
+                i.material-icons add
