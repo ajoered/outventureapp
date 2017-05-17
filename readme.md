@@ -1,28 +1,4 @@
-## What is this?
-
-Just you wait folks!
-
-## Sample Data
-
-To load sample data, run the following command in your terminal:
-
-```bash
-npm run sample
-```
-
-If you have previously loaded in this data, you can wipe your database 100% clean with:
-
-```bash
-npm run blowitallaway
-```
-
-That will populate 16 stores with 3 authors and 41 reviews. The logins for the authors are as follows:
-
-|Name|Email (login)|Password|
-|---|---|---|
-|Wes Bos|wes@example.com|wes|
-|Debbie Downer|debbie@example.com|debbie|
-|Beau|beau@example.com|beau|
-
+<div style="text-align:center"><img src ="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1495057462/compundBlack_mlkuff.png" /></div>
+<div style="text-align:center">Outventure is a collaborative platform for outdoor recreation. Discover plans for outdoor activities. Join like-minded people on outdoor outings.</div>
 
 # outventureapp
