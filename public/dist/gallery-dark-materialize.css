@@ -8555,7 +8555,7 @@ nav .nav-background {
   bottom: 0;
   left: 0;
   z-index: -1;
-  opacity: .6;
+  opacity: .3;
   display: flex;
 }
 
@@ -8613,7 +8613,7 @@ nav .nav-header h1 {
 
 nav .nav-header .tagline {
   display: block;
-  margin: -40px 0 40px 0;
+  margin: -40px 0 20px 0;
   color: rgba(255, 255, 255, 0.8);
 }
 

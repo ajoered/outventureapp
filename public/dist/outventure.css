@@ -1,0 +1,50 @@
+.nav-wrapper .brand-logo img {
+    height: 60px;
+}
+
+input[type="search"] {
+  height: 64px !important; /* or height of nav */
+}
+
+#search {
+  border-radius: 5px;
+  border-top: 2px solid #358d9d;
+  border-bottom: 2px solid #358d9d;
+  border-left: 2px solid #358d9d;
+  border-right: 2px solid #358d9d;
+  font-family: 'lato', sans-serif;
+  font-weight: 300;
+}
+
+.uvp {
+  font-weight: 500 !important;
+  font-size: 60px !important;
+}
+
+.sub-uvp {
+  font-weight: 300 !important;
+  font-size: 22px !important;
+  line-height: 40px;
+}
+
+@media only screen and (min-width: 992px) {
+  .landing-search {
+      padding-bottom: 50px;
+      padding-top: 40px;
+  }
+
+  .uvp {
+    padding-top: 60px;
+  }
+}
+
+.connect-uvp {
+  font-family: 'lato', sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 20px;
+}
+
+.tagline {
+  font-size: 22px !important;
+}
+/*Button*/
