@@ -1,0 +1,12 @@
+mixin searchBar()
+  #search-nav.row.search-nav.center.white
+    .col.m6.push-m1.s12
+      form
+        .input-field.z-depth-1
+          input#search(placeholder='Search for an activity or location...', type='search', required='')
+          label.label-icon(for='search')
+            i.material-icons(style='padding-bottom:20px;') search
+          i.material-icons close
+    .search-buttons.col.m4.push-m1.s12
+      a.waves-effect.waves-light.btn.red.lighten-2 Search
+      a.button-collapse.waves-effect.waves-light.btn.cyan.darken-4(href='#', data-activates='slide-out') Advanced

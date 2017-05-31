@@ -1,65 +1,45 @@
 mixin navbar()
-  body(style='background-color:white!important')
-    nav.nav-extended.z-depth-0.blue-grey.darken-4
-      .nav-wrapper.container
-        a.brand-logo(href='/')
-          img(src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png', alt='Logo')
+  .navbar-fixed
+    nav
+      .nav-wrapper
+        // logo
+        a.brand-logo(href='#')
+          img#nav-logo(src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png', alt='Logo')
+        // Hamburger
         a.button-collapse(href='#', data-activates='nav-mobile')
           i.material-icons menu
+        // Desktop menu items
+        ul.left.hide-on-med-and-down(style='padding-left:20vw;')
+          li
+            a(href='#')
+              i.left.fa.fa-globe(aria-hidden='true')
+              | EXPLORE
+          li
+            a.dropdown-button(href='#', data-activates='create-dropdown', data-beloworigin='true', data-constrainwidth='false')
+              i.left.fa.fa-plus-square-o(aria-hidden='true')
+              | CREATE
+              i.material-icons.right arrow_drop_down
+          li
+            a.dropdown-button(href='#', data-activates='about-us-dropdown', data-beloworigin='true', data-constrainwidth='false')
+              | ABOUT US
+              i.material-icons.right arrow_drop_down
+        // desktop profile items
         ul.right.hide-on-med-and-down
-          li
-            a(href='#')
-              i.material-icons.left.fa.fa-globe(aria-hidden='true')
-              | Explore
-          li
-            a(href='#')
-              i.material-icons.left.fa.fa-group(aria-hidden='true')
-              | Connect
-          li
-            a(href='#') About us
-          if user
-            li
-              a.dropdown-button(href='#', data-activates='feature-dropdown', data-beloworigin='true', data-constrainwidth='false')
-                img.avatar(src=user.gravatar + 'd=retro')
-                i.material-icons.right arrow_drop_down
-            ul#feature-dropdown.dropdown-content
-              li
-                a(href='#') My Account
-              li
-                a(href='/logout') Logout
-          else
-            li
-              a.waves-effect.waves-light.btn.light-blue.darken-4(href='/login' style='color:white!important')
-                | Login
-              a.waves-effect.waves-light.btn.light-blue.darken-4(href='/register' style='margin-left:-10px;color:white!important')
-                | Register
-    ul#nav-mobile.side-nav
-      li
-        a(href='#')
-          i.material-icons camera
-          | Profile
-      li.active
-        a(href='#')
-          i.material-icons brightness_3
-          | Discover Plans
-      li
-        a(href='#')
-          i.material-icons edit
-          | Create Plans
-      li
-        a(href='#')
-          i.material-icons school
-          | Blog
-      li
-        a(href='#')
-          i.material-icons fullscreen
-          | Activities
-      li
-        a(href='#')
-          i.material-icons swap_horiz
-          | FAQ
-        ul#feature-dropdown.dropdown-content
+          a.waves-effect.waves-light.btn.cyan.grey.lighten-5(href='/login', style='color:black!important;') Login
+          a.waves-effect.waves-light.btn.cyan.darken-4(href='/signup', style='margin-left:-10px;color:white!important;') Sign up
+        // Dropdown Structures
+        ul#profile-dropdown.dropdown-content
           li
             a(href='#') My Account
           li
             a(href='#') Logout
+        ul#about-us-dropdown.dropdown-content
+          li
+            a(href='#') Our Purpose
+          li
+            a(href='#') Blog
+        ul#create-dropdown.dropdown-content
+          li
+            a(href='#') Plan Suggestion
+          li
+            a(href='#') Outing

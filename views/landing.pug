@@ -1,92 +1,22 @@
 extends layout
 
+include mixins/_navbar
+include mixins/_heroVideo
+include mixins/_infoSection
+include mixins/_searchBar
+include mixins/_planCard
+
 block header
-  nav.nav-extended.nav-full-header.z-depth-0.blue-grey.darken-4
-    .nav-background
-      img(src='images/mountaineer.jpg', alt='surf')
-      img.active(src='images/photos/canoeing.jpg', alt='paddleboard')
-    .nav-wrapper.container
-      a.brand-logo(href='/')
-        img(src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png', alt='Logo')
-      a.button-collapse(href='#', data-activates='nav-mobile')
-        i.material-icons menu
-      ul.right.hide-on-med-and-down
-        li
-          a(href='#')
-            i.material-icons.left.fa.fa-globe(aria-hidden='true')
-            | Explore
-        li
-          a(href='#')
-            i.material-icons.left.fa.fa-group(aria-hidden='true')
-            | Connect
-        li
-          a(href='#') About us
-        if user
-          li
-            a.dropdown-button(href='#', data-activates='feature-dropdown', data-beloworigin='true', data-constrainwidth='false')
-              img.avatar(src=user.gravatar + 'd=retro')
-              i.material-icons.right arrow_drop_down
-          ul#feature-dropdown.dropdown-content
-            li
-              a(href='#') My Account
-            li
-              a(href='/logout') Logout
-        else
-          li
-            a.waves-effect.waves-light.btn.light-blue.darken-4(href='/login' style='color:white!important')
-              | Login
-            a.waves-effect.waves-light.btn.light-blue.darken-4(href='/register' style='margin-left:-10px;color:white!important')
-              | Register
-    ul#nav-mobile.side-nav
-      li
-        a(href='#')
-          i.material-icons camera
-          | Profile
-      li.active
-        a(href='#')
-          i.material-icons brightness_3
-          | Discover Plans
-      li
-        a(href='#')
-          i.material-icons edit
-          | Create Plans
-      li
-        a(href='#')
-          i.material-icons school
-          | Blog
-      li
-        a(href='#')
-          i.material-icons fullscreen
-          | Activities
-      li
-        a(href='#')
-          i.material-icons swap_horiz
-          | FAQ
-      if user      
-        ul.dropdown-content
-          li
-            a(href='#') My Account
-          li
-            a(href='#') Logout
-      else
-        li
-          a(href='#')
-            i.material-icons swap_horiz
-            | Login
-    .nav-header.valign-wrapper
-      .container
-        .center-align
-          h1.uvp Adventure starts here.
-          p.tagline Everything you need to live an active outdoor lifestyle
-          br
-          .row
-            .col.m5.s12
-              a.waves-effect.waves-light.btn-large.cyan.darken-1(href='')
-                i.material-icons.left.fa.fa-globe(aria-hidden='true')
-                | Explore
-              h1.sub-uvp Discover the best outdoor plan suggestions for every skill-level.
-            .col.m5.s12.offset-m2
-              a.waves-effect.waves-light.btn-large.orange.darken-3
-                i.material-icons.left.fa.fa-group(aria-hidden='true')
-                | Connect
-              h1.sub-uvp Need adventure buddies? Join like-minded people on outdoor outings
+  +navbar()
+ 
+block content
+  +heroVideo()
+  +infoSection()
+  +searchBar()
+  .listings-wrapper
+    section.listings-section
+      .cards-container
+        .row
+          +planCard()
+      .map-container
+        #map
