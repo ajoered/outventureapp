@@ -34,14 +34,14 @@ mixin navbar()
                 i.material-icons.right arrow_drop_down
         else  
           ul.right.hide-on-med-and-down
-            a.waves-effect.waves-light.btn.cyan.grey.lighten-5(href='', style='color:black!important;') Login
-            a.waves-effect.waves-light.btn.cyan.darken-4(href='', style='margin-left:-10px;color:white!important;') Sign up
+            a.waves-effect.waves-light.btn.cyan.grey.lighten-5(href='/login', style='color:black!important;') Login
+            a.waves-effect.waves-light.btn.cyan.darken-4(href='/register', style='margin-left:-10px;color:white!important;') Sign up
           // Dropdown Structures
         ul#profile-dropdown.dropdown-content
           li
             a(href='#') My Account
           li
-            a(href='#') Logout
+            a(href='/logout') Logout
         ul#about-us-dropdown.dropdown-content
           li
             a(href='#') Our Purpose
@@ -49,6 +49,6 @@ mixin navbar()
             a(href='#') Blog
         ul#create-dropdown.dropdown-content
           li
-            a(href='#') Plan Suggestion
+            a(href='/addPlan') Plan Idea
           li
             a(href='#') Outing

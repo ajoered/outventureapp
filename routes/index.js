@@ -5,6 +5,7 @@ const userController = require('../controllers/userController')
 const authController = require('../controllers/authController')
 
 router.get('/', planController.landingPage)
+router.get('/addPlan', planController.addPlan)
 
 // user routes
 router.get('/login', userController.loginForm)

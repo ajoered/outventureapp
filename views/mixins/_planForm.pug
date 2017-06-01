@@ -1,0 +1,29 @@
+mixin planForm(plan = {})
+  form(action=`/add` method="POST" enctype="multipart/form-data")
+    pre= h.dump(plan)
+    .input-field
+      label(for="title") Title
+      input#title.validate(type="text" placeholder="Title" name="title" value=plan.title)
+    .input-field
+      label(for="description") Description
+      textarea(name="description")= plan.description
+    //- Image Upload
+    label(for="photo") Photo
+      input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+      if plan.photo
+        img(src=`/uploads/${plan.photo}`, alt=plan.name width=200)
+    //- address, lng and lat
+    label(for="address") Address
+    input(type="text" id="address" name="location[address]" value=(plan.location && plan.location.address))
+    label(for="lng") Address Lng
+    input(type="text" id="lng" name="location[coordinates][0]" value=(plan.location && plan.location.coordinates[0]) required)
+    label(for="lat") Address Lat
+    input(type="text" id="lat" name="location[coordinates][1]" value=(plan.location && plan.location.coordinates[1]) required)
+    - const choices = ['Wifi', 'Open Late', 'Family Friendly', 'Vegatarian', 'Licensed']
+    - const tags = plan.tags || []
+    ul.tags
+      each choice in choices
+        .tag.tag__choice
+          input(type="checkbox" id=choice value=choice name="tags" checked=(tags.includes(choice)))
+          label(for=choice) #{choice}
+    input(type="submit" value="Save →" class="button")

@@ -1,0 +1,13 @@
+extends layout
+
+include mixins/_navbar
+include mixins/_planForm
+
+block header
+  +navbar()
+  
+block content
+  .container
+    h2= title
+    +planForm()
+  
