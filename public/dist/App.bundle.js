@@ -95,18 +95,18 @@ $(document).ready(function () {
 });
 
 function checkScroll() {
-    var startY = $('.nav-wrapper').height() * 1; //The point where the nav-wrapper changes in px
+    var startY = $('.nav-wrapper-landing').height() * 1; //The point where the nav-wrapper changes in px
 
     if ($(window).scrollTop() > startY) {
-        $('.nav-wrapper').addClass("scrolled");
+        $('.nav-wrapper-landing').addClass("scrolled");
         document.getElementById("nav-logo").src = "https://res.cloudinary.com/dx1s7kdgz/image/upload/v1495057462/compundBlack_mlkuff.png";
     } else {
-        $('.nav-wrapper').removeClass("scrolled");
+        $('.nav-wrapper-landing').removeClass("scrolled");
         document.getElementById("nav-logo").src = "https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png";
     }
 }
 
-if ($('.nav-wrapper').length > 0) {
+if ($('.nav-wrapper-landing').length > 0) {
     $(window).on("scroll load resize", function () {
         checkScroll();
     });
@@ -155,17 +155,15 @@ function scaleBannerVideoSize(element) {
     });
 }
 
-var text = ["happy", "healthy", "mindful", "fit"];
-var counter = 0;
-var elem = document.getElementById("text-change");
-setInterval(change, 1500);
-function change() {
-    elem.innerHTML = text[counter];
-    counter++;
-    if (counter >= text.length) {
-        counter = 0;
-    }
-}
+// var text = ["happy", "healthy", "mindful", "fit"];
+// var counter = 0;
+// var elem = document.getElementById("text-change");
+// setInterval(change, 1500);
+// function change() {
+//  elem.innerHTML = text[counter];
+//     counter++;
+//     if(counter >= text.length) { counter = 0; }
+// }
 
 function initMap() {
     var uluru = { lat: -25.363, lng: 131.044 };

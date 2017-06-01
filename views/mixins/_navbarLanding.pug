@@ -1,10 +1,10 @@
-mixin navbar()
+mixin navbarLanding()
   .navbar-fixed
     nav
-      .nav-wrapper.scrolled
+      .nav-wrapper.nav-wrapper-landing
         // logo
         a.brand-logo(href='/')
-          img#nav-logo(src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1495057462/compundBlack_mlkuff.png', alt='Logo')
+          img#nav-logo(src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png', alt='Logo')
         // Hamburger
         a.button-collapse(href='#', data-activates='nav-mobile')
           i.material-icons menu
@@ -23,25 +23,22 @@ mixin navbar()
             a.dropdown-button(href='#', data-activates='about-us-dropdown', data-beloworigin='true', data-constrainwidth='false')
               | ABOUT US
               i.material-icons.right arrow_drop_down
-        // desktop profile items
         if user
           ul.right.hide-on-med-and-down
-            li
+            li(style="padding-top:8px")
               img.avatar(src=user.gravatar + 'd=retro')
             li
-              a.dropdown-button(href='#', data-activates='profile-dropdown', data-beloworigin='true', data-constrainwidth='false')
-                | Alvaro
+              a.dropdown-button(href='#', data-activates='profile-dropdown', data-beloworigin='true', data-constrainwidth='false') #{user.name}
                 i.material-icons.right arrow_drop_down
         else  
           ul.right.hide-on-med-and-down
-            a.waves-effect.waves-light.btn.cyan.grey.lighten-5(href='', style='color:black!important;') Login
-            a.waves-effect.waves-light.btn.cyan.darken-4(href='', style='margin-left:-10px;color:white!important;') Sign up
-          // Dropdown Structures
+            a.waves-effect.waves-light.btn.cyan.grey.lighten-5(href='/login', style='color:black!important;') Login
+            a.waves-effect.waves-light.btn.cyan.darken-4(href='/register', style='margin-left:-10px;color:white!important;') Sign up
         ul#profile-dropdown.dropdown-content
           li
             a(href='#') My Account
           li
-            a(href='#') Logout
+            a(href='/logout') Logout
         ul#about-us-dropdown.dropdown-content
           li
             a(href='#') Our Purpose

@@ -3,8 +3,8 @@ extends layout
 include mixins/_navbar
 
 block header
-  +navbar
-  
+  +navbar()
+
 block content
   .container
     form.form(action="/register" method="POST")
