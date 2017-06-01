@@ -7,7 +7,9 @@ const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(planController.explore))
 router.get('/addPlan', planController.addPlan)
-router.post('/addPlan', catchErrors(planController.createPlan))
+router.post('/addplan', catchErrors(planController.createPlan))
+router.post('/addplan/:id', catchErrors(planController.updatePlan))
+router.get('/plans/:id/edit', catchErrors(planController.editPlan))
 
 // user routes
 router.get('/login', userController.loginForm)

@@ -13,5 +13,9 @@ mixin planCard(plan = {})
         span.card-title.grey-text.text-darken-4= plan.title
           i.material-icons.right close
         p= plan.description
-      a.btn-floating.halfway-fab.waves-effect.waves-light.red.lighten-1
+      a.btn-floating.midway-fab.waves-effect.teal.lighten-3.waves-light
+        i.fa.fa-share-square-o(aria-hidden='true')
+      a.btn-floating.halfway-fab.waves-effect.waves-light.primary-pink.lighten-1
         i.fa.fa-heart(aria-hidden='true')
+      a.btn-floating.edit-fab.waves-effect.transparent.waves-light(href=`/plans/${plan._id}/edit`)
+        i.fa.fa-pencil(aria-hidden='true')

@@ -1,5 +1,5 @@
 mixin planForm(plan = {})
-  form(action=`/addplan` method="POST")
+  form(action=`/addPlan/${plan._id || ''}` method="POST")
     br
     //- pre= h.dump(plan)
     .input-field
@@ -8,14 +8,14 @@ mixin planForm(plan = {})
     .input-field
       label.active(for='description') Description
       textarea#description.materialize-textarea(name="description")= plan.description
+    p Skill-Level
+    - const skillChoices = ['Beginner', 'Intermediate', 'Advanced', 'Expert']
+    - const skillLevel = plan.skillLevel || []
     .input-field
-      select(multiple='')
-        option(value='', disabled='', selected='') Skill Level
-        option(value='1') Beginner
-        option(value='2') Intermediate
-        option(value='3') Advanced
-        option(value='3') Expert
-      label Choose one or more skill-levels
+      each skill in skillChoices
+        input(type="checkbox" id=skill value=skill name="skillLevel" checked=(skillLevel.includes(skill)))
+        label(for=skill) #{skill}
+    br
     p Activities
     - const activityChoices = ['Hiking', 'Backpacking', 'Camping', 'Surfing', 'Scuba Diving']
     - const activities = plan.activities || []

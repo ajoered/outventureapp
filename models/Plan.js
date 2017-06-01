@@ -13,7 +13,7 @@ const planSchema = new mongoose.Schema({
     trim: true
   },
   activities: [String],
-  skillLevel: String,
+  skillLevel: [String],
   created: {
   type: Date,
   default: Date.now

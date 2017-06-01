@@ -292,3 +292,17 @@ color: #fff;
     background: linear-gradient(35deg, #f1e767 0%, #feb645 100%); }
   .flash p {
     margin: 0; }
+
+/*Card buttons*/
+
+  .btn-floating.midway-fab {
+    position: absolute;
+    right: 72px;
+    top: 20px;
+  }
+
+  .btn-floating.edit-fab {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+  }
