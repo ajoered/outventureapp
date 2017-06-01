@@ -1,29 +1,43 @@
 mixin planForm(plan = {})
-  form(action=`/add` method="POST" enctype="multipart/form-data")
-    pre= h.dump(plan)
+  form(action=`/addplan` method="POST")
+    br
+    //- pre= h.dump(plan)
     .input-field
-      label(for="title") Title
-      input#title.validate(type="text" placeholder="Title" name="title" value=plan.title)
+      label.active(for="title") Title
+      input#title.validate(type="text" name="title" value=plan.title)
     .input-field
-      label(for="description") Description
-      textarea(name="description")= plan.description
-    //- Image Upload
-    label(for="photo") Photo
-      input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
-      if plan.photo
-        img(src=`/uploads/${plan.photo}`, alt=plan.name width=200)
-    //- address, lng and lat
-    label(for="address") Address
-    input(type="text" id="address" name="location[address]" value=(plan.location && plan.location.address))
-    label(for="lng") Address Lng
-    input(type="text" id="lng" name="location[coordinates][0]" value=(plan.location && plan.location.coordinates[0]) required)
-    label(for="lat") Address Lat
-    input(type="text" id="lat" name="location[coordinates][1]" value=(plan.location && plan.location.coordinates[1]) required)
-    - const choices = ['Wifi', 'Open Late', 'Family Friendly', 'Vegatarian', 'Licensed']
+      label.active(for='description') Description
+      textarea#description.materialize-textarea(name="description")= plan.description
+    .input-field
+      select(multiple='')
+        option(value='', disabled='', selected='') Skill Level
+        option(value='1') Beginner
+        option(value='2') Intermediate
+        option(value='3') Advanced
+        option(value='3') Expert
+      label Choose one or more skill-levels
+    p Activities
+    - const activityChoices = ['Hiking', 'Backpacking', 'Camping', 'Surfing', 'Scuba Diving']
+    - const activities = plan.activities || []
+    .input-field
+      each activity in activityChoices
+        input(type="checkbox" id=activity value=activity name="activities" checked=(activities.includes(activity)))
+        label(for=activity) #{activity}
+    br
+    p Tags
+    - const tagChoices = ['Wifi', 'Open Late', 'Family Friendly', 'Vegatarian', 'Licensed']
     - const tags = plan.tags || []
-    ul.tags
-      each choice in choices
-        .tag.tag__choice
-          input(type="checkbox" id=choice value=choice name="tags" checked=(tags.includes(choice)))
-          label(for=choice) #{choice}
-    input(type="submit" value="Save →" class="button")
+    .input-field
+      each tag in tagChoices
+        input(type="checkbox" id=tag value=tag name="tags" checked=(tags.includes(tag)))
+        label(for=tag) #{tag}
+    br
+    .file-field.input-field
+      .btn
+        span Photo
+        input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+      .file-path-wrapper
+        input.file-path.validate(type='text')
+        if plan.photo
+          img(src=`/uploads/${plan.photo}`, alt=plan.name width=200)
+    input(type="submit" value="Save →" class="btn")

@@ -3,9 +3,11 @@ const router = express.Router();
 const planController = require('../controllers/planController')
 const userController = require('../controllers/userController')
 const authController = require('../controllers/authController')
+const { catchErrors } = require('../handlers/errorHandlers');
 
-router.get('/', planController.landingPage)
+router.get('/', planController.explore)
 router.get('/addPlan', planController.addPlan)
+router.post('/addPlan', catchErrors(planController.createPlan))
 
 // user routes
 router.get('/login', userController.loginForm)

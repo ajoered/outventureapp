@@ -1,5 +1,17 @@
 $(document).ready(function(){
   $('.button-collapse').sideNav();
+  $('select').material_select();
+  $('.dropdown-button').dropdown({
+    inDuration: 300,
+    outDuration: 225,
+    constrainWidth: false, // Does not change width of dropdown to that of the activator
+    hover: true, // Activate on hover
+    gutter: 0, // Spacing from edge
+    belowOrigin: false, // Displays dropdown below the button
+    alignment: 'right', // Displays dropdown with edge aligned to the left of button
+    stopPropagation: false // Stops event propagation
+  }
+);
 
   scaleVideoContainer();
 
@@ -24,10 +36,10 @@ function checkScroll(){
 
     if($(window).scrollTop() > startY){
         $('.nav-wrapper-landing').addClass("scrolled");
-        document.getElementById("nav-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1495057462/compundBlack_mlkuff.png";
+        document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1495057462/compundBlack_mlkuff.png";
     }else{
         $('.nav-wrapper-landing').removeClass("scrolled");
-        document.getElementById("nav-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png";
+        document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png";
     }
 }
 

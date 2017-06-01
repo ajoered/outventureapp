@@ -1,0 +1,36 @@
+extends layout
+
+include mixins/_navbar
+include mixins/_navbarLanding
+include mixins/_heroVideo
+include mixins/_infoSection
+include mixins/_searchBar
+include mixins/_planCard
+
+block header
+  if user
+    +navbar()
+  else
+    +navbarLanding()
+ 
+block content
+  if user
+    +searchBar()
+    .listings-wrapper
+      section.listings-section
+        .cards-container
+          .row
+            +planCard()
+        .map-container
+          #map
+  else          
+    +heroVideo()
+    +infoSection()
+    +searchBar()
+    .listings-wrapper
+      section.listings-section
+        .cards-container
+          .row
+            +planCard()
+        .map-container
+          #map
