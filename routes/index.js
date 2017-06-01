@@ -5,7 +5,7 @@ const userController = require('../controllers/userController')
 const authController = require('../controllers/authController')
 const { catchErrors } = require('../handlers/errorHandlers');
 
-router.get('/', planController.explore)
+router.get('/', catchErrors(planController.explore))
 router.get('/addPlan', planController.addPlan)
 router.post('/addPlan', catchErrors(planController.createPlan))
 
@@ -18,7 +18,6 @@ router.post('/register',
   userController.register,
   authController.login
 );
-
 router.get('/logout', authController.logout)
 
 module.exports = router;

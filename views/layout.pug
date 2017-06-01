@@ -8,13 +8,6 @@ head
   link(href='http://fonts.googleapis.com/css?family=Lato:300,400,700', rel='stylesheet', type='text/css')
   // Material Icons
   link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
-  // Font Awesome
-  script(src='https://use.fontawesome.com/9283ff95ca.js')
-  // Smooth Scroll
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/11.0.2/js/smooth-scroll.js')
-  // Scroll Magic
-  script(src='http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js')
-  script(src='http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.js')
   // CSS
   link(rel='stylesheet', href='/dist/style.css')
   link(rel='stylesheet', href='/dist/materialize.css')
@@ -36,6 +29,13 @@ head
 
     block scripts
       script(src='https://code.jquery.com/jquery-2.1.1.min.js')
+      // Font Awesome
+      script(src='https://use.fontawesome.com/9283ff95ca.js')
+      // Smooth Scroll
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/11.0.2/js/smooth-scroll.js')
+      // Scroll Magic
+      script(src='http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js')
+      script(src='http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.js')
       script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.MAP_KEY}&libraries=places`)
       script(src="/dist/App.bundle.js")
       script(src="/javascripts/materialize.js")

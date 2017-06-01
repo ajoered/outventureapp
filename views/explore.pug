@@ -20,7 +20,8 @@ block content
       section.listings-section
         .cards-container
           .row
-            +planCard()
+            each plan in plans
+              +planCard(plan)
         .map-container
           #map
   else          
@@ -31,6 +32,7 @@ block content
       section.listings-section
         .cards-container
           .row
-            +planCard()
+            each plan in plans
+              +planCard(plan)
         .map-container
           #map

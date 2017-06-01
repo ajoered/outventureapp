@@ -87,41 +87,24 @@ $(document).ready(function () {
         stopPropagation: false // Stops event propagation
     });
 
-    scaleVideoContainer();
-
-    initBannerVideoSize('.video-container .poster img');
-    initBannerVideoSize('.video-container .filter');
-    initBannerVideoSize('.video-container video');
-
-    $(window).on('resize', function () {
-        scaleVideoContainer();
-        scaleBannerVideoSize('.video-container .poster img');
-        scaleBannerVideoSize('.video-container .filter');
-        scaleBannerVideoSize('.video-container video');
-    });
-
-    initMap();
-    checkScroll();
     scrollMagic();
 });
 
-function checkScroll() {
-    var startY = $('.nav-wrapper-landing').height() * 1; //The point where the nav-wrapper changes in px
+scaleVideoContainer();
 
-    if ($(window).scrollTop() > startY) {
-        $('.nav-wrapper-landing').addClass("scrolled");
-        document.getElementById("nav-landing-logo").src = "https://res.cloudinary.com/dx1s7kdgz/image/upload/v1495057462/compundBlack_mlkuff.png";
-    } else {
-        $('.nav-wrapper-landing').removeClass("scrolled");
-        document.getElementById("nav-landing-logo").src = "https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png";
-    }
-}
+initBannerVideoSize('.video-container .poster img');
+initBannerVideoSize('.video-container .filter');
+initBannerVideoSize('.video-container video');
 
-if ($('.nav-wrapper-landing').length > 0) {
-    $(window).on("scroll load resize", function () {
-        checkScroll();
-    });
-}
+$(window).on('resize', function () {
+    scaleVideoContainer();
+    scaleBannerVideoSize('.video-container .poster img');
+    scaleBannerVideoSize('.video-container .filter');
+    scaleBannerVideoSize('.video-container video');
+});
+
+initMap();
+checkScroll();
 
 function scaleVideoContainer() {
 
@@ -188,6 +171,24 @@ function initMap() {
     });
 }
 
+function checkScroll() {
+    var startY = $('.nav-wrapper-landing').height() * 1; //The point where the nav-wrapper changes in px
+
+    if ($(window).scrollTop() > startY) {
+        $('.nav-wrapper-landing').addClass("scrolled");
+        document.getElementById("nav-landing-logo").src = "https://res.cloudinary.com/dx1s7kdgz/image/upload/v1495057462/compundBlack_mlkuff.png";
+    } else {
+        $('.nav-wrapper-landing').removeClass("scrolled");
+        document.getElementById("nav-landing-logo").src = "https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png";
+    }
+}
+
+if ($('.nav-wrapper-landing').length > 0) {
+    $(window).on("scroll load resize", function () {
+        checkScroll();
+    });
+}
+
 function scrollMagic() {
     var controller = new ScrollMagic.Controller();
 
@@ -201,7 +202,7 @@ function scrollMagic() {
         triggerHook: "onLeave",
         duration: 0
     }).setClassToggle(".map-container", "fixed").addTo(controller);
-}
+};
 
 /***/ })
 /******/ ]);

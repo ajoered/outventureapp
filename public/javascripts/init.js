@@ -2,16 +2,18 @@ $(document).ready(function(){
   $('.button-collapse').sideNav();
   $('select').material_select();
   $('.dropdown-button').dropdown({
-    inDuration: 300,
-    outDuration: 225,
-    constrainWidth: false, // Does not change width of dropdown to that of the activator
-    hover: true, // Activate on hover
-    gutter: 0, // Spacing from edge
-    belowOrigin: false, // Displays dropdown below the button
-    alignment: 'right', // Displays dropdown with edge aligned to the left of button
-    stopPropagation: false // Stops event propagation
-  }
-);
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: false, // Displays dropdown below the button
+      alignment: 'right', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    });
+
+  scrollMagic();
+});
 
   scaleVideoContainer();
 
@@ -28,26 +30,7 @@ $(document).ready(function(){
 
   initMap();
   checkScroll();
-  scrollMagic();
-});
 
-function checkScroll(){
-    var startY = $('.nav-wrapper-landing').height() * 1; //The point where the nav-wrapper changes in px
-
-    if($(window).scrollTop() > startY){
-        $('.nav-wrapper-landing').addClass("scrolled");
-        document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1495057462/compundBlack_mlkuff.png";
-    }else{
-        $('.nav-wrapper-landing').removeClass("scrolled");
-        document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png";
-    }
-}
-
-if($('.nav-wrapper-landing').length > 0){
-    $(window).on("scroll load resize", function(){
-        checkScroll();
-    });
-}
 
 function scaleVideoContainer() {
 
@@ -117,6 +100,24 @@ function initMap() {
   });
 }
 
+function checkScroll(){
+    var startY = $('.nav-wrapper-landing').height() * 1; //The point where the nav-wrapper changes in px
+
+    if($(window).scrollTop() > startY){
+        $('.nav-wrapper-landing').addClass("scrolled");
+        document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1495057462/compundBlack_mlkuff.png";
+    }else{
+        $('.nav-wrapper-landing').removeClass("scrolled");
+        document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png";
+    }
+}
+
+if($('.nav-wrapper-landing').length > 0){
+    $(window).on("scroll load resize", function(){
+        checkScroll();
+    });
+}
+
 function scrollMagic() {
   var controller = new ScrollMagic.Controller();
 
@@ -133,5 +134,4 @@ function scrollMagic() {
       duration: 0
   }).setClassToggle(".map-container", "fixed").addTo(controller);
 
-
-}
+};

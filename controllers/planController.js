@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const Plan = mongoose.model('Plan');
 
-exports.explore = (req, res) => {
-  res.render('explore', { title: "OUTVENTURE" })
+exports.explore = async (req, res) => {
+  const plans = await Plan.find();
+  console.log(plans);
+  res.render('explore', { title: "OUTVENTURE | Explore", plans })
 }
 
 exports.addPlan = (req, res) => {
