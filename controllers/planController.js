@@ -20,6 +20,7 @@ exports.createPlan = async (req, res) => {
 };
 
 exports.updatePlan = async (req, res) => {
+  req.body.location.type = 'Point';
   const plan = await Plan.findOneAndUpdate({ _id: req.params.id }, req.body, {
     new: true, // return the new plan instead of the old one
     runValidators: true

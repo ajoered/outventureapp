@@ -20,7 +20,21 @@ const planSchema = new mongoose.Schema({
   },
   photo: String,
   slug: String,
-  tags: [String]
+  tags: [String],
+  location: {
+  type: {
+    type: String,
+    default: 'Point'
+  },
+  coordinates: [{
+    type: Number,
+    required: 'You must supply coordinates!'
+  }],
+  address: {
+    type: String,
+    required: 'You must supply an address!'
+  }
+},
 });
 
 planSchema.pre('save', async function(next) {

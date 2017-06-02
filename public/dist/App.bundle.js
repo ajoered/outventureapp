@@ -73,6 +73,16 @@
 "use strict";
 
 
+var _autocomplete = __webpack_require__(1);
+
+var _autocomplete2 = _interopRequireDefault(_autocomplete);
+
+var _initmap = __webpack_require__(3);
+
+var _initmap2 = _interopRequireDefault(_initmap);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 $(document).ready(function () {
     $('.button-collapse').sideNav();
     $('select').material_select();
@@ -90,6 +100,8 @@ $(document).ready(function () {
     scrollMagic();
 });
 
+(0, _autocomplete2.default)(document.getElementById("address"), document.getElementById("lat"), document.getElementById("lng"));
+
 scaleVideoContainer();
 
 initBannerVideoSize('.video-container .poster img');
@@ -103,7 +115,7 @@ $(window).on('resize', function () {
     scaleBannerVideoSize('.video-container video');
 });
 
-initMap();
+(0, _initmap2.default)();
 checkScroll();
 
 function scaleVideoContainer() {
@@ -159,18 +171,6 @@ function scaleBannerVideoSize(element) {
 //     if(counter >= text.length) { counter = 0; }
 // }
 
-function initMap() {
-    var uluru = { lat: -25.363, lng: 131.044 };
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
-        center: uluru
-    });
-    var marker = new google.maps.Marker({
-        position: uluru,
-        map: map
-    });
-}
-
 function checkScroll() {
     var startY = $('.nav-wrapper-landing').height() * 1; //The point where the nav-wrapper changes in px
 
@@ -203,6 +203,59 @@ function scrollMagic() {
         duration: 0
     }).setClassToggle(".map-container", "fixed").addTo(controller);
 };
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function autocomplete(input, latInput, lngInput) {
+
+  if (!input) return; // skip this fn from running if there is not input on the page
+  var dropdown = new google.maps.places.Autocomplete(input);
+
+  dropdown.addListener('place_changed', function () {
+    var place = dropdown.getPlace();
+    latInput.value = place.geometry.location.lat();
+    lngInput.value = place.geometry.location.lng();
+  });
+  // if someone hits enter on the address field, don't submit the form
+  input.addEventListener('keydown', function (e) {
+    if (e.keyCode === 13) e.preventDefault();
+  });
+}
+
+exports.default = autocomplete;
+
+/***/ }),
+/* 2 */,
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function initMap() {
+  var uluru = { lat: -25.363, lng: 131.044 };
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: uluru
+  });
+  var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+  });
+}
+
+exports.default = initMap;
 
 /***/ })
 /******/ ]);

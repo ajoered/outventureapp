@@ -1,3 +1,6 @@
+import autocomplete from './modules/autocomplete';
+import initMap from './modules/initmap';
+
 $(document).ready(function(){
   $('.button-collapse').sideNav();
   $('select').material_select();
@@ -13,7 +16,10 @@ $(document).ready(function(){
     });
 
   scrollMagic();
+
 });
+
+  autocomplete( document.getElementById("address"), document.getElementById("lat"), document.getElementById("lng") );
 
   scaleVideoContainer();
 
@@ -30,7 +36,6 @@ $(document).ready(function(){
 
   initMap();
   checkScroll();
-
 
 function scaleVideoContainer() {
 
@@ -87,18 +92,6 @@ function scaleBannerVideoSize(element){
 //     counter++;
 //     if(counter >= text.length) { counter = 0; }
 // }
-
-function initMap() {
-  var uluru = {lat: -25.363, lng: 131.044};
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: uluru
-  });
-  var marker = new google.maps.Marker({
-    position: uluru,
-    map: map
-  });
-}
 
 function checkScroll(){
     var startY = $('.nav-wrapper-landing').height() * 1; //The point where the nav-wrapper changes in px

@@ -8,6 +8,16 @@ mixin planForm(plan = {})
     .input-field
       label.active(for='description') Description
       textarea#description.materialize-textarea(name="description")= plan.description
+      //- address, lng and lat
+    .input-field  
+      label(for="address") Location
+      input(type="text" id="address" name="location[address]" value=(plan.location && plan.location.address) required)
+    .input-field    
+      label(for="lng") Address Lng
+      input(type="text" id="lng" name="location[coordinates][0]" value=(plan.location && plan.location.coordinates[0]) required)
+    .input-field    
+      label(for="lat") Address Lat
+      input(type="text" id="lat" name="location[coordinates][1]" value=(plan.location && plan.location.coordinates[1]) required)
     p Skill-Level
     - const skillChoices = ['Beginner', 'Intermediate', 'Advanced', 'Expert']
     - const skillLevel = plan.skillLevel || []
