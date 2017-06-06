@@ -22,4 +22,8 @@ router.post('/register',
 );
 router.get('/logout', authController.logout)
 
+//API
+
+router.get('/api/plans/near', catchErrors(planController.mapPlans))
+
 module.exports = router;

@@ -35,7 +35,8 @@ html {
    padding-right: 40px;
  }
  .nav-wrapper .brand-logo img {
-     height: 60px;
+     height: 58px;
+     padding-top: 10px;
  }
 
 .icon-block {
@@ -121,6 +122,7 @@ html {
 }
 .search-nav {
   z-index: 997;
+  background-color: rgb(237, 237, 237)
 }
 .listings-wrapper {
   margin-left: 24px;

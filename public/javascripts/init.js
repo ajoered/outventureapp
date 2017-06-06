@@ -18,6 +18,7 @@ $(document).ready(function(){
   scrollMagic();
 
 });
+  initMap(document.getElementById('map'));
 
   autocomplete( document.getElementById("address"), document.getElementById("lat"), document.getElementById("lng") );
 
@@ -34,7 +35,7 @@ $(document).ready(function(){
       scaleBannerVideoSize('.video-container video');
   });
 
-  initMap();
+
   checkScroll();
 
 function scaleVideoContainer() {
@@ -83,25 +84,15 @@ function scaleBannerVideoSize(element){
     });
 }
 
-// var text = ["happy", "healthy", "mindful", "fit"];
-// var counter = 0;
-// var elem = document.getElementById("text-change");
-// setInterval(change, 1500);
-// function change() {
-//  elem.innerHTML = text[counter];
-//     counter++;
-//     if(counter >= text.length) { counter = 0; }
-// }
-
 function checkScroll(){
     var startY = $('.nav-wrapper-landing').height() * 1; //The point where the nav-wrapper changes in px
 
     if($(window).scrollTop() > startY){
         $('.nav-wrapper-landing').addClass("scrolled");
-        document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1495057462/compundBlack_mlkuff.png";
+        document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-03_bnkfhn.png";
     }else{
         $('.nav-wrapper-landing').removeClass("scrolled");
-        document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png";
+        document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-04_qzk92u.png";
     }
 }
 

@@ -15,10 +15,9 @@ const planSchema = new mongoose.Schema({
   activities: [String],
   skillLevel: [String],
   created: {
-  type: Date,
-  default: Date.now
+    type: Date,
+    default: Date.now
   },
-  photo: String,
   slug: String,
   tags: [String],
   location: {
@@ -35,7 +34,15 @@ const planSchema = new mongoose.Schema({
     required: 'You must supply an address!'
   }
 },
+photo: String,
 });
+
+planSchema.index({
+  title: 'text',
+  description: 'text'
+});
+
+planSchema.index({ location: '2dsphere' });
 
 planSchema.pre('save', async function(next) {
   if (!this.isModified('title')) {

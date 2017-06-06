@@ -2,11 +2,21 @@ mixin searchBar()
   #search-nav.row.search-nav.center.white
     .col.m6.push-m1.s12
       form
-        .input-field.z-depth-1
-          input#search(placeholder='Search for an activity or location...', type='search', required='')
-          label.label-icon(for='search')
-            i.material-icons(style='padding-bottom:20px;') search
-          i.material-icons close
-    .search-buttons.col.m4.push-m1.s12
+        .input-field.col.m6.s12
+          i.material-icons.prefix search
+          input.validate(type='text' name='geolocate' placeholder="Location")
+        .input-field.col.m6.s12
+          select(multiple='')
+            optgroup(label='Water')
+              option(value='') All
+              option(value='2') Surf
+              option(value='3') Scuba-diving
+            optgroup(label='Land')
+              option(value='4') Climbing
+              option(value='5') Hiking
+          label Activities
+    .search-buttons.left.col.m4.push-m1.s12
+      a.waves-effect.waves-light.btn.cyan.darken-4(href='#modal1')
+        i.prefix.fa.fa-sliders(aria-hidden='true')
+        |  +1
       a.waves-effect.waves-light.btn.red.lighten-2 Search
-      a.button-collapse.waves-effect.waves-light.btn.cyan.darken-4(href='#', data-activates='slide-out') Advanced

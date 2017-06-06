@@ -37,3 +37,22 @@ exports.editPlan = async (req, res) => {
   // 3. Render out the edit form so the user can update their plan
   res.render('editPlan', { title: `Edit ${plan.title}`, plan });
 };
+
+exports.mapPlans = async (req, res) => {
+  const coordinates = [req.query.lng, req.query.lat].map(parseFloat);
+
+    const q = {
+      location: {
+        $near: {
+          $geometry: {
+            type: 'Point',
+            coordinates
+          },
+          $maxDistance: 100000 // 100km
+        }
+      }
+    };
+
+  const plans = await Plan.find(q).select('slug title description location photo').limit(10);
+  res.json(plans);
+};
