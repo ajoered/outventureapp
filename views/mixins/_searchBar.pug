@@ -1,22 +1,40 @@
 mixin searchBar()
   #search-nav.row.search-nav.center.white
-    .col.m6.push-m1.s12
+    #search-bar.col.m4.s8
       form
-        .input-field.col.m6.s12
-          i.material-icons.prefix search
-          input.validate(type='text' name='geolocate' placeholder="Location")
-        .input-field.col.m6.s12
-          select(multiple='')
-            optgroup(label='Water')
-              option(value='') All
-              option(value='2') Surf
-              option(value='3') Scuba-diving
-            optgroup(label='Land')
-              option(value='4') Climbing
-              option(value='5') Hiking
-          label Activities
-    .search-buttons.left.col.m4.push-m1.s12
-      a.waves-effect.waves-light.btn.cyan.darken-4(href='#modal1')
-        i.prefix.fa.fa-sliders(aria-hidden='true')
-        |  +1
-      a.waves-effect.waves-light.btn.red.lighten-2 Search
+        .input-field.z-depth-2
+          input.validate#search(type='search' name='geolocate' placeholder="Location")
+          label.label-icon(for='search')
+            i.material-icons location_on
+          i.material-icons close
+    .col.m7.s2
+      .input-field.col.m3.push-m1.s12.hide-on-med-and-down
+        select(multiple='')
+          optgroup(label='Water')
+            option(value='1') All
+            option(value='2') Surf
+            option(value='3') Scuba-diving
+          optgroup(label='Land')
+            option(value='4') Climbing
+            option(value='5') Hiking
+        label Activities
+      .input-field.col.m3.push-m1.s12.hide-on-med-and-down
+        select(multiple='')
+          option(value='1') All
+          option(value='2') Beginner
+          option(value='3') Intermediate
+          option(value='4') Advanced
+          option(value='5') Expert
+        label Skill Level
+      .input-field.col.m3.push-m1.s12.hide-on-med-and-down
+        select(multiple='')
+          option(value='1') All
+          option(value='2') Beginner
+          option(value='3') Intermediate
+          option(value='4') Advanced
+          option(value='5') Expert
+        label Skill Level
+      .search-buttons.col.m3.push-m1.s12
+        a.waves-effect.waves-light.btn.cyan.darken-4(href='#modal1')
+          i.prefix.fa.fa-sliders(aria-hidden='true')
+          |  +1

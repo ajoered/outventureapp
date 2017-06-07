@@ -53,6 +53,6 @@ exports.mapPlans = async (req, res) => {
       }
     };
 
-  const plans = await Plan.find(q).select('slug title description location photo').limit(10);
+  const plans = await Plan.find(q).limit(10);
   res.json(plans);
 };

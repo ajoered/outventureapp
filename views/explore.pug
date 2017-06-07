@@ -19,9 +19,7 @@ block content
     .listings-wrapper
       section.listings-section
         .cards-container
-          .row
-            each plan in plans
-              +planCard(plan)
+          .row#cards-container
         .map-container
           #map
   else          
@@ -31,8 +29,6 @@ block content
     .listings-wrapper
       section.listings-section
         .cards-container
-          .row
-            each plan in plans
-              +planCard(plan)
+          .row#cards-container
         .map-container
           #map

@@ -5,40 +5,68 @@ var defaultMapOptions =  {
   zoom: 8
 };
 
+function createCards(plans) {
+  const cardsContainer = document.getElementById("cards-container")
+  while (cardsContainer.firstChild) {
+      cardsContainer.removeChild(cardsContainer.firstChild);
+  }
 
-function loadPlaces(map, lat = 34.01, lng = -118.42) {
-  axios.get(`/api/plans/near?lat=${lat}&lng=${lng}`)
-    .then(res => {
-      const places = res.data;
-      // create a bounds
-      const bounds = new google.maps.LatLngBounds();
-      const infoWindow = new google.maps.InfoWindow();
-      // create markers
-      const markers = places.map(place => {
-        const [placeLng, placeLat] = place.location.coordinates;
-        const position = { lat: placeLat, lng: placeLng };
-        bounds.extend(position);
-        const marker = new google.maps.Marker({ map, position });
-        marker.place = place;
-        return marker;
-      });
+  plans.forEach(plan => {
+    console.log(plan.activities);
+    const activityHtml = plan.activities.map(activity => {
+      return `<div class="chip">
+      ${activity}
+      </div>`
+    }).join()
+    const cardHtml = `
+                <div class="card medium">
+                  <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="images/photos/canoeing.jpg">
+                  </div>
+                  <a class="btn-floating halfway-fab waves-effect waves-light red lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                  <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">${plan.title}<i class="material-icons right">more_vert</i></span>` + activityHtml +
 
-      // when someone clicks on a marker, show the details of that place
-      markers.forEach(marker => marker.addListener('click', function() {
-        console.log(this.place);
-        const html = `
-          <div class="popup">
-            <a href="/plan/${this.place.slug}">
-              <p>${this.place.title} - ${this.place.location.address}</p>
-            </a>
-          </div>
-        `;
-        infoWindow.setContent(html);
-        infoWindow.open(map, this);
-      }));
+                    `<p>${plan.description}</p>
+                    <p class="orange-text">★★★★★</p>
+                  </div>
+                  <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">${plan.title}<i class="material-icons right">close</i></span>
+                    <p>${plan.description}</p>
+                  </div>
+                </div>`
+    const cardDiv = document.createElement('div');
+    cardDiv.className = "col m6 s12"
+    cardDiv.innerHTML = cardHtml;
+    cardsContainer.appendChild(cardDiv);
+  })
+}
 
-    });
+function createMarkers(plans, map) {
+  const bounds = new google.maps.LatLngBounds();
+  const infoWindow = new google.maps.InfoWindow();
 
+  const markers = plans.map(plan => {
+    const [planLng, planLat] = plan.location.coordinates;
+    const position = { lat: planLat, lng: planLng };
+    bounds.extend(position);
+    const marker = new google.maps.Marker({ map, position });
+    marker.plan = plan;
+    return marker;
+  });
+
+  markers.forEach(marker => marker.addListener('click', function() {
+    console.log(this.plan);
+    const html = `
+      <div class="popup">
+        <a href="/plan/${this.plan.slug}">
+          <p>${this.plan.title} - ${this.plan.location.address}</p>
+        </a>
+      </div>
+    `;
+    infoWindow.setContent(html);
+    infoWindow.open(map, this);
+  }));
 }
 
 function geocodeAddress(geocoder, resultsMap, address) {
@@ -53,14 +81,20 @@ function geocodeAddress(geocoder, resultsMap, address) {
   });
 }
 
-function check_is_in_or_out(marker, map){
-  return map.getBounds().contains(marker.getPosition());
+function loadPlaces(map, lat = 34.01, lng = -118.42) {
+  axios.get(`/api/plans/near?lat=${lat}&lng=${lng}`)
+    .then(res => {
+      const plans = res.data;
+      createMarkers(plans, map)
+      createCards(plans)
+    });
+
 }
 
 function initMap(mapDiv) {
-  if (!mapDiv) return; //If no map stop function
+  if (!mapDiv) return;
 
-  if (navigator.geolocation) { //If geolocation center map on location
+  if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var mapOptions =  {
         center: { lat: position.coords.latitude, lng: position.coords.longitude },
@@ -74,7 +108,7 @@ function initMap(mapDiv) {
   }
 
   const map = new google.maps.Map(mapDiv, defaultMapOptions); //Create and center map in LA by default
-  loadPlaces(map)
+  loadPlaces(map);
 
   const input = document.querySelector('input[name="geolocate"]')
   const autocomplete = new google.maps.places.Autocomplete(input);
@@ -86,9 +120,11 @@ function initMap(mapDiv) {
     }
     var map = new google.maps.Map(mapDiv, newMapOptions); // Create and center map in new location
     var geocoder = new google.maps.Geocoder();
+    console.log("HEY");
     geocodeAddress(geocoder, map, input)
   });
 
+  //Todo
   google.maps.event.addListener(map, 'dragend', function() { alert('map dragged'); } );
 
 }

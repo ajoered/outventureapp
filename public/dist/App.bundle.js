@@ -965,36 +965,47 @@ var defaultMapOptions = {
   zoom: 8
 };
 
-function loadPlaces(map) {
-  var lat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 34.01;
-  var lng = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -118.42;
+function createCards(plans) {
+  var cardsContainer = document.getElementById("cards-container");
+  while (cardsContainer.firstChild) {
+    cardsContainer.removeChild(cardsContainer.firstChild);
+  }
 
-  _axios2.default.get('/api/plans/near?lat=' + lat + '&lng=' + lng).then(function (res) {
-    var places = res.data;
-    // create a bounds
-    var bounds = new google.maps.LatLngBounds();
-    var infoWindow = new google.maps.InfoWindow();
-    // create markers
-    var markers = places.map(function (place) {
-      var _place$location$coord = _slicedToArray(place.location.coordinates, 2),
-          placeLng = _place$location$coord[0],
-          placeLat = _place$location$coord[1];
+  plans.forEach(function (plan) {
+    console.log(plan.activities);
+    var activityHtml = plan.activities.map(function (activity) {
+      return '<div class="chip">\n      ' + activity + '\n      </div>';
+    }).join();
+    var cardHtml = '\n                <div class="card medium">\n                  <div class="card-image waves-effect waves-block waves-light">\n                    <img class="activator" src="images/photos/canoeing.jpg">\n                  </div>\n                  <a class="btn-floating halfway-fab waves-effect waves-light red lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>\n                  <div class="card-content">\n                    <span class="card-title activator grey-text text-darken-4">' + plan.title + '<i class="material-icons right">more_vert</i></span>' + activityHtml + ('<p>' + plan.description + '</p>\n                    <p class="orange-text">\u2605\u2605\u2605\u2605\u2605</p>\n                  </div>\n                  <div class="card-reveal">\n                    <span class="card-title grey-text text-darken-4">' + plan.title + '<i class="material-icons right">close</i></span>\n                    <p>' + plan.description + '</p>\n                  </div>\n                </div>');
+    var cardDiv = document.createElement('div');
+    cardDiv.className = "col m6 s12";
+    cardDiv.innerHTML = cardHtml;
+    cardsContainer.appendChild(cardDiv);
+  });
+}
 
-      var position = { lat: placeLat, lng: placeLng };
-      bounds.extend(position);
-      var marker = new google.maps.Marker({ map: map, position: position });
-      marker.place = place;
-      return marker;
-    });
+function createMarkers(plans, map) {
+  var bounds = new google.maps.LatLngBounds();
+  var infoWindow = new google.maps.InfoWindow();
 
-    // when someone clicks on a marker, show the details of that place
-    markers.forEach(function (marker) {
-      return marker.addListener('click', function () {
-        console.log(this.place);
-        var html = '\n          <div class="popup">\n            <a href="/plan/' + this.place.slug + '">\n              <p>' + this.place.title + ' - ' + this.place.location.address + '</p>\n            </a>\n          </div>\n        ';
-        infoWindow.setContent(html);
-        infoWindow.open(map, this);
-      });
+  var markers = plans.map(function (plan) {
+    var _plan$location$coordi = _slicedToArray(plan.location.coordinates, 2),
+        planLng = _plan$location$coordi[0],
+        planLat = _plan$location$coordi[1];
+
+    var position = { lat: planLat, lng: planLng };
+    bounds.extend(position);
+    var marker = new google.maps.Marker({ map: map, position: position });
+    marker.plan = plan;
+    return marker;
+  });
+
+  markers.forEach(function (marker) {
+    return marker.addListener('click', function () {
+      console.log(this.plan);
+      var html = '\n      <div class="popup">\n        <a href="/plan/' + this.plan.slug + '">\n          <p>' + this.plan.title + ' - ' + this.plan.location.address + '</p>\n        </a>\n      </div>\n    ';
+      infoWindow.setContent(html);
+      infoWindow.open(map, this);
     });
   });
 }
@@ -1011,15 +1022,21 @@ function geocodeAddress(geocoder, resultsMap, address) {
   });
 }
 
-function check_is_in_or_out(marker, map) {
-  return map.getBounds().contains(marker.getPosition());
+function loadPlaces(map) {
+  var lat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 34.01;
+  var lng = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -118.42;
+
+  _axios2.default.get('/api/plans/near?lat=' + lat + '&lng=' + lng).then(function (res) {
+    var plans = res.data;
+    createMarkers(plans, map);
+    createCards(plans);
+  });
 }
 
 function initMap(mapDiv) {
-  if (!mapDiv) return; //If no map stop function
+  if (!mapDiv) return;
 
   if (navigator.geolocation) {
-    //If geolocation center map on location
     navigator.geolocation.getCurrentPosition(function (position) {
       var mapOptions = {
         center: { lat: position.coords.latitude, lng: position.coords.longitude },
@@ -1045,9 +1062,11 @@ function initMap(mapDiv) {
     };
     var map = new google.maps.Map(mapDiv, newMapOptions); // Create and center map in new location
     var geocoder = new google.maps.Geocoder();
+    console.log("HEY");
     geocodeAddress(geocoder, map, input);
   });
 
+  //Todo
   google.maps.event.addListener(map, 'dragend', function () {
     alert('map dragged');
   });
