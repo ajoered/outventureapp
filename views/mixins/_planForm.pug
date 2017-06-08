@@ -1,5 +1,5 @@
 mixin planForm(plan = {})
-  form(action=`/addPlan/${plan._id || ''}` method="POST")
+  form(action=`/addPlan/${plan._id || ''}` method="POST" enctype="multipart/form-data")
     br
     //- pre= h.dump(plan)
     .input-field

@@ -2,8 +2,7 @@ mixin planCard(plan = {})
   .col.m6.s12
     .card.medium
       .card-image.waves-effect.waves-block.waves-light
-        //- img.activator(src=`/uploads/${plan.photo || 'canoeing.jpg'}`)
-        img.activator(src=`/uploads/canoeing.jpg`)
+        img.activator(src=`/uploads/${plan.photo || 'canoeing.jpg'}`)
       .card-content
         span.card-title.activator.grey-text.text-darken-4= plan.title
           i.material-icons.right more_vert

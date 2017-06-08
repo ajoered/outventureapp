@@ -7,8 +7,16 @@ const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(planController.explore))
 router.get('/addPlan', planController.addPlan)
-router.post('/addplan', catchErrors(planController.createPlan))
-router.post('/addplan/:id', catchErrors(planController.updatePlan))
+router.post('/addPlan',
+  planController.upload,
+  catchErrors(planController.resize),
+  catchErrors(planController.createPlan)
+);
+router.post('/addPlan/:id',
+  planController.upload,
+  catchErrors(planController.resize),
+  catchErrors(planController.updatePlan)
+);
 router.get('/plans/:id/edit', catchErrors(planController.editPlan))
 
 // user routes

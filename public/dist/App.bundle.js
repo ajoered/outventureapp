@@ -965,74 +965,6 @@ var defaultMapOptions = {
   zoom: 8
 };
 
-function createCards(plans) {
-  var cardsContainer = document.getElementById("cards-container");
-  while (cardsContainer.firstChild) {
-    cardsContainer.removeChild(cardsContainer.firstChild);
-  }
-
-  plans.forEach(function (plan) {
-    console.log(plan.activities);
-    var activityHtml = plan.activities.map(function (activity) {
-      return '<div class="chip">\n      ' + activity + '\n      </div>';
-    }).join();
-    var cardHtml = '\n                <div class="card medium">\n                  <div class="card-image waves-effect waves-block waves-light">\n                    <img class="activator" src="images/photos/canoeing.jpg">\n                  </div>\n                  <a class="btn-floating halfway-fab waves-effect waves-light red lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>\n                  <div class="card-content">\n                    <span class="card-title activator grey-text text-darken-4">' + plan.title + '<i class="material-icons right">more_vert</i></span>' + activityHtml + ('<p>' + plan.description + '</p>\n                    <p class="orange-text">\u2605\u2605\u2605\u2605\u2605</p>\n                  </div>\n                  <div class="card-reveal">\n                    <span class="card-title grey-text text-darken-4">' + plan.title + '<i class="material-icons right">close</i></span>\n                    <p>' + plan.description + '</p>\n                  </div>\n                </div>');
-    var cardDiv = document.createElement('div');
-    cardDiv.className = "col m6 s12";
-    cardDiv.innerHTML = cardHtml;
-    cardsContainer.appendChild(cardDiv);
-  });
-}
-
-function createMarkers(plans, map) {
-  var bounds = new google.maps.LatLngBounds();
-  var infoWindow = new google.maps.InfoWindow();
-
-  var markers = plans.map(function (plan) {
-    var _plan$location$coordi = _slicedToArray(plan.location.coordinates, 2),
-        planLng = _plan$location$coordi[0],
-        planLat = _plan$location$coordi[1];
-
-    var position = { lat: planLat, lng: planLng };
-    bounds.extend(position);
-    var marker = new google.maps.Marker({ map: map, position: position });
-    marker.plan = plan;
-    return marker;
-  });
-
-  markers.forEach(function (marker) {
-    return marker.addListener('click', function () {
-      console.log(this.plan);
-      var html = '\n      <div class="popup">\n        <a href="/plan/' + this.plan.slug + '">\n          <p>' + this.plan.title + ' - ' + this.plan.location.address + '</p>\n        </a>\n      </div>\n    ';
-      infoWindow.setContent(html);
-      infoWindow.open(map, this);
-    });
-  });
-}
-
-function geocodeAddress(geocoder, resultsMap, address) {
-  geocoder.geocode({ 'address': address.value }, function (results, status) {
-    if (status === 'OK') {
-      resultsMap.fitBounds(results[0].geometry.viewport);
-      var newMapCenter = resultsMap.getCenter();
-      loadPlaces(resultsMap, newMapCenter.lat(), newMapCenter.lng());
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
-    }
-  });
-}
-
-function loadPlaces(map) {
-  var lat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 34.01;
-  var lng = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -118.42;
-
-  _axios2.default.get('/api/plans/near?lat=' + lat + '&lng=' + lng).then(function (res) {
-    var plans = res.data;
-    createMarkers(plans, map);
-    createCards(plans);
-  });
-}
-
 function initMap(mapDiv) {
   if (!mapDiv) return;
 
@@ -1062,13 +994,98 @@ function initMap(mapDiv) {
     };
     var map = new google.maps.Map(mapDiv, newMapOptions); // Create and center map in new location
     var geocoder = new google.maps.Geocoder();
-    console.log("HEY");
     geocodeAddress(geocoder, map, input);
   });
 
-  //Todo
-  google.maps.event.addListener(map, 'dragend', function () {
-    alert('map dragged');
+  google.maps.event.addListener(map, 'dragend', function functionName() {
+    //loadplaces on map move
+    loadPlaces(map, map.getCenter().lat(), map.getCenter().lng());
+  });
+}
+
+function loadPlaces(map) {
+  var lat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 34.01;
+  var lng = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -118.42;
+
+  _axios2.default.get('/api/plans/near?lat=' + lat + '&lng=' + lng).then(function (res) {
+    var plans = res.data;
+    createMarkers(plans, map);
+    createCards(plans);
+  });
+}
+
+function geocodeAddress(geocoder, resultsMap, address) {
+  geocoder.geocode({ 'address': address.value }, function (results, status) {
+    if (status === 'OK') {
+      resultsMap.fitBounds(results[0].geometry.viewport);
+      var newMapCenter = resultsMap.getCenter();
+      loadPlaces(resultsMap, newMapCenter.lat(), newMapCenter.lng());
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
+function createMarkers(plans, map) {
+  var bounds = new google.maps.LatLngBounds();
+  var infoWindow = new google.maps.InfoWindow();
+
+  var markers = plans.map(function (plan) {
+    var _plan$location$coordi = _slicedToArray(plan.location.coordinates, 2),
+        planLng = _plan$location$coordi[0],
+        planLat = _plan$location$coordi[1];
+
+    var position = { lat: planLat, lng: planLng };
+    bounds.extend(position);
+    var marker = new google.maps.Marker({ map: map, position: position });
+    marker.plan = plan;
+    marker.id = plan._id;
+    console.log(marker.id);
+    marker.addListener('mouseover', function () {
+      lightUpCard(marker.id);
+    });
+    marker.addListener('mouseout', function () {
+      lightUpCard(marker.id);
+    });
+    return marker;
+  });
+  // markers.forEach(marker => {
+  //   const planIdArray = plans.map(plan => {
+  //         return plan._id})
+  //   if (planIdArray.includes(marker.plan._id)) {
+  //     marker.setMap(null)
+  //   }
+  // })
+  //loop marker array and if marker id does not equal plan id   // marker.setMap(null)
+
+  markers.forEach(function (marker) {
+    return marker.addListener('click', function () {
+      var html = '\n                <div class="card medium">\n                  <div class="card-image waves-effect waves-block waves-light">\n                    <img class="activator" src="uploads/' + (this.plan.photo || 'canoeing.jpg') + '">\n                  </div>\n                  <a class="btn-floating halfway-fab waves-effect waves-light primary-pink lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>\n                  <a class="btn-floating midway-fab waves-effect waves-light grey darken-1"><i class="fa fa-share" aria-hidden="true"></i></a>\n                  <a href="/plans/' + this.plan._id + '/edit" class="btn-floating edit-fab waves-effect transparent waves-light"><i aria-hidden="true" class="fa fa-pencil"></i></a>\n                  <div class="card-content">\n                    <span class="card-title activator grey-text text-darken-4">' + this.plan.title + '<i class="material-icons right">more_vert</i></span>\n                    <p>' + this.plan.description + '</p>\n                    <p class="orange-text">\u2605\u2605\u2605\u2605\u2605</p>\n                  </div>\n                  <div class="card-reveal">\n                    <span class="card-title grey-text text-darken-4">' + this.plan.title + '<i class="material-icons right">close</i></span>\n                    <p>' + this.plan.description + '</p>\n                  </div>\n                </div>';
+      infoWindow.setContent(html);
+      infoWindow.open(map, this);
+    });
+  });
+}
+
+function lightUpCard(markerId) {
+  $('#' + markerId).toggleClass("lightUpCard");
+}
+
+function createCards(plans) {
+  var cardsContainer = document.getElementById("cards-container");
+  while (cardsContainer.firstChild) {
+    cardsContainer.removeChild(cardsContainer.firstChild);
+  }
+  plans.forEach(function (plan) {
+    var activityHtml = plan.activities.map(function (activity) {
+      return '<div class="chip">\n      ' + activity + '\n      </div>';
+    }).join();
+    var cardHtml = '\n                <div class="card medium">\n                  <div class="card-image waves-effect waves-block waves-light">\n                    <img class="activator" src="uploads/' + (plan.photo || 'canoeing.jpg') + '">\n                  </div>\n                  <a class="btn-floating halfway-fab waves-effect waves-light primary-pink lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>\n                  <a class="btn-floating midway-fab waves-effect waves-light grey darken-1"><i class="fa fa-share" aria-hidden="true"></i></a>\n                  <a href="/plans/' + plan._id + '/edit" class="btn-floating edit-fab waves-effect transparent waves-light"><i aria-hidden="true" class="fa fa-pencil"></i></a>\n                  <div class="card-content">\n                    <span class="card-title activator grey-text text-darken-4">' + plan.title + '<i class="material-icons right">more_vert</i></span>' + activityHtml + ('<p>' + plan.description + '</p>\n                    <p class="orange-text">\u2605\u2605\u2605\u2605\u2605</p>\n                  </div>\n                  <div class="card-reveal">\n                    <span class="card-title grey-text text-darken-4">' + plan.title + '<i class="material-icons right">close</i></span>\n                    <p>' + plan.description + '</p>\n                  </div>\n                </div>');
+    var cardDiv = document.createElement('div');
+    cardDiv.className = "col m6 s12";
+    cardDiv.setAttribute("id", plan._id);
+    cardDiv.innerHTML = cardHtml;
+    cardsContainer.appendChild(cardDiv);
   });
 }
 

@@ -18,6 +18,12 @@ html {
   top: -1px!important;
 }
 
+.lightUpCard {
+  outline: none;
+  border-color: #EF6267;
+  box-shadow: 0 0 15px #EF6267;
+}
+
 .header-info-section {
   position: relative;
   height: 100vh;
@@ -126,14 +132,15 @@ html {
   margin-right: 24px;
 }
 
-.listings-section {
-  position: relative;
-  min-height: 90vh;
-}
 .cards-container {
   width: 62%;
   margin-left: 40vw;
   padding-right: 22px;
+}
+
+.listings-section {
+  position: relative;
+  min-height: 90vh;
 }
 
 .listings-section .map-container {
