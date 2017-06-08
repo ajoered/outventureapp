@@ -20,8 +20,8 @@ html {
 
 .lightUpCard {
   outline: none;
-  border-color: #EF6267;
-  box-shadow: 0 0 15px #EF6267;
+  border-color: #202D3D;
+  box-shadow: 0 0 15px #202D3D;
 }
 
 .header-info-section {
@@ -82,6 +82,10 @@ html {
   background-color: #EF6267!important;
 }
 
+.primary-blue {
+  background-color: #202D3D!important
+}
+
 .text-500 {
   font-weight: 500;
 }
@@ -96,6 +100,7 @@ html {
 
 .spaced-text {
   letter-spacing: 3px;
+  font-size: 20px!important;
 }
 
 .hr-header {

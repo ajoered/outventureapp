@@ -962,8 +962,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var defaultMapOptions = {
   center: { lat: 34.01, lng: -118.42 },
-  zoom: 8
+  zoom: 9
 };
+
+function normalIcon() {
+  return {
+    url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496951051/light-bulb_4_ieu1m4.png'
+  };
+}
+
+function highlightedIcon() {
+  return {
+    url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496951051/light-bulb_5_qi11uj.png'
+  };
+}
+
+var markers = [];
 
 function initMap(mapDiv) {
   if (!mapDiv) return;
@@ -972,7 +986,7 @@ function initMap(mapDiv) {
     navigator.geolocation.getCurrentPosition(function (position) {
       var mapOptions = {
         center: { lat: position.coords.latitude, lng: position.coords.longitude },
-        zoom: 8
+        zoom: 9
       };
       input.placeholder = "Close to you...";
       var map = new google.maps.Map(mapDiv, mapOptions);
@@ -982,6 +996,7 @@ function initMap(mapDiv) {
 
   var map = new google.maps.Map(mapDiv, defaultMapOptions); //Create and center map in LA by default
   loadPlaces(map);
+  reloadOnDragMap(map, mapDiv);
 
   var input = document.querySelector('input[name="geolocate"]');
   var autocomplete = new google.maps.places.Autocomplete(input);
@@ -990,13 +1005,15 @@ function initMap(mapDiv) {
     var place = autocomplete.getPlace();
     var newMapOptions = {
       center: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() },
-      zoom: 8
+      zoom: 9
     };
     var map = new google.maps.Map(mapDiv, newMapOptions); // Create and center map in new location
-    var geocoder = new google.maps.Geocoder();
-    geocodeAddress(geocoder, map, input);
+    loadPlaces(map, place.geometry.location.lat(), place.geometry.location.lng());
+    reloadOnDragMap(map, mapDiv);
   });
+}
 
+function reloadOnDragMap(map, mapDiv) {
   google.maps.event.addListener(map, 'dragend', function functionName() {
     //loadplaces on map move
     loadPlaces(map, map.getCenter().lat(), map.getCenter().lng());
@@ -1006,58 +1023,27 @@ function initMap(mapDiv) {
 function loadPlaces(map) {
   var lat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 34.01;
   var lng = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -118.42;
+  var q = arguments[3];
 
-  _axios2.default.get('/api/plans/near?lat=' + lat + '&lng=' + lng).then(function (res) {
+  _axios2.default.get('/api/plans/near?lat=' + lat + '&lng=' + lng + q).then(function (res) {
     var plans = res.data;
     createMarkers(plans, map);
     createCards(plans);
   });
 }
 
-function geocodeAddress(geocoder, resultsMap, address) {
-  geocoder.geocode({ 'address': address.value }, function (results, status) {
-    if (status === 'OK') {
-      resultsMap.fitBounds(results[0].geometry.viewport);
-      var newMapCenter = resultsMap.getCenter();
-      loadPlaces(resultsMap, newMapCenter.lat(), newMapCenter.lng());
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
-    }
-  });
-}
-
 function createMarkers(plans, map) {
-  var bounds = new google.maps.LatLngBounds();
+  clearMarkers();
   var infoWindow = new google.maps.InfoWindow();
-
-  var markers = plans.map(function (plan) {
+  plans.map(function (plan) {
     var _plan$location$coordi = _slicedToArray(plan.location.coordinates, 2),
         planLng = _plan$location$coordi[0],
         planLat = _plan$location$coordi[1];
 
     var position = { lat: planLat, lng: planLng };
-    bounds.extend(position);
-    var marker = new google.maps.Marker({ map: map, position: position });
-    marker.plan = plan;
-    marker.id = plan._id;
-    console.log(marker.id);
-    marker.addListener('mouseover', function () {
-      lightUpCard(marker.id);
-    });
-    marker.addListener('mouseout', function () {
-      lightUpCard(marker.id);
-    });
-    return marker;
+    addMarker(position, plan, map);
   });
-  // markers.forEach(marker => {
-  //   const planIdArray = plans.map(plan => {
-  //         return plan._id})
-  //   if (planIdArray.includes(marker.plan._id)) {
-  //     marker.setMap(null)
-  //   }
-  // })
-  //loop marker array and if marker id does not equal plan id   // marker.setMap(null)
-
+  console.log(markers);
   markers.forEach(function (marker) {
     return marker.addListener('click', function () {
       var html = '\n                <div class="card medium">\n                  <div class="card-image waves-effect waves-block waves-light">\n                    <img class="activator" src="uploads/' + (this.plan.photo || 'canoeing.jpg') + '">\n                  </div>\n                  <a class="btn-floating halfway-fab waves-effect waves-light primary-pink lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>\n                  <a class="btn-floating midway-fab waves-effect waves-light grey darken-1"><i class="fa fa-share" aria-hidden="true"></i></a>\n                  <a href="/plans/' + this.plan._id + '/edit" class="btn-floating edit-fab waves-effect transparent waves-light"><i aria-hidden="true" class="fa fa-pencil"></i></a>\n                  <div class="card-content">\n                    <span class="card-title activator grey-text text-darken-4">' + this.plan.title + '<i class="material-icons right">more_vert</i></span>\n                    <p>' + this.plan.description + '</p>\n                    <p class="orange-text">\u2605\u2605\u2605\u2605\u2605</p>\n                  </div>\n                  <div class="card-reveal">\n                    <span class="card-title grey-text text-darken-4">' + this.plan.title + '<i class="material-icons right">close</i></span>\n                    <p>' + this.plan.description + '</p>\n                  </div>\n                </div>';
@@ -1067,8 +1053,50 @@ function createMarkers(plans, map) {
   });
 }
 
+function addMarker(location, plan, map) {
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map,
+    icon: normalIcon()
+  });
+  marker.plan = plan;
+  marker.id = plan._id;
+  marker.addListener('mouseover', function () {
+    lightUpCard(marker.id);
+  });
+  marker.addListener('mouseout', function () {
+    lightUpCard(marker.id);
+  });
+  markers.push(marker);
+}
+
+function clearMarkers() {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+  markers = [];
+}
+
 function lightUpCard(markerId) {
   $('#' + markerId).toggleClass("lightUpCard");
+}
+
+function lightUpMarker() {
+  var index = $('#cards-container .card').index(this);
+  console.log($('#cards-container .card'));
+  console.log(index);
+
+  $('#cards-container .card').hover(
+  // mouse in
+  function () {
+    // first we need to know which <div class="marker"></div> we hovered
+    var index = $('#cards-container .card').index(this);
+    markers[index].setIcon(highlightedIcon());
+  }, function () {
+    // first we need to know which <div class="marker"></div> we hovered
+    var index = $('#cards-container .card').index(this);
+    markers[index].setIcon(normalIcon());
+  });
 }
 
 function createCards(plans) {
@@ -1080,12 +1108,16 @@ function createCards(plans) {
     var activityHtml = plan.activities.map(function (activity) {
       return '<div class="chip">\n      ' + activity + '\n      </div>';
     }).join();
-    var cardHtml = '\n                <div class="card medium">\n                  <div class="card-image waves-effect waves-block waves-light">\n                    <img class="activator" src="uploads/' + (plan.photo || 'canoeing.jpg') + '">\n                  </div>\n                  <a class="btn-floating halfway-fab waves-effect waves-light primary-pink lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>\n                  <a class="btn-floating midway-fab waves-effect waves-light grey darken-1"><i class="fa fa-share" aria-hidden="true"></i></a>\n                  <a href="/plans/' + plan._id + '/edit" class="btn-floating edit-fab waves-effect transparent waves-light"><i aria-hidden="true" class="fa fa-pencil"></i></a>\n                  <div class="card-content">\n                    <span class="card-title activator grey-text text-darken-4">' + plan.title + '<i class="material-icons right">more_vert</i></span>' + activityHtml + ('<p>' + plan.description + '</p>\n                    <p class="orange-text">\u2605\u2605\u2605\u2605\u2605</p>\n                  </div>\n                  <div class="card-reveal">\n                    <span class="card-title grey-text text-darken-4">' + plan.title + '<i class="material-icons right">close</i></span>\n                    <p>' + plan.description + '</p>\n                  </div>\n                </div>');
+    var skillLevelHtml = plan.skillLevel.map(function (skillLevel) {
+      return '\n      ' + skillLevel + '\n    ';
+    }).join();
+    var cardHtml = '\n                <div class="card medium">\n                  <div class="card-image waves-effect waves-block waves-light">\n                    <img class="activator" src="uploads/' + (plan.photo || 'canoeing.jpg') + '">\n                  </div>\n                  <a class="btn-floating halfway-fab waves-effect waves-light primary-pink lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>\n                  <a class="btn-floating midway-fab waves-effect waves-light grey darken-1"><i class="fa fa-share" aria-hidden="true"></i></a>\n                  <a href="/plans/' + plan._id + '/edit" class="btn-floating edit-fab waves-effect transparent waves-light"><i aria-hidden="true" class="fa fa-pencil"></i></a>\n                  <div class="card-content">\n                    <span class="card-title activator grey-text text-darken-4">' + plan.title + '<i class="material-icons right">more_vert</i></span>' + activityHtml + ('<p>' + plan.description + '</p>\n                     <p>' + skillLevelHtml + '</p>\n                  </div>\n                  <div class="card-reveal">\n                    <span class="card-title grey-text text-darken-4">' + plan.title + '<i class="material-icons right">close</i></span>\n                    <p>' + plan.description + '</p>\n                  </div>\n                </div>');
     var cardDiv = document.createElement('div');
     cardDiv.className = "col m6 s12";
     cardDiv.setAttribute("id", plan._id);
     cardDiv.innerHTML = cardHtml;
     cardsContainer.appendChild(cardDiv);
+    lightUpMarker();
   });
 }
 

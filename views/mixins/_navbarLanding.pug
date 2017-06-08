@@ -30,10 +30,10 @@ mixin navbarLanding()
             li
               a.dropdown-button(href='#', data-activates='profile-dropdown', data-beloworigin='true', data-constrainwidth='false') #{user.name}
                 i.material-icons.right arrow_drop_down
-        else  
+        else
           ul.right.hide-on-med-and-down
             a.waves-effect.waves-light.btn.cyan.grey.lighten-5(href='/login', style='color:black!important;') Login
-            a.waves-effect.waves-light.btn.cyan.darken-4(href='/register', style='margin-left:-10px;color:white!important;') Sign up
+            a.waves-effect.waves-light.btn.primary-blue(href='/register', style='margin-left:-10px;color:white!important;') Sign up
         ul#profile-dropdown.dropdown-content
           li
             a(href='#') My Account
