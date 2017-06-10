@@ -9,30 +9,24 @@ mixin searchBar()
           i.material-icons close
     .col.m7.s2
       .input-field.col.m3.push-m1.s12.hide-on-med-and-down
-        select(multiple='')
+        select(multiple='' id='activities' onchange='updateQuery(this)')
           optgroup(label='Water')
-            option(value='1') All
-            option(value='2') Surf
-            option(value='3') Scuba-diving
+            option(value='All' checked="checked") All
+            option(value='Surf' name='Surf') Surf
+            option(value='Scuba-diving' name='Scuba-Diving') Scuba-diving
           optgroup(label='Land')
-            option(value='4') Climbing
-            option(value='5') Hiking
+            option(value='Climbing' name='Climbing') Climbing
+            option(value='Backpacking' name='Backpacking') Backpacking
+            option(value='Camping' name='Camping') Camping
+            option(value='Hiking' name='Hiking') Hiking
         label Activities
       .input-field.col.m3.push-m1.s12.hide-on-med-and-down
-        select(multiple='')
-          option(value='1') All
-          option(value='2') Beginner
-          option(value='3') Intermediate
-          option(value='4') Advanced
-          option(value='5') Expert
-        label Skill Level
-      .input-field.col.m3.push-m1.s12.hide-on-med-and-down
-        select(multiple='')
-          option(value='1') All
-          option(value='2') Beginner
-          option(value='3') Intermediate
-          option(value='4') Advanced
-          option(value='5') Expert
+        select(multiple='' id='skillLevel' onchange='updateQuery(this)')
+          option(value='All') All
+          option(value='Beginner') Beginner
+          option(value='Intermediate') Intermediate
+          option(value='Advanced') Advanced
+          option(value='Expert') Expert
         label Skill Level
       .search-buttons.col.m3.push-m1.s12
         a.waves-effect.waves-light.btn.primary-blue(href='#modal1')

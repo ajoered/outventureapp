@@ -4,20 +4,17 @@ const defaultMapOptions =  {
   center: { lat: 34.01, lng: -118.42 },
   zoom: 9,
 };
+const normalIcon = {
+  url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496951051/light-bulb_4_ieu1m4.png'
+};
 
-function normalIcon() {
-  return {
-    url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496951051/light-bulb_4_ieu1m4.png'
-  };
-}
-
-function highlightedIcon() {
-  return {
-    url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496951051/light-bulb_5_qi11uj.png'
-  };
-}
+const highlightedIcon = {
+  url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496951051/light-bulb_5_qi11uj.png'
+};
 
 var markers = [];
+var map;
+var q = "";
 
 function initMap(mapDiv) {
   if (!mapDiv) return;
@@ -29,14 +26,14 @@ function initMap(mapDiv) {
         zoom: 9
       };
       input.placeholder = "Close to you..."
-      const map = new google.maps.Map(mapDiv, mapOptions);
-      loadPlaces(map, position.coords.latitude, position.coords.longitude)
+      map = new google.maps.Map(mapDiv, mapOptions);
+      loadPlaces(map, q, position.coords.latitude, position.coords.longitude)
     }, function() {
     });
   }
 
-  const map = new google.maps.Map(mapDiv, defaultMapOptions); //Create and center map in LA by default
-  loadPlaces(map);
+  map = new google.maps.Map(mapDiv, defaultMapOptions); //Create and center map in LA by default
+  loadPlaces(map, q);
   reloadOnDragMap(map, mapDiv);
 
   const input = document.querySelector('input[name="geolocate"]')
@@ -47,26 +44,41 @@ function initMap(mapDiv) {
       center: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() },
       zoom: 9
     }
-    const map = new google.maps.Map(mapDiv, newMapOptions); // Create and center map in new location
-    loadPlaces(map, place.geometry.location.lat(), place.geometry.location.lng())
+    map = new google.maps.Map(mapDiv, newMapOptions); // Create and center map in new location
+    loadPlaces(map, q, place.geometry.location.lat(), place.geometry.location.lng())
     reloadOnDragMap(map, mapDiv)
   });
 }
 
 function reloadOnDragMap(map, mapDiv) {
   google.maps.event.addListener(map, 'dragend', function functionName() {//loadplaces on map move
-    loadPlaces(map, map.getCenter().lat(), map.getCenter().lng())
+    loadPlaces(map, q, map.getCenter().lat(), map.getCenter().lng())
   } );
 }
 
 
-function loadPlaces(map, lat = 34.01, lng = -118.42, q) {
-  axios.get(`/api/plans/near?lat=${lat}&lng=${lng}${q}`)
+function loadPlaces(map, q, lat = 34.01, lng = -118.42) {
+  axios.get(`/api/plans/near?lat=${lat}&lng=${lng}&${q}`)
     .then(res => {
       const plans = res.data;
       createMarkers(plans, map)
       createCards(plans)
     });
+}
+
+window.updateQuery = function (input) {
+  q = ""
+  var activityString;
+  const activityValue = $('#activities').val()
+  if ((activityValue == null || activityValue.includes("All")) ? activityString = " " : activityString = "activities=" + activityValue.join(","))
+
+  var skillLevelString;
+  const skillLevelValue = $('#skillLevel').val()
+  if ((skillLevelValue == null || skillLevelValue.includes("All")) ? skillLevelString = " " : skillLevelString = "skillLevel=" + skillLevelValue.join(","))
+
+  q = activityString + "&" + skillLevelString
+  q.replace(/\s+/g, ' ');
+  loadPlaces(map, q)
 }
 
 function createMarkers(plans, map) {
@@ -77,7 +89,6 @@ function createMarkers(plans, map) {
     const position = { lat: planLat, lng: planLng };
     addMarker(position, plan, map);
   });
-  console.log(markers);
   markers.forEach(marker => marker.addListener('click', function() {
     const html = `
                 <div class="card medium">
@@ -106,8 +117,7 @@ function addMarker(location, plan, map) {
   var marker = new google.maps.Marker({
     position: location,
     map: map,
-    icon: normalIcon()
-  });
+    icon: normalIcon});
   marker.plan = plan;
   marker.id = plan._id
   marker.addListener('mouseover', function() {
@@ -132,20 +142,18 @@ function lightUpCard(markerId) {
 
 function lightUpMarker() {
   var index = $('#cards-container .card').index(this);
-  console.log($('#cards-container .card'));
-  console.log(index);
 
   $('#cards-container .card').hover(
   // mouse in
   function () {
     // first we need to know which <div class="marker"></div> we hovered
     var index = $('#cards-container .card').index(this);
-    markers[index].setIcon(highlightedIcon());
+    markers[index].setIcon(highlightedIcon);
   },
   function () {
     // first we need to know which <div class="marker"></div> we hovered
     var index = $('#cards-container .card').index(this);
-    markers[index].setIcon(normalIcon());
+    markers[index].setIcon(normalIcon);
   }
 );
 }

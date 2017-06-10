@@ -73,8 +73,8 @@ exports.editPlan = async (req, res) => {
 
 exports.mapPlans = async (req, res) => {
   const coordinates = [req.query.lng, req.query.lat].map(parseFloat);
-  const activities = req.query.activities || { $exists: true }
-  const skillLevel = req.query.skillLevel || { $exists: true }
+  const activities = ((req.query.activities !== undefined) ? { $in: req.query.activities.split(",") } : { $exists: true });
+  const skillLevel = ((req.query.skillLevel !== undefined) ? { $in: req.query.skillLevel.split(",") } : { $exists: true });
     const q = {
       location: {
         $near: {
@@ -88,7 +88,6 @@ exports.mapPlans = async (req, res) => {
       activities: activities,
       skillLevel: skillLevel
     };
-
   const plans = await Plan.find(q).limit(10);
   res.json(plans);
 };

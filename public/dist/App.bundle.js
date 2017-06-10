@@ -964,20 +964,17 @@ var defaultMapOptions = {
   center: { lat: 34.01, lng: -118.42 },
   zoom: 9
 };
+var normalIcon = {
+  url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496951051/light-bulb_4_ieu1m4.png'
+};
 
-function normalIcon() {
-  return {
-    url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496951051/light-bulb_4_ieu1m4.png'
-  };
-}
-
-function highlightedIcon() {
-  return {
-    url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496951051/light-bulb_5_qi11uj.png'
-  };
-}
+var highlightedIcon = {
+  url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496951051/light-bulb_5_qi11uj.png'
+};
 
 var markers = [];
+var map;
+var q = "";
 
 function initMap(mapDiv) {
   if (!mapDiv) return;
@@ -989,13 +986,13 @@ function initMap(mapDiv) {
         zoom: 9
       };
       input.placeholder = "Close to you...";
-      var map = new google.maps.Map(mapDiv, mapOptions);
-      loadPlaces(map, position.coords.latitude, position.coords.longitude);
+      map = new google.maps.Map(mapDiv, mapOptions);
+      loadPlaces(map, q, position.coords.latitude, position.coords.longitude);
     }, function () {});
   }
 
-  var map = new google.maps.Map(mapDiv, defaultMapOptions); //Create and center map in LA by default
-  loadPlaces(map);
+  map = new google.maps.Map(mapDiv, defaultMapOptions); //Create and center map in LA by default
+  loadPlaces(map, q);
   reloadOnDragMap(map, mapDiv);
 
   var input = document.querySelector('input[name="geolocate"]');
@@ -1007,8 +1004,8 @@ function initMap(mapDiv) {
       center: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() },
       zoom: 9
     };
-    var map = new google.maps.Map(mapDiv, newMapOptions); // Create and center map in new location
-    loadPlaces(map, place.geometry.location.lat(), place.geometry.location.lng());
+    map = new google.maps.Map(mapDiv, newMapOptions); // Create and center map in new location
+    loadPlaces(map, q, place.geometry.location.lat(), place.geometry.location.lng());
     reloadOnDragMap(map, mapDiv);
   });
 }
@@ -1016,21 +1013,31 @@ function initMap(mapDiv) {
 function reloadOnDragMap(map, mapDiv) {
   google.maps.event.addListener(map, 'dragend', function functionName() {
     //loadplaces on map move
-    loadPlaces(map, map.getCenter().lat(), map.getCenter().lng());
+    loadPlaces(map, q, map.getCenter().lat(), map.getCenter().lng());
   });
 }
 
-function loadPlaces(map) {
-  var lat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 34.01;
-  var lng = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -118.42;
-  var q = arguments[3];
+function loadPlaces(map, q) {
+  var lat = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 34.01;
+  var lng = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : -118.42;
 
-  _axios2.default.get('/api/plans/near?lat=' + lat + '&lng=' + lng + q).then(function (res) {
+  _axios2.default.get('/api/plans/near?lat=' + lat + '&lng=' + lng + '&' + q).then(function (res) {
     var plans = res.data;
     createMarkers(plans, map);
     createCards(plans);
   });
 }
+
+window.updateQuery = function (input) {
+  q = "";
+  var activityString;
+  var activityValue = $('#activities').val();
+  if (activityValue == null || activityValue.includes("All") ? activityString = " " : activityString = "activities=" + activityValue.join(",")) var skillLevelString;
+  var skillLevelValue = $('#skillLevel').val();
+  if (skillLevelValue == null || skillLevelValue.includes("All") ? skillLevelString = " " : skillLevelString = "skillLevel=" + skillLevelValue.join(",")) q = activityString + "&" + skillLevelString;
+  q.replace(/\s+/g, ' ');
+  loadPlaces(map, q);
+};
 
 function createMarkers(plans, map) {
   clearMarkers();
@@ -1043,7 +1050,6 @@ function createMarkers(plans, map) {
     var position = { lat: planLat, lng: planLng };
     addMarker(position, plan, map);
   });
-  console.log(markers);
   markers.forEach(function (marker) {
     return marker.addListener('click', function () {
       var html = '\n                <div class="card medium">\n                  <div class="card-image waves-effect waves-block waves-light">\n                    <img class="activator" src="uploads/' + (this.plan.photo || 'canoeing.jpg') + '">\n                  </div>\n                  <a class="btn-floating halfway-fab waves-effect waves-light primary-pink lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>\n                  <a class="btn-floating midway-fab waves-effect waves-light grey darken-1"><i class="fa fa-share" aria-hidden="true"></i></a>\n                  <a href="/plans/' + this.plan._id + '/edit" class="btn-floating edit-fab waves-effect transparent waves-light"><i aria-hidden="true" class="fa fa-pencil"></i></a>\n                  <div class="card-content">\n                    <span class="card-title activator grey-text text-darken-4">' + this.plan.title + '<i class="material-icons right">more_vert</i></span>\n                    <p>' + this.plan.description + '</p>\n                    <p class="orange-text">\u2605\u2605\u2605\u2605\u2605</p>\n                  </div>\n                  <div class="card-reveal">\n                    <span class="card-title grey-text text-darken-4">' + this.plan.title + '<i class="material-icons right">close</i></span>\n                    <p>' + this.plan.description + '</p>\n                  </div>\n                </div>';
@@ -1057,8 +1063,7 @@ function addMarker(location, plan, map) {
   var marker = new google.maps.Marker({
     position: location,
     map: map,
-    icon: normalIcon()
-  });
+    icon: normalIcon });
   marker.plan = plan;
   marker.id = plan._id;
   marker.addListener('mouseover', function () {
@@ -1083,19 +1088,17 @@ function lightUpCard(markerId) {
 
 function lightUpMarker() {
   var index = $('#cards-container .card').index(this);
-  console.log($('#cards-container .card'));
-  console.log(index);
 
   $('#cards-container .card').hover(
   // mouse in
   function () {
     // first we need to know which <div class="marker"></div> we hovered
     var index = $('#cards-container .card').index(this);
-    markers[index].setIcon(highlightedIcon());
+    markers[index].setIcon(highlightedIcon);
   }, function () {
     // first we need to know which <div class="marker"></div> we hovered
     var index = $('#cards-container .card').index(this);
-    markers[index].setIcon(normalIcon());
+    markers[index].setIcon(normalIcon);
   });
 }
 

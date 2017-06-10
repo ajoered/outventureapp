@@ -27,7 +27,7 @@ mixin planForm(plan = {})
         label(for=skill) #{skill}
     br
     p Activities
-    - const activityChoices = ['Hiking', 'Backpacking', 'Camping', 'Surfing', 'Scuba Diving']
+    - const activityChoices = ['Hiking', 'Backpacking', 'Camping', 'Surfing', 'Scuba-Diving']
     - const activities = plan.activities || []
     .input-field
       each activity in activityChoices
