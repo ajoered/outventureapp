@@ -9,15 +9,13 @@ mixin planForm(plan = {})
       label.active(for='description') Description
       textarea#description.materialize-textarea(name="description")= plan.description
       //- address, lng and lat
-    .input-field  
+    .input-field
       label(for="address") Location
       input(type="text" id="address" name="location[address]" value=(plan.location && plan.location.address) required)
-    .input-field    
-      label(for="lng") Address Lng
-      input(type="text" id="lng" name="location[coordinates][0]" value=(plan.location && plan.location.coordinates[0]) required)
-    .input-field    
-      label(for="lat") Address Lat
-      input(type="text" id="lat" name="location[coordinates][1]" value=(plan.location && plan.location.coordinates[1]) required)
+    .input-field
+      input(type="hidden" id="lng" name="location[coordinates][0]" value=(plan.location && plan.location.coordinates[0]) required)
+    .input-field
+      input(type="hidden" id="lat" name="location[coordinates][1]" value=(plan.location && plan.location.coordinates[1]) required)
     p Skill-Level
     - const skillChoices = ['Beginner', 'Intermediate', 'Advanced', 'Expert']
     - const skillLevel = plan.skillLevel || []
@@ -25,22 +23,25 @@ mixin planForm(plan = {})
       each skill in skillChoices
         input(type="checkbox" id=skill value=skill name="skillLevel" checked=(skillLevel.includes(skill)))
         label(for=skill) #{skill}
+        br
     br
     p Activities
-    - const activityChoices = ['Hiking', 'Backpacking', 'Camping', 'Surfing', 'Scuba-Diving']
+    - const activityChoices = ['Hiking', 'Backpacking', 'Camping', 'Climbing', 'Surfing', 'Scuba-Diving', 'Canoeing']
     - const activities = plan.activities || []
     .input-field
       each activity in activityChoices
         input(type="checkbox" id=activity value=activity name="activities" checked=(activities.includes(activity)))
         label(for=activity) #{activity}
+        br
     br
     p Tags
-    - const tagChoices = ['Wifi', 'Open Late', 'Family Friendly', 'Vegatarian', 'Licensed']
+    - const tagChoices = ['Lake', 'Beach', 'River', 'Waterfall', 'Wildlife', 'Forest', 'Mountain', 'Dog friendly', 'Family friendly', 'Easy Parking', 'Scenic', 'Romantic']
     - const tags = plan.tags || []
     .input-field
       each tag in tagChoices
         input(type="checkbox" id=tag value=tag name="tags" checked=(tags.includes(tag)))
         label(for=tag) #{tag}
+        br
     br
     .file-field.input-field
       .btn

@@ -52,3 +52,46 @@ mixin navbar()
             a(href='/addPlan') Plan Idea
           li
             a(href='#') Outing
+        ul#nav-mobile.side-nav
+          // user view
+          li
+            .userView
+              .background
+                img(src='https://www.beautycolorcode.com/006062-2880x1800.png')
+              a(href='#!user')
+                img.circle(src='https://avatars2.githubusercontent.com/u/22107549?v=3&s=460')
+              a(href='#!name')
+                span.white-text.name Alvaro Rojas
+              a(href='#!email')
+                span.white-text.email arojas@gmail.com
+          // Profile
+          li
+            a.subheader My Profile
+          li.no-padding
+          li
+            a(href='#!')
+              i.material-icons perm_identity
+              | My Account
+          li
+            a(href='#')
+              i.material-icons edit
+              | Create Plan
+          // Main Menu
+          li
+            a.subheader Main Menu
+          li
+            a(href='#')
+              i.material-icons language
+              | Explore Plans
+          li
+            a(href='#')
+              i.material-icons supervisor_account
+              | Connect
+          li
+            a(href='#')
+              i.material-icons info_outline
+              | About Us
+          li
+            a(href='#')
+              i.material-icons picture_in_picture
+              | Blog

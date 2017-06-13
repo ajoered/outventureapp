@@ -18,6 +18,7 @@ router.post('/addPlan/:id',
   catchErrors(planController.updatePlan)
 );
 router.get('/plans/:id/edit', catchErrors(planController.editPlan))
+router.get('/plans/:slug', catchErrors(planController.getPlanBySlug))
 
 // user routes
 router.get('/login', userController.loginForm)

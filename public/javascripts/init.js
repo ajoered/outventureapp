@@ -14,7 +14,9 @@ $(document).ready(function(){
       alignment: 'right', // Displays dropdown with edge aligned to the left of button
       stopPropagation: false // Stops event propagation
     });
-
+  $('.parallax').parallax();
+  $('.carousel').carousel();
+  $('.modal').modal();
   scrollMagic();
 
 });
@@ -117,5 +119,8 @@ function scrollMagic() {
       triggerHook: "onLeave",
       duration: 0
   }).setClassToggle(".map-container", "fixed").addTo(controller);
+
+  var offset2 = mapFix.offset();
+  mapFix.offset(-150);
 
 };

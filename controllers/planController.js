@@ -71,6 +71,12 @@ exports.editPlan = async (req, res) => {
   res.render('editPlan', { title: `Edit ${plan.title}`, plan });
 };
 
+exports.getPlanBySlug = async (req, res) => {
+  const plan = await Plan.findOne({ slug: req.params.slug });
+  if (!plan) return next();
+  res.render('plan', { plan, title: plan.title });
+}
+
 exports.mapPlans = async (req, res) => {
   const coordinates = [req.query.lng, req.query.lat].map(parseFloat);
   const activities = ((req.query.activities !== undefined) ? { $in: req.query.activities.split(",") } : { $exists: true });

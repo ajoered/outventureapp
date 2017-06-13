@@ -8,21 +8,23 @@ mixin searchBar()
             i.material-icons location_on
           i.material-icons close
     .col.m7.s2
-      .input-field.col.m3.push-m1.s12.hide-on-med-and-down
+      .input-field.col.m4.push-m1.s12.hide-on-med-and-down
         select(multiple='' id='activities' onchange='updateQuery(this)')
+          option(value='All' disabled='') All
           optgroup(label='Water')
-            option(value='All' checked="checked") All
             option(value='Surf' name='Surf') Surf
+            option(value='Sailing' name='Sailing') Sailing
             option(value='Scuba-diving' name='Scuba-Diving') Scuba-diving
+            option(value='Canoeing' name='Canoeing') Canoeing
           optgroup(label='Land')
             option(value='Climbing' name='Climbing') Climbing
             option(value='Backpacking' name='Backpacking') Backpacking
             option(value='Camping' name='Camping') Camping
             option(value='Hiking' name='Hiking') Hiking
         label Activities
-      .input-field.col.m3.push-m1.s12.hide-on-med-and-down
+      .input-field.col.m4.push-m1.s12.hide-on-med-and-down
         select(multiple='' id='skillLevel' onchange='updateQuery(this)')
-          option(value='All') All
+          option(value='All' disabled='') All
           option(value='Beginner') Beginner
           option(value='Intermediate') Intermediate
           option(value='Advanced') Advanced
@@ -32,3 +34,73 @@ mixin searchBar()
         a.waves-effect.waves-light.btn.primary-blue(href='#modal1')
           i.prefix.fa.fa-sliders(aria-hidden='true')
           |  +1
+  #modal1.modal.bottom-sheet
+    .modal-content.row
+      .col.m5.s12
+        h5.center Tags
+        .col.m4.s12
+          p
+            input#winter(type='checkbox')
+            label(for='winter') Lake
+          p
+            input#beach(type='checkbox')
+            label(for='beach') Beach
+          p
+            input#river(type='checkbox')
+            label(for='river') River
+          p
+            input#waterfall(type='checkbox')
+            label(for='waterfall') Waterfall
+        .col.m4.s12
+          p
+            input#wildlife(type='checkbox')
+            label(for='wildlife') Wildlife
+          p
+            input#forest(type='checkbox')
+            label(for='forest') Forest
+          p
+            input#mountain(type='checkbox')
+            label(for='mountain') Mountain
+          p
+            input#dog-friendly(type='checkbox')
+            label(for='dog-friendly') Dog friendly
+        .col.m4.s12
+          p
+            input#family-friendly(type='checkbox')
+            label(for='family-friendly') Family Friendly
+          p
+            input#easy-parking(type='checkbox')
+            label(for='easy-parking') Easy Parking
+          p
+            input#scenic(type='checkbox')
+            label(for='scenic') Scenic
+          p
+            input#romantic(type='checkbox')
+            label(for='romantic') Romantic
+      .col.m3.push-m1.s12
+        h5 Season
+        p
+          input#summer(type='checkbox')
+          label(for='summer') Summer
+        p
+          input#autumn(type='checkbox')
+          label(for='autumn') Autumn
+        p
+          input#winter(type='checkbox')
+          label(for='winter') Winter
+        p
+          input#spring(type='checkbox')
+          label(for='spring') Spring
+      .col.m3.push-m1.s12
+        h5 Time Availability
+        p
+          input#4h(type='checkbox')
+          label(for='4h')  < 4h 
+        p
+          input#day-trip(type='checkbox')
+          label(for='day-trip') Day
+        p
+          input#overnight(type='checkbox')
+          label(for='overnight') Overnight
+      .modal-footer
+        a.modal-action.modal-close.waves-effect.waves-green.btn.teal.darken-4(href='#!') Apply

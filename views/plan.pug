@@ -1,0 +1,198 @@
+extends layout
+
+include mixins/_navbarLanding
+
+block header
+  +navbarLanding()
+  
+block content
+  .parallaxx.parallax-hiking
+    .section.valign-wrapper.header-parallax-section
+      .container.background-transparent-grey
+        h2.header.center.white-text.text-700 HIKE RUNYON CANYON
+        hr.hr-header
+        .row.center
+          h6.header.col.s12.white-text.text-500.spaced-text
+            | For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the top of Runyon Canyon Park, using a trailhead along Mulholland Drive for a short loop to the park's high point.
+    .row.left
+      .btn.primary-pink(style='margin-left:20px;margin-top:10px;') Photos
+    .row.right(style='margin-right:20px;')
+      a.icon-button.heart(href='')
+        i.icon-heart
+        span
+      a.icon-button.twitter(href='')
+        i.icon-twitter
+        span
+      a.icon-button.facebook(href='')
+        i.icon-facebook
+        span
+  .container
+    .row
+      .col.s12
+        ul.tabs.tabs-fixed-width
+          li.tab.col.s3
+            a.active(href='#overview') Overview
+          li.tab.col.s3
+            a(href='#transport') Transport
+          li.tab.col.s3
+            a(href='#reviews') Reviews
+      #overview.col.s12
+        br
+        .row.valign-wrapper.symbols.center
+          hr
+          .col.s3.center.orange-text ✪✪✪✪✪
+          .col.s3.center
+            i.fa.fa-map-marker(aria-hidden='true')
+            |  Runyon Canyon
+          .col.s3.center
+            ul
+              li Beginner
+              li Intermediate
+          .col.s3.center
+            ul
+              li Hiking
+              li Backpacking
+        .row.valign-wrapper.symbols2
+          .col.s3.center
+            i.fa.fa-snowflake-o(aria-hidden='true')
+            i.fa.fa-leaf(aria-hidden='true')
+            i.fa.fa-pagelines(aria-hidden='true')
+            i.fa.fa-sun-o(aria-hidden='true')
+            |           Year-round
+          .col.s3.center
+            i.fa.fa-long-arrow-right(aria-hidden='true')
+            |  6.1km loop
+          .col.s3.center
+            ul
+              li No Dogs
+              li Family Friendly
+              li Scenic
+              li Romantic
+          .col.s3.center
+            ul
+              li 1-3 hours
+              li 3-6 hours
+        hr.light-grey
+        br
+        #plan-photos
+          h5.left Photos
+          .carousel
+            a.carousel-item(href='#one!')
+              img(src='https://static1.squarespace.com/static/54e7a4c2e4b07c3f6557e697/t/551eed6fe4b0455e5a88bbe3/1428090232205/IMG_6028.jpg?format=2500w' class='materialboxed' width="300")
+            a.carousel-item(href='#two!')
+              img(src='https://i0.wp.com/www.runyoncanyonhike.com/wp-content/uploads/2014/08/web-1159.jpg?fit=960%2C640' class='materialboxed' width="300")
+            a.carousel-item(href='#three!')
+              img(src='https://media.timeout.com/images/100521819/image.jpg' class='materialboxed' width="300")
+            a.carousel-item(href='#four!')
+              img(src='https://media.timeout.com/images/100521871/image.jpg' class='materialboxed' width="300")
+            a.carousel-item(href='#five!')
+              img(src='http://www.laparks.org/sites/default/files/facility/runyon-canyon-park/images/runyon-canyon-park.JPG' class='materialboxed' width="300")
+        #description
+          .row
+            .col.s12.m2
+              h5 Description
+            .col.s12.m9.push-m1
+              p
+                | For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the top of Runyon Canyon Park, using a trailhead along Mulholland Drive for a short loop to the park's high point.
+        hr.light-grey
+        #pack-list
+          .row
+            .col.s12.m2
+              h5 What to pack
+            .col.s12.m9.push-m1
+              p
+                | Pack light. For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the point.
+      #transport.col.s12
+        div
+          .row
+            .col.s12.m2
+              h5 Parking & transport
+            .col.s12.m9.push-m1
+              p There's a parking spot right at the entrance.
+        #planMap
+          img(src='https://cdn.hikingguy.com/wp-content/uploads/runyon-canyon-hike-location.jpg', alt='')
+      #reviews.col.s12
+        br
+        .row
+          .input-field.col.m4.push-m4.s10.push-s1
+            select
+              option(value='', disabled='', selected='') Sort By
+              option(value='1') Highest First
+              option(value='2') Lowest First
+              option(value='3') Most Helpful
+        .col.m6.s12.review
+          .card-panel.white
+            .row.title.valign-wrapper.center
+              .col.s4.border-right
+                | Alvaro
+              .col.s4.orange-text.border-right
+                | ★★★★★
+              .col.s4
+                a.black-text(href='#')
+                  i.fa.fa-thumbs-up.black-text(aria-hidden='true')
+                a.black-text(href='#')
+                  i.fa.fa-thumbs-down.red-text(aria-hidden='true')
+                  |  -1
+            hr
+            span.black-text
+              | I am a very simple card. I am good at containing small bits of information.
+              | I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+            br
+            span.row.right.grey-text 3 months ago
+        .col.m6.s12
+          .card-panel.white
+            .row.title.valign-wrapper.center
+              .col.s4.border-right
+                | Pepe
+              .col.s4.orange-text.border-right
+                | ★★★★★
+              .col.s4
+                a.black-text(href='')
+                  i.fa.fa-thumbs-up.green-text(aria-hidden='true')
+                a.black-text(href='#')
+                  i.fa.fa-thumbs-down.black-text(aria-hidden='true')
+                  |  +2
+            hr
+            span.black-text
+              | I am a very simple card. I am good at containing small bits of information.
+              | I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+            br
+            span.row.right.grey-text 3 months ago
+        .col.m6.s12
+          .card-panel.white
+            .row.title.valign-wrapper.center
+              .col.s4.border-right
+                | Pedro
+              .col.s4.orange-text.border-right
+                | ★★★
+              .col.s4
+                a.black-text(href='')
+                  i.fa.fa-thumbs-up.green-text(aria-hidden='true')
+                a.black-text(href='#')
+                  i.fa.fa-thumbs-down.black-text(aria-hidden='true')
+                  |  +5
+            hr
+            span.black-text
+              | I am a very simple card. I am good at containing small bits of information.
+              | I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+            br
+            span.row.right.grey-text 2 months ago
+        .col.m6.s12
+          .card-panel.white
+            .row.title.valign-wrapper.center
+              .col.s4.border-right
+                | Alan
+              .col.s4.orange-text.border-right
+                | ★★★★
+              .col.s4
+                a.black-text(href='')
+                  i.fa.fa-thumbs-up.green-text(aria-hidden='true')
+                a.black-text(href='#')
+                  i.fa.fa-thumbs-down.black-text(aria-hidden='true')
+                  |  +9
+            hr
+            span.black-text
+              | I am a very simple card. I am good at containing small bits of information.
+              | I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+            br
+            span.row.right.grey-text 1 month ago

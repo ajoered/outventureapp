@@ -1,20 +1,20 @@
 import axios from 'axios';
+var markers = [];
+var map;
+var q = "";
 
 const defaultMapOptions =  {
   center: { lat: 34.01, lng: -118.42 },
   zoom: 9,
 };
 const normalIcon = {
-  url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496951051/light-bulb_4_ieu1m4.png'
+  url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/c_scale,w_64/v1497124913/light-bulb_egba8l.svg',
+  scaledSize: new google.maps.Size(24,24)
 };
-
 const highlightedIcon = {
-  url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496951051/light-bulb_5_qi11uj.png'
+  url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/c_scale,w_64/v1497124913/light-bulb_egba8l.svg',
+  scaledSize: new google.maps.Size(36,36)
 };
-
-var markers = [];
-var map;
-var q = "";
 
 function initMap(mapDiv) {
   if (!mapDiv) return;
@@ -28,13 +28,14 @@ function initMap(mapDiv) {
       input.placeholder = "Close to you..."
       map = new google.maps.Map(mapDiv, mapOptions);
       loadPlaces(map, q, position.coords.latitude, position.coords.longitude)
+      reloadOnDragMap(map);
     }, function() {
     });
   }
 
   map = new google.maps.Map(mapDiv, defaultMapOptions); //Create and center map in LA by default
   loadPlaces(map, q);
-  reloadOnDragMap(map, mapDiv);
+  reloadOnDragMap(map);
 
   const input = document.querySelector('input[name="geolocate"]')
   const autocomplete = new google.maps.places.Autocomplete(input);
@@ -46,16 +47,15 @@ function initMap(mapDiv) {
     }
     map = new google.maps.Map(mapDiv, newMapOptions); // Create and center map in new location
     loadPlaces(map, q, place.geometry.location.lat(), place.geometry.location.lng())
-    reloadOnDragMap(map, mapDiv)
+    reloadOnDragMap(map)
   });
 }
 
-function reloadOnDragMap(map, mapDiv) {
+function reloadOnDragMap(map) {
   google.maps.event.addListener(map, 'dragend', function functionName() {//loadplaces on map move
     loadPlaces(map, q, map.getCenter().lat(), map.getCenter().lng())
   } );
 }
-
 
 function loadPlaces(map, q, lat = 34.01, lng = -118.42) {
   axios.get(`/api/plans/near?lat=${lat}&lng=${lng}&${q}`)
@@ -79,6 +79,7 @@ window.updateQuery = function (input) {
   q = activityString + "&" + skillLevelString
   q.replace(/\s+/g, ' ');
   loadPlaces(map, q)
+  reloadOnDragMap(map);
 }
 
 function createMarkers(plans, map) {
@@ -100,8 +101,8 @@ function createMarkers(plans, map) {
                   <a href="/plans/${this.plan._id}/edit" class="btn-floating edit-fab waves-effect transparent waves-light"><i aria-hidden="true" class="fa fa-pencil"></i></a>
                   <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">${this.plan.title}<i class="material-icons right">more_vert</i></span>
-                    <p>${this.plan.description}</p>
                     <p class="orange-text">★★★★★</p>
+                    <a class="btn waves-effect teal lighten-3 waves-light" href="/plans/${this.plan.slug}">More</a>
                   </div>
                   <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">${this.plan.title}<i class="material-icons right">close</i></span>
@@ -137,25 +138,22 @@ function clearMarkers() {
 }
 
 function lightUpCard(markerId) {
-  $('#' + markerId).toggleClass("lightUpCard")
+  $('#' + markerId).children().first().toggleClass("lightUpCard")
 }
 
 function lightUpMarker() {
   var index = $('#cards-container .card').index(this);
 
   $('#cards-container .card').hover(
-  // mouse in
   function () {
-    // first we need to know which <div class="marker"></div> we hovered
     var index = $('#cards-container .card').index(this);
     markers[index].setIcon(highlightedIcon);
   },
   function () {
-    // first we need to know which <div class="marker"></div> we hovered
     var index = $('#cards-container .card').index(this);
     markers[index].setIcon(normalIcon);
   }
-);
+)
 }
 
 function createCards(plans) {
@@ -168,12 +166,12 @@ function createCards(plans) {
       return `<div class="chip">
       ${activity}
       </div>`
-    }).join()
+    }).join(" ")
     const skillLevelHtml = plan.skillLevel.map(skillLevel => {
       return `
       ${skillLevel}
     `
-    }).join()
+  }).join(" / ")
     const cardHtml = `
                 <div class="card medium">
                   <div class="card-image waves-effect waves-block waves-light">
@@ -183,13 +181,15 @@ function createCards(plans) {
                   <a class="btn-floating midway-fab waves-effect waves-light grey darken-1"><i class="fa fa-share" aria-hidden="true"></i></a>
                   <a href="/plans/${plan._id}/edit" class="btn-floating edit-fab waves-effect transparent waves-light"><i aria-hidden="true" class="fa fa-pencil"></i></a>
                   <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">${plan.title}<i class="material-icons right">more_vert</i></span>` + activityHtml +
-                    `<p>${plan.description}</p>
-                     <p>${skillLevelHtml}</p>
+                    <span class="card-title activator grey-text text-darken-4">${plan.title}<i class="material-icons right">more_vert</i></span>`
+                    + activityHtml +
+                    `<p>${skillLevelHtml}</p>
+                    <p class="orange-text">★★★★</p>
                   </div>
                   <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">${plan.title}<i class="material-icons right">close</i></span>
                     <p>${plan.description}</p>
+                    <a class="btn waves-effect teal lighten-3 waves-light" href="/plans/${plan.slug}">More</a>
                   </div>
                 </div>`
     const cardDiv = document.createElement('div');
