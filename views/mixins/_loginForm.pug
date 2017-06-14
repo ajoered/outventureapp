@@ -11,12 +11,12 @@ mixin loginForm()
                 img.responsive-img(style='width: 150px;', src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-03_bnkfhn.png')
             .row
               .input-field.col.s12
-                i.material-icons.prefix email
+                i.material-icons.prefix.fa.fa-user-o
                 input#email.validate(type='email', name='email')
                 label(for='email') Email
             .row
               .input-field.col.s12
-                i.material-icons.prefix vpn_key
+                i.material-icons.prefix.fa.fa-keyboard-o
                 input#password.validate(type='password', name='password')
                 label(for='password') Password
               label(style='float: right;')
@@ -31,6 +31,3 @@ mixin loginForm()
       a(href='#!') Not a member? Create an account
     .section
     .section
-    
-
-        

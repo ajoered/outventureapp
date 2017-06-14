@@ -11,24 +11,24 @@ mixin registerForm()
                 img.responsive-img(style='width: 150px;', src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-03_bnkfhn.png')
             .row
               .input-field.col.s12
-                i.material-icons.prefix account_circle
+                i.material-icons.prefix.fa.fa-user-o
                 input#name.validate(type='text', name='name')
                 label(for='name') Enter your name
             .row
               .input-field.col.s12
-                i.material-icons.prefix email
+                i.material-icons.prefix.fa.fa-envelope-o
                 input#email.validate(type='email', name='email')
                 label(for='email') Enter your email
             .row
               .input-field.col.s12
-                i.material-icons.prefix vpn_key
+                i.material-icons.prefix.fa.fa-keyboard-o
                 input#password.validate(type='password', name='password')
                 label(for='password') Enter your password
             .row
               .input-field.col.s12
-                i.material-icons.prefix vpn_key
+                i.material-icons.prefix.fa.fa-check-circle-o
                 input#password-confirm.validate(type='password', name='password-confirm')
-                label(for='password-confirm') Enter your password
+                label(for='password-confirm') Confirm your password
               label(style='float: right;')
                 a(href='#!')
                   b Forgot Password?
@@ -36,6 +36,26 @@ mixin registerForm()
             center
               .row
                 button.col.s12.btn.btn-large.waves-effect.primary-blue(type='submit', name='btn-register') Register
+                .form-group
+              .row
+                a.col.s12.btn.waves-effect.teal.darken-4(style='margin:10px;' href='/auth/facebook')
+                  i.fa.fa-facebook
+                  |  Sign in with Facebook
+                a.col.s12.btn.waves-effect.teal.darken-4(style='margin:10px;' href='/auth/twitter')
+                  i.fa.fa-twitter
+                  |  Sign in with Twitter
+                a.col.s12.btn.waves-effect.teal.darken-4(style='margin:10px;' href='/auth/google')
+                  i.fa.fa-google-plus
+                  |  Sign in with Google
+                a.col.s12.btn.waves-effect.teal.darken-4(style='margin:10px;' href='/auth/github')
+                  i.fa.fa-github
+                  |  Sign in with GitHub
+                a.col.s12.btn.waves-effect.teal.darken-4(style='margin:10px;' href='/auth/linkedin')
+                  i.fa.fa-linkedin
+                  |  Sign in with LinkedIn
+                a.col.s12.btn.waves-effect.teal.darken-4(style='margin:10px;' href='/auth/instagram')
+                  i.fa.fa-instagram
+                  |  Sign in with Instagram
               //- .row
               //-   button.col.s12.btn.btn-large.waves-effect.cyan.darken-4(type='submit', name='') Facebook
     .section
