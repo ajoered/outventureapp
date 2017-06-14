@@ -1,0 +1,11 @@
+extends ../layout
+
+include ../mixins/_navbar
+include ../mixins/_loginForm
+
+block header
+  +navbar()
+
+block content
+  .container
+    +loginForm()

@@ -1,36 +1,42 @@
-mixin loginForm()
+mixin registerForm()
   .section
   main
     center
       .section
       .container
         .z-depth-1.grey.lighten-4.row(style='padding: 32px 48px 0px 48px; border: 1px solid #EEE;')
-          form.col.s12(action="/login" method='post')
+          form.col.s12(action="/register" method="POST")
             .row
               .col.s12
                 img.responsive-img(style='width: 150px;', src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-03_bnkfhn.png')
             .row
               .input-field.col.s12
+                i.material-icons.prefix account_circle
+                input#name.validate(type='text', name='name')
+                label(for='name') Enter your name
+            .row
+              .input-field.col.s12
                 i.material-icons.prefix email
                 input#email.validate(type='email', name='email')
-                label(for='email') Email
+                label(for='email') Enter your email
             .row
               .input-field.col.s12
                 i.material-icons.prefix vpn_key
                 input#password.validate(type='password', name='password')
-                label(for='password') Password
+                label(for='password') Enter your password
+            .row
+              .input-field.col.s12
+                i.material-icons.prefix vpn_key
+                input#password-confirm.validate(type='password', name='password-confirm')
+                label(for='password-confirm') Enter your password
               label(style='float: right;')
                 a(href='#!')
                   b Forgot Password?
             br
             center
               .row
-                button.col.s12.btn.btn-large.waves-effect.primary-blue(type='submit', name='btn_login') Login
+                button.col.s12.btn.btn-large.waves-effect.primary-blue(type='submit', name='btn-register') Register
               //- .row
               //-   button.col.s12.btn.btn-large.waves-effect.cyan.darken-4(type='submit', name='') Facebook
-      a(href='#!') Not a member? Create an account
     .section
     .section
-    
-
-        

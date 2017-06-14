@@ -94,6 +94,6 @@ exports.mapPlans = async (req, res) => {
       activities: activities,
       skillLevel: skillLevel
     };
-  const plans = await Plan.find(q).limit(10);
+  const plans = await Plan.find(q).limit(100);
   res.json(plans);
 };

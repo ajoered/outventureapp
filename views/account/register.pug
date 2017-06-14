@@ -1,0 +1,12 @@
+extends ../layout
+
+include ../mixins/_navbar
+include ../mixins/_registerForm
+
+block header
+  +navbar()
+
+block content
+  .container
+    +registerForm()
+  
