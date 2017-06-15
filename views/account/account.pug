@@ -1,32 +1,60 @@
 extends ../layout
 
-include ../mixins/_navbar
+include ../mixins/_navbarLanding
+include ../mixins/_planCard
 
 block header
-  +navbar()
+  +navbarLanding()
   
 block content
-  .section
-  main
-    center
-      .section
-      .container
-        .z-depth-1.grey.lighten-4.row(style='padding: 32px 48px 0px 48px; border: 1px solid #EEE;')
-          form.col.s12(action="/account" method="POST")
-            .row
-              .col.s12
-                h4 Edit your Account
-            .row
-              .input-field.col.s12
-                i.material-icons.prefix.fa.fa-user-o
-                input#name(type='text', name='name', value=user.name)
-                label(for='name') Name
-            .row
-              .input-field.col.s12
-                i.material-icons.prefix.fa.fa-envelope-o
-                input#email.validate(type='email', name='email', value=user.email)
-                label(for='email') Email
-            br
-            center
-              .row
-                button.col.s12.btn.btn-large.waves-effect.primary-blue(type='submit', name='btn-update') Update 
+  .parallaxx.parallax-profile
+    .header-profile-section.background-transparent-grey
+      .container.container-profile
+        .row.center
+          .col.m2.push-m5.s4.push-s4
+            img.circle.responsive-img(src='http://www.ajoered.com/assets/img/demo-portraits/xajoered.png.pagespeed.ic.QsDj1tZU6O.png')
+        .row.center
+          .col.s12
+            h4.white-text.text-300=user.name
+          .col.m6.push-m3.s12
+            i.white-text.text-300=user.bio
+          .col.m2.push-m4.s12 
+            a.btn-floating.waves-effect.transparent.waves-light(href=`/account/edit`)
+              i.fa.fa-pencil(aria-hidden='true') 
+        hr
+        .row.center.white-text.text-300
+          .col.m3
+            h5 4
+            h6.text-300
+              i.fa.fa-globe(aria-hidden='true')
+              |  Outings
+          .col.m3
+            h5 2
+            h6.text-300
+              i.fa.fa-lightbulb-o(aria-hidden='true')
+              |  Ideas
+          .col.m3
+            h5 9
+            h6.text-300
+              i.fa.fa-check-square-o(aria-hidden='true')
+              |  Done
+          .col.m3
+            h5.grey-text.text-lighten-2 20
+            h6.text-300
+              i.fa.fa-heart-o(aria-hidden='true')
+              |  Saved
+  .container
+    .row
+      .col.s12
+        ul.tabs.tabs-fixed-width
+          li.tab.col.s3
+            a.active(href='#saved') Saved
+          li.tab.col.s3
+            a(href='#outings') Outings
+          li.tab.col.s3
+            a(href='#done') Done
+      #saved.col.s12
+        each plan in userPlans
+          +planCard(plan)
+      #outings.col.s12
+      #done.col.s12

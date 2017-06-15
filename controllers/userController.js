@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const Plan = mongoose.model('Plan');
 const promisify = require('es6-promisify');
 
 exports.loginForm = (req, res) => {
@@ -39,15 +40,22 @@ exports.register = async (req, res, next) => {
   next();
 };
 
-exports.account = (req, res) => {
-  res.render('account/account', { title: 'Edit Your Account' });
+exports.account = async (req, res) => {
+  const userPlans = await Plan.find({
+    author: { $in: req.user._id }
+  });
+  res.render('account/account', {userPlans, title: 'Your Account' });
 };
 
+exports.accountEdit = (req, res) => {
+  res.render('account/accountEdit', { title: 'Edit Your Account' });
+};
 
 exports.updateAccount = async (req, res) => {
   const updates = {
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    bio: req.body.bio
   };
 
   const user = await User.findOneAndUpdate(

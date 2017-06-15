@@ -34,11 +34,11 @@ router.post('/register',
 );
 router.get('/logout', authController.logout)
 
-router.get('/account', authController.isLoggedIn, userController.account);
-router.post('/account', catchErrors(userController.updateAccount));
+router.get('/account', authController.isLoggedIn, catchErrors(userController.account));
+router.get('/account/edit', authController.isLoggedIn, userController.accountEdit);
+router.post('/account/edit', catchErrors(userController.updateAccount));
 
 //API
-
 router.get('/api/plans/near', catchErrors(planController.mapPlans))
 
 module.exports = router;
