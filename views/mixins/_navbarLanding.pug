@@ -1,7 +1,7 @@
 mixin navbarLanding()
   .navbar-fixed
     nav
-      .nav-wrapper.nav-wrapper-landing
+      .nav-wrapper.nav-wrapper-landing.z-depth-0
         // logo
         a.brand-logo(href='/')
           img#nav-landing-logo(src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png', alt='Logo')
@@ -11,16 +11,16 @@ mixin navbarLanding()
         // Desktop menu items
         ul.left.hide-on-med-and-down(style='padding-left:20vw;')
           li
-            a(href='#')
-              i.left.fa.fa-globe(aria-hidden='true')
-              | EXPLORE
+            a(href='/')
+              i.left.fa.fa-search(aria-hidden='true')
+              | DISCOVER
           li
-            a.dropdown-button(href='#', data-activates='create-dropdown', data-beloworigin='true', data-constrainwidth='false')
+            a.dropdown-button(href='#', data-activates='create-dropdown', data-beloworigin='true', data-constrainwidth='true')
               i.left.fa.fa-plus-square-o(aria-hidden='true')
               | CREATE
               i.material-icons.right arrow_drop_down
           li
-            a.dropdown-button(href='#', data-activates='about-us-dropdown', data-beloworigin='true', data-constrainwidth='false')
+            a.dropdown-button(href='#', data-activates='about-us-dropdown', data-beloworigin='true', data-constrainwidth='true')
               | ABOUT US
               i.material-icons.right arrow_drop_down
         if user
@@ -28,13 +28,13 @@ mixin navbarLanding()
             li(style="padding-top:8px")
               img.avatar(src=user.gravatar + 'd=retro')
             li
-              a.dropdown-button(href='#', data-activates='profile-dropdown', data-beloworigin='true', data-constrainwidth='false') #{user.name}
+              a.dropdown-button(href='#', data-activates='profile-dropdown', data-beloworigin='true', data-constrainwidth='true') #{user.name}
                 i.material-icons.right arrow_drop_down
         else
           ul.right.hide-on-med-and-down
             a.waves-effect.waves-light.btn.cyan.grey.lighten-5(href='/login', style='color:black!important;') Login
             a.waves-effect.waves-light.btn.primary-blue(href='/register', style='margin-left:-10px;color:white!important;') Sign Up
-        ul#profile-dropdown.dropdown-content
+        ul#profile-dropdown.dropdown-content(style="width: 300px !important")
           li
             a(href='#') My Account
           li
