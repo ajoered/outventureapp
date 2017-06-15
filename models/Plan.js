@@ -35,6 +35,11 @@ const planSchema = new mongoose.Schema({
   }
 },
 photo: String,
+author: {
+  type: mongoose.Schema.ObjectId,
+  ref: 'User',
+  required: 'You must supply an author'
+}
 });
 
 planSchema.index({

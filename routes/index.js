@@ -6,17 +6,20 @@ const authController = require('../controllers/authController')
 const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(planController.explore))
-router.get('/addPlan', planController.addPlan)
+router.get('/addPlan', authController.isLoggedIn, planController.addPlan)
+
 router.post('/addPlan',
   planController.upload,
   catchErrors(planController.resize),
   catchErrors(planController.createPlan)
 );
+
 router.post('/addPlan/:id',
   planController.upload,
   catchErrors(planController.resize),
   catchErrors(planController.updatePlan)
 );
+
 router.get('/plans/:id/edit', catchErrors(planController.editPlan))
 router.get('/plans/:slug', catchErrors(planController.getPlanBySlug))
 
@@ -30,6 +33,9 @@ router.post('/register',
   authController.login
 );
 router.get('/logout', authController.logout)
+
+router.get('/account', authController.isLoggedIn, userController.account);
+router.post('/account', catchErrors(userController.updateAccount));
 
 //API
 

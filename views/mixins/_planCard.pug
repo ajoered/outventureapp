@@ -16,5 +16,6 @@ mixin planCard(plan = {})
         i.fa.fa-share-square-o(aria-hidden='true')
       a.btn-floating.halfway-fab.waves-effect.waves-light.primary-pink.lighten-1
         i.fa.fa-heart(aria-hidden='true')
-      a.btn-floating.edit-fab.waves-effect.transparent.waves-light(href=`/plans/${plan._id}/edit`)
-        i.fa.fa-pencil(aria-hidden='true')
+      if user && plan.author.equals(user._id)
+        a.btn-floating.edit-fab.waves-effect.transparent.waves-light(href=`/plans/${plan._id}/edit`)
+          i.fa.fa-pencil(aria-hidden='true')

@@ -45,7 +45,7 @@ exports.addPlan = (req, res) => {
 };
 
 exports.createPlan = async (req, res) => {
-  console.log(req.body);
+  req.body.author = req.user._id;
   const plan = new Plan(req.body)
   await plan.save()
   req.flash('success', `Successfully Created ${plan.title}. Care to leave a review?`);
@@ -63,16 +63,23 @@ exports.updatePlan = async (req, res) => {
   // Redriect them the store and tell them it worked
 };
 
+const confirmOwner = (plan, user) => {
+  if (!plan.author.equals(user._id)) {
+    throw Error('You must own a plan in order to edit it!');
+  }
+};
+
 exports.editPlan = async (req, res) => {
   // 1. Find the store given the ID
   const plan = await Plan.findOne({ _id: req.params.id });
   // 2. confirm they are the owner of the plan
+  confirmOwner(plan, req.user)
   // 3. Render out the edit form so the user can update their plan
   res.render('editPlan', { title: `Edit ${plan.title}`, plan });
 };
 
 exports.getPlanBySlug = async (req, res) => {
-  const plan = await Plan.findOne({ slug: req.params.slug });
+  const plan = await Plan.findOne({ slug: req.params.slug }).populate('author');
   if (!plan) return next();
   res.render('plan', { plan, title: plan.title });
 }
