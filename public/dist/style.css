@@ -86,6 +86,10 @@ html {
   background-color: #EF6267!important;
 }
 
+.primary-pink-text {
+  color: #EF6267!important;
+}
+
 .primary-blue {
   background-color: #202D3D!important
 }
@@ -458,15 +462,15 @@ color: #fff;
 }
 
 .tabs .tab a {
-  color: rgb(29, 36, 46)
+  color: rgb(29, 36, 46)!important;
 }
 
 .tabs .tab a {
-  color: rgb(29, 36, 46)
+  color: rgb(29, 36, 46)!important;
 }
 
 .tabs .tab a:hover, .tabs .tab a.active {
-  color: rgb(29, 36, 46)
+  color: rgb(29, 36, 46)!important;
 }
 
 .tabs {

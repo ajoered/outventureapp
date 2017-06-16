@@ -1108,12 +1108,12 @@ function createCards(plans) {
   }
   plans.forEach(function (plan) {
     var activityHtml = plan.activities.map(function (activity) {
-      return '<div class="chip">\n      ' + activity + '\n      </div>';
-    }).join(" ");
+      return '<div class="chip">\n      <img src="https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png">\n      ' + activity + '\n      </div>';
+    }).slice(0, 2).join(" ");
     var skillLevelHtml = plan.skillLevel.map(function (skillLevel) {
       return '\n      ' + skillLevel + '\n    ';
     }).join(" / ");
-    var cardHtml = '\n                <div class="card medium">\n                  <div class="card-image waves-effect waves-block waves-light">\n                    <img class="activator" src="uploads/' + (plan.photo || 'canoeing.jpg') + '">\n                  </div>\n                  <a class="btn-floating halfway-fab waves-effect waves-light primary-pink lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>\n                  <a class="btn-floating midway-fab waves-effect waves-light grey darken-1"><i class="fa fa-share" aria-hidden="true"></i></a>\n                  <a href="/plans/' + plan._id + '/edit" class="btn-floating edit-fab waves-effect transparent waves-light"><i aria-hidden="true" class="fa fa-pencil"></i></a>\n                  <div class="card-content">\n                    <span class="card-title activator grey-text text-darken-4">' + plan.title + '<i class="material-icons right">more_vert</i></span>' + activityHtml + ('<p>' + skillLevelHtml + '</p>\n                    <p class="orange-text">\u2605\u2605\u2605\u2605</p>\n                  </div>\n                  <div class="card-reveal">\n                    <span class="card-title grey-text text-darken-4">' + plan.title + '<i class="material-icons right">close</i></span>\n                    <p>' + plan.description + '</p>\n                    <a class="btn waves-effect teal lighten-3 waves-light" href="/plans/' + plan.slug + '">More</a>\n                  </div>\n                </div>');
+    var cardHtml = '\n\n<div class="card medium z-depth-2">\n  <div class="card-image waves-effect waves-block waves-light">\n    <img class="activator" src="/uploads/' + (plan.photo || plan.activities[0] + '.jpeg') + '">\n  </div>\n    <div class="card-content">\n      <span class="card-title activator grey-text text-darken-4">' + plan.title + '\n        <i class="material-icons right">more_vert</i>\n      </span>' + activityHtml + '\n      <div class="div">' + skillLevelHtml + ('</div>\n    </div>\n\n    <div class="card-reveal">\n      <span class="card-title grey-text text-darken-4">' + plan.title + '\n        <i class="material-icons right">close</i>\n      </span>\n      <p>' + plan.description + '</p>\n      <a class="btn-floating waves-effect teal lighten-3 waves-light" href="' + plan.slug + '"></a>\n    </div>\n\n    <a class="btn-floating midway-fab waves-effect transparent waves-light">\n      <i class="fa fa-share-square-o" aria-hidden="true"></i></a>\n      <form class="heart" method="POST" action="/api/plans/' + plan._id + '/heart">\n        <button class="btn-floating halfway-fab waves-effect waves-light transparent" type="submit" name="heart">\n          <i class="fa fa-heart primary-pink-text" aria-hidden="true"></i>\n        </button>\n      </form>\n  </div>');
     var cardDiv = document.createElement('div');
     cardDiv.className = "col m6 s12";
     cardDiv.setAttribute("id", plan._id);
@@ -1937,6 +1937,10 @@ var _initmap = __webpack_require__(9);
 
 var _initmap2 = _interopRequireDefault(_initmap);
 
+var _heart = __webpack_require__(29);
+
+var _heart2 = _interopRequireDefault(_heart);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 $(document).ready(function () {
@@ -1955,8 +1959,12 @@ $(document).ready(function () {
     $('.parallax').parallax();
     $('.carousel').carousel();
     $('.modal').modal();
+
     scrollMagic();
 });
+
+var hearts = document.querySelectorAll('form.heart');
+$(hearts).on("submit", _heart2.default);
 (0, _initmap2.default)(document.getElementById('map'));
 
 (0, _autocomplete2.default)(document.getElementById("address"), document.getElementById("lat"), document.getElementById("lng"));
@@ -2054,6 +2062,38 @@ function scrollMagic() {
     var offset2 = mapFix.offset();
     mapFix.offset(-150);
 };
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = __webpack_require__(10);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ajaxHeart(e) {
+  var _this = this;
+
+  e.preventDefault();
+  console.log('HEART ITTT!!!!!!!!!!!!!!!!');
+  console.log(this);
+  _axios2.default.post(this.action).then(function (res) {
+    console.log(_this.heart);
+    var isHearted = _this.heart.firstChild.classList.toggle('primary-pink-text');
+    $('.heart-count').html(res.data.hearts.length.toString());
+  }).catch(console.error);
+}
+
+exports.default = ajaxHeart;
 
 /***/ })
 /******/ ]);

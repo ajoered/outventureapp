@@ -41,4 +41,6 @@ router.post('/account/edit', catchErrors(userController.updateAccount));
 //API
 router.get('/api/plans/near', catchErrors(planController.mapPlans))
 
+router.post('/api/plans/:id/heart', catchErrors(planController.heartPlan))
+
 module.exports = router;

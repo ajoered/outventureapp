@@ -25,6 +25,10 @@ mixin navbarLanding()
               i.material-icons.right arrow_drop_down
         if user
           ul.right.hide-on-med-and-down
+            li
+              a.heart-count(href='/account' style='font-size:24px;') #{user.hearts.length}
+            li(style="margin-left:-10px;padding-right:15px;")
+              i.left.fa.fa-heart-o(aria-hidden='true')                  
             li(style="padding-top:8px")
               img.avatar(src=user.gravatar + 'd=retro')
             li

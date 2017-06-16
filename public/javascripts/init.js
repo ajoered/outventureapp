@@ -1,5 +1,6 @@
 import autocomplete from './modules/autocomplete';
 import initMap from './modules/initmap';
+import ajaxHeart from './modules/heart';
 
 $(document).ready(function(){
   $('.button-collapse').sideNav();
@@ -17,9 +18,13 @@ $(document).ready(function(){
   $('.parallax').parallax();
   $('.carousel').carousel();
   $('.modal').modal();
+
   scrollMagic();
 
 });
+
+  const hearts = document.querySelectorAll('form.heart');
+  $(hearts).on("submit", ajaxHeart)
   initMap(document.getElementById('map'));
 
   autocomplete( document.getElementById("address"), document.getElementById("lat"), document.getElementById("lng") );

@@ -2,20 +2,30 @@ mixin planCard(plan = {})
   .col.m6.s12
     .card.medium.z-depth-2
       .card-image.waves-effect.waves-block.waves-light
-        img.activator(src=`/uploads/${plan.photo || 'canoeing.jpg'}`)
+        img.activator(src=`/uploads/${plan.photo || plan.activities[0] + '.jpeg'} `)
       .card-content
         span.card-title.activator.grey-text.text-darken-4= plan.title
           i.material-icons.right more_vert
-        p= plan.skillLevel
+        - const activities = plan.activities.slice(0, 2) || []
+        each activity in activities
+          .chip= activity
+            img(src=`https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png`)
+        - const skillLevels = plan.skillLevel || [] 
+        .div
+          each skillLevel in skillLevels    
+            =skillLevel + " "
       .card-reveal
         span.card-title.grey-text.text-darken-4= plan.title
           i.material-icons.right close
         p= plan.description
         a.btn-floating.waves-effect.teal.lighten-3.waves-light(href=`/plans/${plan.slug}`) #{plan.name}
-      a.btn-floating.midway-fab.waves-effect.teal.lighten-3.waves-light
+      a.btn-floating.midway-fab.waves-effect.transparent.waves-light
         i.fa.fa-share-square-o(aria-hidden='true')
-      a.btn-floating.halfway-fab.waves-effect.waves-light.primary-pink.lighten-1
-        i.fa.fa-heart(aria-hidden='true')
+      form.heart(method="POST" action=`/api/plans/${plan._id}/heart`)
+        - const heartStrings = user.hearts.map(obj => obj.toString())
+        - const heartClass = heartStrings.includes(plan._id.toString()) ? 'primary-pink-text' : ''
+        button.btn-floating.halfway-fab.waves-effect.waves-light.transparent(type='submit' name='heart' )
+          i.fa.fa-heart(aria-hidden='true' class=heartClass)
       if user && plan.author.equals(user._id)
         a.btn-floating.edit-fab.waves-effect.transparent.waves-light(href=`/plans/${plan._id}/edit`)
-          i.fa.fa-pencil(aria-hidden='true')
+          i.material-icons.right mode_edit

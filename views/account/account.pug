@@ -20,7 +20,7 @@ block content
             i.white-text.text-300=user.bio
           .col.m2.push-m4.s12 
             a.btn-floating.waves-effect.transparent.waves-light(href=`/account/edit`)
-              i.fa.fa-pencil(aria-hidden='true') 
+              i.material-icons.right mode_edit
         hr
         .row.center.white-text.text-300
           .col.m3
@@ -39,7 +39,7 @@ block content
               i.fa.fa-check-square-o(aria-hidden='true')
               |  Done
           .col.m3
-            h5.grey-text.text-lighten-2 20
+            h5.grey-text.text-lighten-2.heart-count #{user.hearts.length}
             h6.text-300
               i.fa.fa-heart-o(aria-hidden='true')
               |  Saved

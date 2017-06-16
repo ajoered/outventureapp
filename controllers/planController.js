@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Plan = mongoose.model('Plan');
+const User = mongoose.model('User');
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
@@ -103,4 +104,17 @@ exports.mapPlans = async (req, res) => {
     };
   const plans = await Plan.find(q).limit(100);
   res.json(plans);
+};
+
+
+exports.heartPlan = async (req, res) => {
+  const hearts = req.user.hearts.map(obj => obj.toString());
+  //if not included add, else remove
+  const operator = hearts.includes(req.params.id) ? '$pull' : '$addToSet';
+  const user = await User
+    .findByIdAndUpdate(req.user._id,
+      { [operator]: { hearts: req.params.id } },
+      { new: true }
+    );
+  res.json(user);
 };

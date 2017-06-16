@@ -164,34 +164,48 @@ function createCards(plans) {
   plans.forEach(plan => {
     const activityHtml = plan.activities.map(activity => {
       return `<div class="chip">
+      <img src="https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png">
       ${activity}
       </div>`
-    }).join(" ")
+    }).slice(0, 2).join(" ")
     const skillLevelHtml = plan.skillLevel.map(skillLevel => {
       return `
       ${skillLevel}
     `
   }).join(" / ")
     const cardHtml = `
-                <div class="card medium">
-                  <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="uploads/${plan.photo || 'canoeing.jpg'}">
-                  </div>
-                  <a class="btn-floating halfway-fab waves-effect waves-light primary-pink lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                  <a class="btn-floating midway-fab waves-effect waves-light grey darken-1"><i class="fa fa-share" aria-hidden="true"></i></a>
-                  <a href="/plans/${plan._id}/edit" class="btn-floating edit-fab waves-effect transparent waves-light"><i aria-hidden="true" class="fa fa-pencil"></i></a>
-                  <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">${plan.title}<i class="material-icons right">more_vert</i></span>`
-                    + activityHtml +
-                    `<p>${skillLevelHtml}</p>
-                    <p class="orange-text">★★★★</p>
-                  </div>
-                  <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">${plan.title}<i class="material-icons right">close</i></span>
-                    <p>${plan.description}</p>
-                    <a class="btn waves-effect teal lighten-3 waves-light" href="/plans/${plan.slug}">More</a>
-                  </div>
-                </div>`
+
+<div class="card medium z-depth-2">
+  <div class="card-image waves-effect waves-block waves-light">
+    <img class="activator" src="/uploads/${plan.photo || plan.activities[0] + '.jpeg'}">
+  </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">${plan.title}
+        <i class="material-icons right">more_vert</i>
+      </span>`+
+      activityHtml +
+      `
+      <div class="div">`+
+        skillLevelHtml +
+      `</div>
+    </div>
+
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">${plan.title}
+        <i class="material-icons right">close</i>
+      </span>
+      <p>${plan.description}</p>
+      <a class="btn-floating waves-effect teal lighten-3 waves-light" href="${plan.slug}"></a>
+    </div>
+
+    <a class="btn-floating midway-fab waves-effect transparent waves-light">
+      <i class="fa fa-share-square-o" aria-hidden="true"></i></a>
+      <form class="heart" method="POST" action="/api/plans/${plan._id}/heart">
+        <button class="btn-floating halfway-fab waves-effect waves-light transparent" type="submit" name="heart">
+          <i class="fa fa-heart primary-pink-text" aria-hidden="true"></i>
+        </button>
+      </form>
+  </div>`
     const cardDiv = document.createElement('div');
     cardDiv.className = "col m6 s12"
     cardDiv.setAttribute("id", plan._id);
