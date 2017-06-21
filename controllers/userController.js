@@ -27,7 +27,7 @@ exports.validateRegister = (req, res, next) => {
   const errors = req.validationErrors();
   if (errors) {
     req.flash('error', errors.map(err => err.msg));
-    res.render('register', { title: 'Register', body: req.body, flashes: req.flash() });
+    res.render('account/register', { title: 'Register', body: req.body, flashes: req.flash() });
     return; // stop the fn from running
   }
   next(); // there were no errors!
@@ -44,7 +44,13 @@ exports.account = async (req, res) => {
   const userPlans = await Plan.find({
     author: { $in: req.user._id }
   });
-  res.render('account/account', {userPlans, title: 'Your Account' });
+
+  const userHeartedPlans = await Plan.find({
+    _id: { $in: req.user.hearts }
+  });
+
+  console.log(userHeartedPlans);
+  res.render('account/account', {userPlans, userHeartedPlans, title: 'Your Account' });
 };
 
 exports.accountEdit = (req, res) => {

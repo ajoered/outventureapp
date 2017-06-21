@@ -1,0 +1,15 @@
+mixin reviewForm(store)
+  center
+    .section
+      .z-depth-1.grey.lighten-4.row(style='padding: 32px 48px 0px 48px; border: 1px solid #EEE;')
+        form.col.s12(action=`/reviews/${plan._id}` method="POST")
+          .row
+            .input-field
+              textarea(name="text" placeholder="Been on this awesome adventure? Rate it!" class="materialize-textarea")
+          .row
+            .reviewer__stars
+              each num in [5,4,3,2,1]
+                input(type="radio" id=`star${num}` name="rating" value=num)
+                label(for=`star${num}`)
+          .row      
+            input.btn(type="submit" value="Submit Review →")

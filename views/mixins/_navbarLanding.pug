@@ -28,7 +28,7 @@ mixin navbarLanding()
             li
               a.heart-count(href='/account' style='font-size:24px;') #{user.hearts.length}
             li(style="margin-left:-10px;padding-right:15px;")
-              i.left.fa.fa-heart-o(aria-hidden='true')                  
+              i.left.fa.fa-heart-o(aria-hidden='true')
             li(style="padding-top:8px")
               img.avatar(src=user.gravatar + 'd=retro')
             li
@@ -40,7 +40,7 @@ mixin navbarLanding()
             a.waves-effect.waves-light.btn.primary-blue(href='/register', style='margin-left:-10px;color:white!important;') Sign Up
         ul#profile-dropdown.dropdown-content(style="width: 300px !important")
           li
-            a(href='#') My Account
+            a(href='/account') My Account
           li
             a(href='/logout') Logout
         ul#about-us-dropdown.dropdown-content

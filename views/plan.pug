@@ -1,6 +1,7 @@
 extends layout
 
 include mixins/_navbarLanding
+include mixins/_reviewForm
 
 block header
   +navbarLanding()
@@ -9,23 +10,26 @@ block content
   .parallaxx.parallax-hiking
     .section.valign-wrapper.header-parallax-section
       .container.background-transparent-grey
-        h2.header.center.white-text.text-700 HIKE RUNYON CANYON
+        h2.header.center.white-text.text-700= plan.title.toUpperCase()
         hr.hr-header
         .row.center
-          h6.header.col.s12.white-text.text-500.spaced-text
-            | For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the top of Runyon Canyon Park, using a trailhead along Mulholland Drive for a short loop to the park's high point.
+          h6.header.col.s12.white-text.text-500.spaced-text= plan.description
     .row.left
       .btn.primary-pink(style='margin-left:20px;margin-top:10px;') Photos
     .row.right(style='margin-right:20px;')
-      a.icon-button.heart(href='')
-        i.icon-heart
-        span
-      a.icon-button.twitter(href='')
-        i.icon-twitter
-        span
-      a.icon-button.facebook(href='')
-        i.icon-facebook
-        span
+      .col.s4
+        a.btn-floating.waves-effect.transparent.waves-light
+          i.fa.fa-share-square-o(aria-hidden='true')
+      .col.s4
+        form.heart(method="POST" action=`/api/plans/${plan._id}/heart`)
+          - const heartStrings = user.hearts.map(obj => obj.toString())
+          - const heartClass = heartStrings.includes(plan._id.toString()) ? 'primary-pink-text' : ''
+          button.btn-floating.waves-effect.waves-light.transparent(type='submit' name='heart' )
+            i.fa.fa-heart(aria-hidden='true' class=heartClass)
+      .col.s4
+        if user && plan.author.equals(user._id)
+          a.btn-floating.waves-effect.transparent.waves-light(href=`/plans/${plan._id}/edit`)
+            i.material-icons.right mode_edit
   .container
     .row
       .col.s12
@@ -120,79 +124,20 @@ block content
               option(value='1') Highest First
               option(value='2') Lowest First
               option(value='3') Most Helpful
-        .col.m6.s12.review
-          .card-panel.white
-            .row.title.valign-wrapper.center
-              .col.s4.border-right
-                | Alvaro
-              .col.s4.orange-text.border-right
-                | ★★★★★
-              .col.s4
-                a.black-text(href='#')
-                  i.fa.fa-thumbs-up.black-text(aria-hidden='true')
-                a.black-text(href='#')
-                  i.fa.fa-thumbs-down.red-text(aria-hidden='true')
-                  |  -1
-            hr
-            span.black-text
-              | I am a very simple card. I am good at containing small bits of information.
-              | I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            br
-            span.row.right.grey-text 3 months ago
-        .col.m6.s12
-          .card-panel.white
-            .row.title.valign-wrapper.center
-              .col.s4.border-right
-                | Pepe
-              .col.s4.orange-text.border-right
-                | ★★★★★
-              .col.s4
-                a.black-text(href='')
-                  i.fa.fa-thumbs-up.green-text(aria-hidden='true')
-                a.black-text(href='#')
-                  i.fa.fa-thumbs-down.black-text(aria-hidden='true')
-                  |  +2
-            hr
-            span.black-text
-              | I am a very simple card. I am good at containing small bits of information.
-              | I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            br
-            span.row.right.grey-text 3 months ago
-        .col.m6.s12
-          .card-panel.white
-            .row.title.valign-wrapper.center
-              .col.s4.border-right
-                | Pedro
-              .col.s4.orange-text.border-right
-                | ★★★
-              .col.s4
-                a.black-text(href='')
-                  i.fa.fa-thumbs-up.green-text(aria-hidden='true')
-                a.black-text(href='#')
-                  i.fa.fa-thumbs-down.black-text(aria-hidden='true')
-                  |  +5
-            hr
-            span.black-text
-              | I am a very simple card. I am good at containing small bits of information.
-              | I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            br
-            span.row.right.grey-text 2 months ago
-        .col.m6.s12
-          .card-panel.white
-            .row.title.valign-wrapper.center
-              .col.s4.border-right
-                | Alan
-              .col.s4.orange-text.border-right
-                | ★★★★
-              .col.s4
-                a.black-text(href='')
-                  i.fa.fa-thumbs-up.green-text(aria-hidden='true')
-                a.black-text(href='#')
-                  i.fa.fa-thumbs-down.black-text(aria-hidden='true')
-                  |  +9
-            hr
-            span.black-text
-              | I am a very simple card. I am good at containing small bits of information.
-              | I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            br
-            span.row.right.grey-text 1 month ago
+        if plan.reviews 
+          .row
+            each review in plan.reviews       
+              .col.m6.s12
+                .card-panel.white
+                  .row.title.valign-wrapper.center
+                    .col.s4.border-right= review.author.name
+                    .col.s4.orange-text.border-right(title=`Rated ${review.rating} out of 5 stars`)
+                      = "★".repeat(review.rating)
+                      = "✩".repeat(5 - review.rating)
+                    .col.s4.grey-text(datetime=review.created)
+                      = h.moment(review.created).fromNow()
+                  hr
+                  span.black-text= review.text
+        .row    
+          if user
+            +reviewForm(plan)

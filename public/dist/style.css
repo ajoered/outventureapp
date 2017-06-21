@@ -108,7 +108,6 @@ html {
 
 .spaced-text {
   letter-spacing: 3px;
-  font-size: 20px!important;
 }
 
 .hr-header {
@@ -466,15 +465,15 @@ color: #fff;
 }
 
 .tabs .tab a {
-  color: rgb(29, 36, 46)!important;
+  color: rgb(129, 142, 159)!important;
 }
 
 .tabs .tab a:hover, .tabs .tab a.active {
-  color: rgb(29, 36, 46)!important;
+  color: #EF6267!important;
 }
 
 .tabs {
-  border-bottom: 1px solid #9d9d9d;
+  border-bottom: 1px solid #9d9d9d!important;
 }
 
 .light-grey {
@@ -567,3 +566,42 @@ color: #fff;
 .profile-info {
   padding-top: 90px;
 }
+
+
+/*Reviewer*/
+
+.reviewer__stars {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center; }
+  .reviewer__stars input {
+    display: hidden!important; }
+    .reviewer__stars input:checked ~ label {
+      color: #FFC40E; }
+    .reviewer__stars input + label {
+      font-size: 0;
+      /* These are in the opposite DOM order
+         re-order them to be visually in normal order
+         This is fine for accessibility because our labels have for()
+       */ }
+      .reviewer__stars input + label:before {
+        content: '\2605';
+        font-size: 2rem; }
+      .reviewer__stars input + label[for="star5"] {
+        -ms-flex-order: 5;
+            order: 5; }
+      .reviewer__stars input + label[for="star4"] {
+        -ms-flex-order: 4;
+            order: 4; }
+      .reviewer__stars input + label[for="star3"] {
+        -ms-flex-order: 3;
+            order: 3; }
+      .reviewer__stars input + label[for="star2"] {
+        -ms-flex-order: 2;
+            order: 2; }
+      .reviewer__stars input + label[for="star1"] {
+        -ms-flex-order: 1;
+            order: 1; }
+      .reviewer__stars input + label:hover, .reviewer__stars input + label:hover ~ label {
+        color: #ffdd74; }

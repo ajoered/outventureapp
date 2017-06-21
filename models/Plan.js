@@ -40,6 +40,9 @@ author: {
   ref: 'User',
   required: 'You must supply an author'
 }
+}, {
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true },
 });
 
 planSchema.index({
@@ -63,6 +66,13 @@ planSchema.pre('save', async function(next) {
   }
   next();
   // TODO make more resiliant so slugs are unique
+});
+
+// find reviews where the stores _id property === reviews store property
+planSchema.virtual('reviews', {
+  ref: 'Review', // what model to link?
+  localField: '_id', // which field on the store?
+  foreignField: 'plan' // which field on the review?
 });
 
 module.exports = mongoose.model('Plan', planSchema);

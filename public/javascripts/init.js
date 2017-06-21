@@ -25,6 +25,7 @@ $(document).ready(function(){
 
   const hearts = document.querySelectorAll('form.heart');
   $(hearts).on("submit", ajaxHeart)
+  
   initMap(document.getElementById('map'));
 
   autocomplete( document.getElementById("address"), document.getElementById("lat"), document.getElementById("lng") );

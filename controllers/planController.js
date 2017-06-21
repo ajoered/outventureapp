@@ -42,7 +42,7 @@ exports.explore = async (req, res) => {
 }
 
 exports.addPlan = (req, res) => {
-  res.render('editPlan', { title: 'Add Plan' });
+  res.render('editPlan', { title: 'Add a plan idea' });
 };
 
 exports.createPlan = async (req, res) => {
@@ -80,7 +80,7 @@ exports.editPlan = async (req, res) => {
 };
 
 exports.getPlanBySlug = async (req, res) => {
-  const plan = await Plan.findOne({ slug: req.params.slug }).populate('author');
+  const plan = await Plan.findOne({ slug: req.params.slug }).populate('author reviews');
   if (!plan) return next();
   res.render('plan', { plan, title: plan.title });
 }

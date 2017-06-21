@@ -3,10 +3,14 @@ const router = express.Router();
 const planController = require('../controllers/planController')
 const userController = require('../controllers/userController')
 const authController = require('../controllers/authController')
+const reviewController = require('../controllers/reviewController')
 const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(planController.explore))
-router.get('/addPlan', authController.isLoggedIn, planController.addPlan)
+router.get('/addPlan',
+  authController.isLoggedIn,
+  planController.addPlan
+);
 
 router.post('/addPlan',
   planController.upload,
@@ -15,6 +19,7 @@ router.post('/addPlan',
 );
 
 router.post('/addPlan/:id',
+  authController.isLoggedIn,
   planController.upload,
   catchErrors(planController.resize),
   catchErrors(planController.updatePlan)
@@ -37,10 +42,13 @@ router.get('/logout', authController.logout)
 router.get('/account', authController.isLoggedIn, catchErrors(userController.account));
 router.get('/account/edit', authController.isLoggedIn, userController.accountEdit);
 router.post('/account/edit', catchErrors(userController.updateAccount));
+router.post('/reviews/:id',
+  authController.isLoggedIn,
+  catchErrors(reviewController.addReview)
+);
 
 //API
 router.get('/api/plans/near', catchErrors(planController.mapPlans))
-
 router.post('/api/plans/:id/heart', catchErrors(planController.heartPlan))
 
 module.exports = router;
