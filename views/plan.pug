@@ -126,18 +126,28 @@ block content
               option(value='3') Most Helpful
         if plan.reviews 
           .row
-            each review in plan.reviews       
-              .col.m6.s12
-                .card-panel.white
-                  .row.title.valign-wrapper.center
-                    .col.s4.border-right= review.author.name
-                    .col.s4.orange-text.border-right(title=`Rated ${review.rating} out of 5 stars`)
+            each review in plan.reviews      
+              ul.collapsible(data-collapsible='accordion')
+                li
+                  .collapsible-header
+                    .right-align.orange-text
                       = "★".repeat(review.rating)
-                      = "✩".repeat(5 - review.rating)
-                    .col.s4.grey-text(datetime=review.created)
-                      = h.moment(review.created).fromNow()
-                  hr
-                  span.black-text= review.text
+                    .left-align
+                      i.fa.fa-user-o(aria-hidden='true')
+                      = review.author.name
+                  .collapsible-body
+                    span= review.text
+              //- .col.m6.s12
+              //-   .card-panel.white
+              //-     .row.title.valign-wrapper.center
+              //-       .col.s4.border-right= review.author.name
+              //-       .col.s4.orange-text.border-right(title=`Rated ${review.rating} out of 5 stars`)
+              //-         = "★".repeat(review.rating)
+              //-         = "✩".repeat(5 - review.rating)
+              //-       .col.s4.grey-text(datetime=review.created)
+              //-         = h.moment(review.created).fromNow()
+              //-     hr
+              //-     span.black-text= review.text
         .row    
           if user
             +reviewForm(plan)

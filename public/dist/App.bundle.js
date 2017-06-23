@@ -1969,6 +1969,10 @@ var _initmap = __webpack_require__(11);
 
 var _initmap2 = _interopRequireDefault(_initmap);
 
+var _textChange = __webpack_require__(30);
+
+var _textChange2 = _interopRequireDefault(_textChange);
+
 var _heart = __webpack_require__(10);
 
 var _heart2 = _interopRequireDefault(_heart);
@@ -1993,6 +1997,7 @@ $(document).ready(function () {
     $('.modal').modal();
 
     scrollMagic();
+    (0, _textChange2.default)();
 });
 
 var hearts = document.querySelectorAll('form.heart');
@@ -2095,6 +2100,34 @@ function scrollMagic() {
     var offset2 = mapFix.offset();
     mapFix.offset(-150);
 };
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var cnt = 0,
+    texts = [];
+
+// save the texts in an array for re-use
+$(".textContent").each(function () {
+  texts[cnt++] = $(this).text();
+});
+
+function slide() {
+  if (cnt >= texts.length) cnt = 0;
+  $('#textMessage').html(texts[cnt++]);
+  $('#textMessage').fadeIn('slow').animate({ opacity: 1.0 }, 1500).fadeOut('slow', function () {
+    return slide();
+  });
+}
+
+exports.default = slide;
 
 /***/ })
 /******/ ]);

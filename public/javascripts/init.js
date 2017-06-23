@@ -1,5 +1,6 @@
 import autocomplete from './modules/autocomplete';
 import initMap from './modules/initmap';
+import slide from './modules/textChange';
 import ajaxHeart from './modules/heart';
 
 $(document).ready(function(){
@@ -20,12 +21,13 @@ $(document).ready(function(){
   $('.modal').modal();
 
   scrollMagic();
+  slide()
 
 });
 
   const hearts = document.querySelectorAll('form.heart');
   $(hearts).on("submit", ajaxHeart)
-  
+
   initMap(document.getElementById('map'));
 
   autocomplete( document.getElementById("address"), document.getElementById("lat"), document.getElementById("lng") );

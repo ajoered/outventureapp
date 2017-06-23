@@ -4,15 +4,25 @@ mixin infoSection()
     br
     // Message section
     .row
+      .col.m8.push-m1.s12(style='margin-right:-30px;')
+        h4.center.text-300
+          | Be
+      .col.m4.pull-m2.s12
+        h4.text-500#textMessage
+        .textContent(style='display:none') Happy
+        .textContent(style='display:none') Mindful
+        .textContent(style='display:none') Creative
+        .textContent(style='display:none') Focused 
+        .textContent(style='display:none') Free 
       .col.m10.push-m1.s12
         h4.center.text-300
-          | Outventure is an outdoor lifestyle community focused on making the outdoors more accessible
+          | Embrace the outdoor lifestyle.
     // Icon Section
     .row
       .col.s12.m4
           h2.center.amber-text.text-accent-4
             i.fa.fa-lightbulb-o(aria-hidden='true')
-          h5.center Adventures
+          h5.center Plan Ideas
           p.center.text-500 Discover the best places and activities for every moment and skill-level.
       .col.s12.m4
           h2.center.red-text.text-lighten-2

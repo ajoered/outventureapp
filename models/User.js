@@ -15,6 +15,7 @@ const userSchema = new Schema({
     validate: [validator.isEmail, 'Invalid Email Address'],
     required: 'Please Supply an email address'
   },
+  facebook: String,
   name: {
     type: String,
     required: 'Please supply a name',

@@ -33,6 +33,7 @@
     "html-to-text": "3.2.0",
     "jimp": "0.2.27",
     "juice": "4.0.2",
+    "materialize-social": "^1.0.0",
     "md5": "2.2.1",
     "moment": "2.17.1",
     "mongoose": "4.8.7",

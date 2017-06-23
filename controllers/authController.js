@@ -11,6 +11,15 @@ exports.login = passport.authenticate('local', {
   successFlash: 'You are now logged in!'
 });
 
+exports.facebookCallback = passport.authenticate('facebook', {
+  failureRedirect: '/login',
+  failureFlash: 'Failed Login!',
+  successRedirect: '/account',
+  successFlash: 'You are now logged in!'
+}),
+
+exports.authFacebook = passport.authenticate('facebook', { scope: ['email', 'public_profile'] })
+
 exports.logout = (req, res) => {
   req.logout();
   req.flash('success', 'You are now logged out! 👋');

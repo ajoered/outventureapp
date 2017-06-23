@@ -34,10 +34,12 @@ router.post('/login', authController.login);
 router.get('/register', userController.registerForm)
 router.post('/register',
   userController.validateRegister,
-  userController.register,
+  catchErrors(userController.register),
   authController.login
 );
 router.get('/logout', authController.logout)
+router.get('/auth/facebook', authController.authFacebook);
+router.get('/auth/facebook/callback', authController.facebookCallback);
 
 router.get('/account', authController.isLoggedIn, catchErrors(userController.account));
 router.get('/account/edit', authController.isLoggedIn, userController.accountEdit);

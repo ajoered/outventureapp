@@ -10,6 +10,14 @@ mixin registerForm()
               .col.s12
                 img.responsive-img(style='width: 150px;', src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-03_bnkfhn.png')
             .row
+              a.col.m8.push-m2.s12.waves-effect.waves-light.btn.social.facebook.light-blue.darken-4(style='margin:10px;' href='/auth/facebook')
+                i.fa.fa-facebook
+                |  Sign up with Facebook
+              a.col.m8.push-m2.s12.waves-effect.waves-light.btn.social.google.red.darken-3(style='margin:10px;' href='/auth/facebook')
+                i.fa.fa-google
+                |  Sign up with Google
+            | or use email:     
+            .row
               .input-field.col.s12
                 i.material-icons.prefix.fa.fa-user-o
                 input#name.validate(type='text', name='name')
@@ -37,26 +45,3 @@ mixin registerForm()
               .row
                 button.col.s12.btn.btn-large.waves-effect.primary-blue(type='submit', name='btn-register') Register
                 .form-group
-              .row
-                a.col.s12.btn.waves-effect.teal.darken-4(style='margin:10px;' href='/auth/facebook')
-                  i.fa.fa-facebook
-                  |  Sign in with Facebook
-                a.col.s12.btn.waves-effect.teal.darken-4(style='margin:10px;' href='/auth/twitter')
-                  i.fa.fa-twitter
-                  |  Sign in with Twitter
-                a.col.s12.btn.waves-effect.teal.darken-4(style='margin:10px;' href='/auth/google')
-                  i.fa.fa-google-plus
-                  |  Sign in with Google
-                a.col.s12.btn.waves-effect.teal.darken-4(style='margin:10px;' href='/auth/github')
-                  i.fa.fa-github
-                  |  Sign in with GitHub
-                a.col.s12.btn.waves-effect.teal.darken-4(style='margin:10px;' href='/auth/linkedin')
-                  i.fa.fa-linkedin
-                  |  Sign in with LinkedIn
-                a.col.s12.btn.waves-effect.teal.darken-4(style='margin:10px;' href='/auth/instagram')
-                  i.fa.fa-instagram
-                  |  Sign in with Instagram
-              //- .row
-              //-   button.col.s12.btn.btn-large.waves-effect.cyan.darken-4(type='submit', name='') Facebook
-    .section
-    .section

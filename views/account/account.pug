@@ -21,59 +21,33 @@ block content
           .col.m2.push-m4.s12 
             a.btn-floating.waves-effect.transparent.waves-light(href=`/account/edit`)
               i.material-icons.right mode_edit
-        hr
-        .row.center.white-text.text-300
-          .col.m3
-            h5 4
-            h6.text-300
-              i.fa.fa-globe(aria-hidden='true')
-              |  Outings
-          .col.m3
-            h5 2
-            h6.text-300
-              i.fa.fa-lightbulb-o(aria-hidden='true')
-              |  Ideas
-          .col.m3
-            h5 9
-            h6.text-300
-              i.fa.fa-check-square-o(aria-hidden='true')
-              |  Done
-          .col.m3
-            h5.grey-text.text-lighten-2.heart-count #{user.hearts.length}
-            h6.text-300
-              i.fa.fa-heart-o(aria-hidden='true')
-              |  Saved
-  .row
-    .col.s12
-      ul.tabs.tabs-fixed-width
-        li.tab.col.s3
-          a(href='#created')
-            i.fa.fa-plus-square-o(aria-hidden='true')
-            |  CREATED
-        li.tab.col.s3
-          a.active(href='#saved') 
-            i.fa.fa-heart-o(aria-hidden='true')
-            |  SAVED
-        li.tab.col.s3
-          a(href='#done') 
-            i.fa.fa-check-square-o(aria-hidden='true')
-            |  DONE
-        li.tab.col.s3
-          a(href='#followers') 
-            i.fa.fa-users(aria-hidden='true')
-            |  FOLLOWERS
-        li.tab.col.s3
-          a(href='#following') 
-            i.fa.fa-user-o(aria-hidden='true')
-            |  FOLLOWING
-    #created.col.s12
-      .container
+        br      
+        .row
+          ul.tabs.tabs-fixed-width.transparent
+            li.tab.white-text
+              i.fa.fa-plus-square-o.fa-lg(aria-hidden='true')
+              a(href='#created')
+                |  4 CREATED
+            li.tab.white-text
+              i.fa.fa-heart-o.fa-lg(aria-hidden='true')
+              a(href='#saved').white-text.heart-count=user.hearts.length 
+                |  WISH LIST
+            li.tab.white-text
+              i.fa.fa-check-square-o.fa-lg(aria-hidden='true')
+              a(href='#done') 
+                |  4 DONE
+            li.tab.white-text
+              i.fa.fa-star.fa-lg(aria-hidden='true')
+              a(href='#done') 
+                |  4 REVIEWS    
+            .indicator.white  
+    br    
+    #created
+      .row
         each plan in userPlans
           +planCard(plan)
-    #saved.col.s12
-      .container
+    #saved
+      .row
         each plan in userHeartedPlans
           +planCard(plan)
-    #done.col.s12
-    #followers.col.s12
-    #following.col.s12
+    #done

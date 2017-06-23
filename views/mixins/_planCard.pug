@@ -1,5 +1,5 @@
 mixin planCard(plan = {})
-  .col.m6.s12
+  .col.m4.s12
     .card.medium.z-depth-2
       .card-image.waves-effect.waves-block.waves-light
         img.activator(src=`/uploads/${plan.photo || plan.activities[0] + '.jpeg'} `)
@@ -10,9 +10,9 @@ mixin planCard(plan = {})
         each activity in activities
           .chip= activity
             img(src=`https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png`)
-        - const skillLevels = plan.skillLevel || [] 
+        - const skillLevels = plan.skillLevel || []
         .div
-          each skillLevel in skillLevels    
+          each skillLevel in skillLevels
             =skillLevel + " "
       .card-reveal
         span.card-title.grey-text.text-darken-4= plan.title
