@@ -22,8 +22,10 @@ const userSchema = new Schema({
     trim: true
   },
   bio: String,
+  city: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
+  photo: String,
   hearts: [
     { type: mongoose.Schema.ObjectId, ref: 'Plan' }
   ]

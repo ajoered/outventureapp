@@ -12,7 +12,7 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'displayName', 'photos', 'email']
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log(profile.id);
+    console.log(profile);
           //check user table for anyone with a facebook ID of profile.id
           User.findOne({
               'facebook': profile.id
@@ -26,7 +26,8 @@ passport.use(new FacebookStrategy({
                   user = new User({
                       name: profile.displayName,
                       email: profile.emails[0].value,
-                      facebook: profile.id
+                      facebook: profile.id,
+                      photo: `https://graph.facebook.com/${profile.id}/picture?type=large`
                   });
                   user.save(function(err) {
                       if (err) console.log(err);

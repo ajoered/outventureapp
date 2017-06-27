@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 29);
+/******/ 	return __webpack_require__(__webpack_require__.s = 30);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -377,7 +377,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(26);
+var normalizeHeaderName = __webpack_require__(27);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -471,7 +471,7 @@ module.exports = defaults;
 "use strict";
 
 
-module.exports = __webpack_require__(12);
+module.exports = __webpack_require__(13);
 
 /***/ }),
 /* 3 */
@@ -481,12 +481,12 @@ module.exports = __webpack_require__(12);
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(18);
-var buildURL = __webpack_require__(21);
-var parseHeaders = __webpack_require__(27);
-var isURLSameOrigin = __webpack_require__(25);
+var settle = __webpack_require__(19);
+var buildURL = __webpack_require__(22);
+var parseHeaders = __webpack_require__(28);
+var isURLSameOrigin = __webpack_require__(26);
 var createError = __webpack_require__(6);
-var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(20);
+var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(21);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -579,7 +579,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(23);
+      var cookies = __webpack_require__(24);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ? cookies.read(config.xsrfCookieName) : undefined;
@@ -696,7 +696,7 @@ module.exports = function isCancel(value) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(17);
+var enhanceError = __webpack_require__(18);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -1096,7 +1096,7 @@ function createMarkers(plans, map) {
   });
   markers.forEach(function (marker) {
     return marker.addListener('click', function () {
-      var html = '\n                <div class="card medium">\n                  <div class="card-image waves-effect waves-block waves-light">\n                    <img class="activator" src="uploads/' + (this.plan.photo || 'canoeing.jpg') + '">\n                  </div>\n                  <a class="btn-floating halfway-fab waves-effect waves-light primary-pink lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>\n                  <a class="btn-floating midway-fab waves-effect waves-light grey darken-1"><i class="fa fa-share" aria-hidden="true"></i></a>\n                  <a href="/plans/' + this.plan._id + '/edit" class="btn-floating edit-fab waves-effect transparent waves-light"><i aria-hidden="true" class="fa fa-pencil"></i></a>\n                  <div class="card-content">\n                    <span class="card-title activator grey-text text-darken-4">' + this.plan.title + '<i class="material-icons right">more_vert</i></span>\n                    <p class="orange-text">\u2605\u2605\u2605\u2605\u2605</p>\n                    <a class="btn waves-effect teal lighten-3 waves-light" href="/plans/' + this.plan.slug + '">More</a>\n                  </div>\n                  <div class="card-reveal">\n                    <span class="card-title grey-text text-darken-4">' + this.plan.title + '<i class="material-icons right">close</i></span>\n                    <p>' + this.plan.description + '</p>\n                  </div>\n                </div>';
+      var html = '\n                <div class="card medium">\n                  <div class="card-image waves-effect waves-block waves-light">\n                    <img class="activator" src="images/photos/' + this.plan.activities[0] + '.jpg">\n                  </div>\n                  <a class="btn-floating halfway-fab waves-effect waves-light primary-pink lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>\n                  <a class="btn-floating midway-fab waves-effect waves-light grey darken-1"><i class="fa fa-share" aria-hidden="true"></i></a>\n                  <a href="/plans/' + this.plan._id + '/edit" class="btn-floating edit-fab waves-effect transparent waves-light"><i aria-hidden="true" class="fa fa-pencil"></i></a>\n                  <div class="card-content">\n                    <span class="card-title activator grey-text text-darken-4">' + this.plan.title + '<i class="material-icons right">more_vert</i></span>\n                    <p class="orange-text">\u2605\u2605\u2605\u2605\u2605</p>\n                    <a class="btn waves-effect teal lighten-3 waves-light" href="/plans/' + this.plan.slug + '">More</a>\n                  </div>\n                  <div class="card-reveal">\n                    <span class="card-title grey-text text-darken-4">' + this.plan.title + '<i class="material-icons right">close</i></span>\n                    <p>' + this.plan.description + '</p>\n                  </div>\n                </div>';
       infoWindow.setContent(html);
       infoWindow.open(map, this);
     });
@@ -1154,7 +1154,7 @@ function createCards(plans) {
     var skillLevelHtml = plan.skillLevel.map(function (skillLevel) {
       return '\n      ' + skillLevel + '\n    ';
     }).join(" / ");
-    var cardHtml = '\n\n<div class="card medium z-depth-2">\n  <div class="card-image waves-effect waves-block waves-light">\n    <img class="activator" src="/uploads/' + (plan.photo || plan.activities[0] + '.jpeg') + '">\n  </div>\n    <div class="card-content">\n      <span class="card-title activator grey-text text-darken-4">' + plan.title + '\n        <i class="material-icons right">more_vert</i>\n      </span>' + activityHtml + '\n      <div class="div">' + skillLevelHtml + ('</div>\n    </div>\n\n    <div class="card-reveal">\n      <span class="card-title grey-text text-darken-4">' + plan.title + '\n        <i class="material-icons right">close</i>\n      </span>\n      <p>' + plan.description + '</p>\n      <a class="btn-floating waves-effect teal lighten-3 waves-light" href="' + plan.slug + '"></a>\n    </div>\n\n    <a class="btn-floating midway-fab waves-effect transparent waves-light">\n      <i class="fa fa-share-square-o" aria-hidden="true"></i></a>\n      <form class="heart" method="POST" action="/api/plans/' + plan._id + '/heart">\n        <button class="btn-floating halfway-fab waves-effect waves-light transparent" type="submit" name="heart">\n          <i class="fa fa-heart primary-pink-text" aria-hidden="true"></i>\n        </button>\n      </form>\n  </div>');
+    var cardHtml = '\n\n<div class="card medium z-depth-2">\n  <div class="card-image waves-effect waves-block waves-light">\n    <img class="activator" src="images/photos/' + plan.activities[0] + '.jpg">\n  </div>\n    <div class="card-content">\n      <span class="card-title activator grey-text text-darken-4">' + plan.title + '\n        <i class="material-icons right">more_vert</i>\n      </span>' + activityHtml + '\n      <div class="div">' + skillLevelHtml + ('</div>\n    </div>\n\n    <div class="card-reveal">\n      <span class="card-title grey-text text-darken-4">' + plan.title + '\n        <i class="material-icons right">close</i>\n      </span>\n      <p>' + plan.description + '</p>\n      <a class="btn-floating waves-effect teal lighten-3 waves-light" href="' + plan.slug + '"></a>\n    </div>\n\n    <a class="btn-floating midway-fab waves-effect transparent waves-light">\n      <i class="fa fa-share-square-o" aria-hidden="true"></i></a>\n      <form class="heart" method="POST" action="/api/plans/' + plan._id + '/heart">\n        <button class="btn-floating halfway-fab waves-effect waves-light transparent" type="submit" name="heart">\n          <i class="fa fa-heart primary-pink-text" aria-hidden="true"></i>\n        </button>\n      </form>\n  </div>');
     var cardDiv = document.createElement('div');
     cardDiv.className = "col m6 s12";
     cardDiv.setAttribute("id", plan._id);
@@ -1173,9 +1173,37 @@ exports.default = initMap;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var cnt = 0,
+    texts = [];
+
+// save the texts in an array for re-use
+$(".textContent").each(function () {
+  texts[cnt++] = $(this).text();
+});
+
+function slide() {
+  if (cnt >= texts.length) cnt = 0;
+  $('#textMessage').html(texts[cnt++]);
+  $('#textMessage').fadeIn('slow').animate({ opacity: 1.0 }, 1500).fadeOut('slow', function () {
+    return slide();
+  });
+}
+
+exports.default = slide;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(7);
-var Axios = __webpack_require__(14);
+var Axios = __webpack_require__(15);
 var defaults = __webpack_require__(1);
 
 /**
@@ -1210,14 +1238,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(4);
-axios.CancelToken = __webpack_require__(13);
+axios.CancelToken = __webpack_require__(14);
 axios.isCancel = __webpack_require__(5);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(28);
+axios.spread = __webpack_require__(29);
 
 module.exports = axios;
 
@@ -1225,7 +1253,7 @@ module.exports = axios;
 module.exports.default = axios;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1288,7 +1316,7 @@ CancelToken.source = function source() {
 module.exports = CancelToken;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1296,10 +1324,10 @@ module.exports = CancelToken;
 
 var defaults = __webpack_require__(1);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(15);
-var dispatchRequest = __webpack_require__(16);
-var isAbsoluteURL = __webpack_require__(24);
-var combineURLs = __webpack_require__(22);
+var InterceptorManager = __webpack_require__(16);
+var dispatchRequest = __webpack_require__(17);
+var isAbsoluteURL = __webpack_require__(25);
+var combineURLs = __webpack_require__(23);
 
 /**
  * Create a new instance of Axios
@@ -1379,7 +1407,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = Axios;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1437,14 +1465,14 @@ InterceptorManager.prototype.forEach = function forEach(fn) {
 module.exports = InterceptorManager;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(19);
+var transformData = __webpack_require__(20);
 var isCancel = __webpack_require__(5);
 var defaults = __webpack_require__(1);
 
@@ -1503,7 +1531,7 @@ module.exports = function dispatchRequest(config) {
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1529,7 +1557,7 @@ module.exports = function enhanceError(error, config, code, response) {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1555,7 +1583,7 @@ module.exports = function settle(resolve, reject, response) {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1581,7 +1609,7 @@ module.exports = function transformData(data, headers, fns) {
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1622,7 +1650,7 @@ function btoa(input) {
 module.exports = btoa;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1689,7 +1717,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1708,7 +1736,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1767,7 +1795,7 @@ function nonStandardBrowserEnv() {
 }();
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1789,7 +1817,7 @@ module.exports = function isAbsoluteURL(url) {
 };
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1858,7 +1886,7 @@ function nonStandardBrowserEnv() {
 }();
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1876,7 +1904,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 };
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1921,7 +1949,7 @@ module.exports = function parseHeaders(headers) {
 };
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1955,7 +1983,7 @@ module.exports = function spread(callback) {
 };
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1969,7 +1997,7 @@ var _initmap = __webpack_require__(11);
 
 var _initmap2 = _interopRequireDefault(_initmap);
 
-var _textChange = __webpack_require__(30);
+var _textChange = __webpack_require__(12);
 
 var _textChange2 = _interopRequireDefault(_textChange);
 
@@ -1988,13 +2016,14 @@ $(document).ready(function () {
         constrainWidth: false, // Does not change width of dropdown to that of the activator
         hover: true, // Activate on hover
         gutter: 0, // Spacing from edge
-        belowOrigin: false, // Displays dropdown below the button
+        belowOrigin: true, // Displays dropdown below the button
         alignment: 'right', // Displays dropdown with edge aligned to the left of button
         stopPropagation: false // Stops event propagation
     });
     $('.parallax').parallax();
     $('.carousel').carousel();
     $('.modal').modal();
+    $('.collapsible').collapsible();
 
     scrollMagic();
     (0, _textChange2.default)();
@@ -2019,8 +2048,6 @@ $(window).on('resize', function () {
     scaleBannerVideoSize('.video-container .filter');
     scaleBannerVideoSize('.video-container video');
 });
-
-checkScroll();
 
 function scaleVideoContainer() {
 
@@ -2100,34 +2127,6 @@ function scrollMagic() {
     var offset2 = mapFix.offset();
     mapFix.offset(-150);
 };
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var cnt = 0,
-    texts = [];
-
-// save the texts in an array for re-use
-$(".textContent").each(function () {
-  texts[cnt++] = $(this).text();
-});
-
-function slide() {
-  if (cnt >= texts.length) cnt = 0;
-  $('#textMessage').html(texts[cnt++]);
-  $('#textMessage').fadeIn('slow').animate({ opacity: 1.0 }, 1500).fadeOut('slow', function () {
-    return slide();
-  });
-}
-
-exports.default = slide;
 
 /***/ })
 /******/ ]);

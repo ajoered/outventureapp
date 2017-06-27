@@ -29,9 +29,9 @@ mixin navbar()
             li
               a.heart-count(href='/account' style='font-size:28px;') #{user.hearts.length}
             li(style="margin-left:-10px;padding-right:15px;")
-              i.left.fa.fa-heart-o(aria-hidden='true')  
+              i.left.fa.fa-heart-o(aria-hidden='true')
             li(style="padding-top:8px")
-              img.avatar(src=user.gravatar + 'd=retro')
+              img.avatar(src=user.photo || '/images/photos/user.png')
             li
               a.dropdown-button(href='#', data-activates='profile-dropdown', data-beloworigin='true', data-constrainwidth='true')=user.name
                 i.material-icons.right arrow_drop_down

@@ -94,7 +94,7 @@ function createMarkers(plans, map) {
     const html = `
                 <div class="card medium">
                   <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="uploads/${this.plan.photo || 'canoeing.jpg'}">
+                    <img class="activator" src="images/photos/${this.plan.activities[0]}.jpg">
                   </div>
                   <a class="btn-floating halfway-fab waves-effect waves-light primary-pink lighten-1"><i class="fa fa-heart" aria-hidden="true"></i></a>
                   <a class="btn-floating midway-fab waves-effect waves-light grey darken-1"><i class="fa fa-share" aria-hidden="true"></i></a>
@@ -177,7 +177,7 @@ function createCards(plans) {
 
 <div class="card medium z-depth-2">
   <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="/uploads/${plan.photo || plan.activities[0] + '.jpeg'}">
+    <img class="activator" src="images/photos/${plan.activities[0]}.jpg">
   </div>
     <div class="card-content">
       <span class="card-title activator grey-text text-darken-4">${plan.title}

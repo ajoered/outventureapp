@@ -20,6 +20,7 @@ const multerOptions = {
 exports.upload = multer(multerOptions).single('photo');
 
 exports.resize = async (req, res, next) => {
+  console.log(req.file);
   // check if there is no new file to resize
   if (!req.file) {
     next(); // skip to the next middleware
@@ -49,7 +50,11 @@ exports.createPlan = async (req, res) => {
   req.body.author = req.user._id;
   const plan = new Plan(req.body)
   await plan.save()
-  req.flash('success', `Successfully Created ${plan.title}. Care to leave a review?`);
+  User.findByIdAndUpdate(req.user._id,
+      { $addToSet: { plans: req.params.id } },
+      { new: true }
+    );
+  req.flash('success', `Successfully Created ${plan.title}!`);
   res.redirect("/")
 };
 

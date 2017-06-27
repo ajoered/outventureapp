@@ -7,14 +7,7 @@ mixin loginForm()
         .z-depth-1.grey.lighten-4.row(style='padding: 32px 48px 0px 48px; border: 1px solid #EEE;')
           form.col.s12(action="/login" method='post')
             .row
-              .col.s12
-                img.responsive-img(style='width: 150px;', src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-03_bnkfhn.png')
-            .row
-              a.col.m8.push-m2.s12.waves-effect.waves-light.btn.social.facebook.light-blue.darken-4(style='margin:10px;' href='/auth/facebook')
-                i.fa.fa-facebook
-                |  Sign in with Facebook
-            hr
-            | Or use email:      
+              img.responsive-img(style='width: 150px;', src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-03_bnkfhn.png')
             .row
               .input-field.col.s12
                 i.material-icons.prefix.fa.fa-user-o
@@ -32,8 +25,12 @@ mixin loginForm()
             center
               .row
                 button.col.s12.btn.btn-large.waves-effect.primary-blue(type='submit', name='btn_login') Login
+              .row
+                a.col.s12.text.waves-effect.waves-light.btn.btn-large.social.facebook.light-blue.darken-4(href='/auth/facebook')
+                  i.fa.fa-facebook
+                  |  Sign in with Facebook
               //- .row
-              //-   button.col.s12.btn.btn-large.waves-effect.cyan.darken-4(type='submit', name='') Facebook
+              //-   button.col.s12.btn-large.waves-effect.cyan.darken-4(type='submit', name='') Facebook
       a(href='#!') Not a member? Create an account
     .section
     .section

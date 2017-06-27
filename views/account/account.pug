@@ -5,43 +5,46 @@ include ../mixins/_planCard
 
 block header
   +navbarLanding()
-  
+
 block content
   .parallaxx.parallax-profile
     .header-profile-section.background-transparent-grey
       .container.container-profile
         .row.center
           .col.m2.push-m5.s4.push-s4
-            img.circle.responsive-img(src='http://www.ajoered.com/assets/img/demo-portraits/xajoered.png.pagespeed.ic.QsDj1tZU6O.png')
+            img.circle.responsive-img(src=user.photo || '/images/photos/user.png') 
         .row.center
           .col.s12
             h4.white-text.text-300= "@" + user.name
           .col.m6.push-m3.s12
-            i.white-text.text-300=user.bio
-          .col.m2.push-m4.s12 
+            if user.bio
+              i.white-text.text-300=user.bio
+            else
+              i.white-text.text-300 Write a bio!  
+          .col.m2.push-m4.s12
             a.btn-floating.waves-effect.transparent.waves-light(href=`/account/edit`)
               i.material-icons.right mode_edit
-        br      
+        br
         .row
           ul.tabs.tabs-fixed-width.transparent
             li.tab.white-text
               i.fa.fa-plus-square-o.fa-lg(aria-hidden='true')
-              a(href='#created')
-                |  4 CREATED
+              a(href='#created').white-text.plan-count=userPlans.length
+                |  CREATED
             li.tab.white-text
               i.fa.fa-heart-o.fa-lg(aria-hidden='true')
-              a(href='#saved').white-text.heart-count=user.hearts.length 
+              a(href='#saved').white-text=userHeartedPlans.length
                 |  WISH LIST
             li.tab.white-text
               i.fa.fa-check-square-o.fa-lg(aria-hidden='true')
-              a(href='#done') 
+              a(href='#done')
                 |  4 DONE
             li.tab.white-text
               i.fa.fa-star.fa-lg(aria-hidden='true')
-              a(href='#done') 
-                |  4 REVIEWS    
-            .indicator.white  
-    br    
+              a(href='#done')
+                |  4 REVIEWS
+            .indicator.white
+    br
     #created
       .row
         each plan in userPlans

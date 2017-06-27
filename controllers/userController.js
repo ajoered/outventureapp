@@ -2,6 +2,40 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Plan = mongoose.model('Plan');
 const promisify = require('es6-promisify');
+const multer = require('multer');
+const jimp = require('jimp');
+const uuid = require('uuid');
+
+const multerOptions = {
+  storage: multer.memoryStorage(),
+  fileFilter(req, file, next) {
+    const isPhoto = file.mimetype.startsWith('image/');
+    if(isPhoto) {
+      next(null, true);
+    } else {
+      next({ message: 'That filetype isn\'t allowed! Please only upload jpg/png/gif' }, false);
+    }
+  }
+};
+
+exports.upload = multer(multerOptions).single('photo');
+
+exports.resize = async (req, res, next) => {
+  console.log(req.file);
+  // check if there is no new file to resize
+  if (!req.file) {
+    next(); // skip to the next middleware
+    return;
+  }
+  const extension = req.file.mimetype.split('/')[1];
+  req.body.photo = `${uuid.v4()}.${extension}`;
+  // now we resize
+  const photo = await jimp.read(req.file.buffer);
+  await photo.resize(800, jimp.AUTO);
+  await photo.write(`./public/uploads/${req.body.photo}`);
+  // once we have written the photo to our filesystem, keep going!
+  next();
+};
 
 exports.loginForm = (req, res) => {
   res.render('account/login', { title: 'Login' });
@@ -16,7 +50,7 @@ exports.validateRegister = (req, res, next) => {
   req.checkBody('name', 'You must supply a name!').notEmpty();
   req.checkBody('email', 'That Email is not valid!').isEmail();
   req.sanitizeBody('email').normalizeEmail({
-    remove_dots: false,
+    gmail_remove_dots: false,
     remove_extension: false,
     gmail_remove_subaddress: false
   });
@@ -37,12 +71,18 @@ exports.register = async (req, res, next) => {
   const user = new User({ email: req.body.email, name: req.body.name });
   const register = promisify(User.register, User);
   await register(user, req.body.password, (err) => {
+    console.log(err);
+      if (err) {
       req.flash('error', err.message);
       res.render('account/register', {
         title: 'Register',
         body: req.body,
         flashes: req.flash() });
+      } else {
+        next();
+      }
   });
+  next();
 };
 
 exports.account = async (req, res) => {
@@ -54,7 +94,6 @@ exports.account = async (req, res) => {
     _id: { $in: req.user.hearts }
   });
 
-  console.log(userHeartedPlans);
   res.render('account/account', {userPlans, userHeartedPlans, title: 'Your Account' });
 };
 
@@ -66,7 +105,8 @@ exports.updateAccount = async (req, res) => {
   const updates = {
     name: req.body.name,
     email: req.body.email,
-    bio: req.body.bio
+    bio: req.body.bio,
+    photo: `/uploads/${req.body.photo}`
   };
 
   const user = await User.findOneAndUpdate(

@@ -34,8 +34,8 @@ router.post('/login', authController.login);
 router.get('/register', userController.registerForm)
 router.post('/register',
   userController.validateRegister,
-  catchErrors(userController.register),
-  authController.login
+  userController.register,
+  authController.Registerlogin
 );
 router.get('/logout', authController.logout)
 router.get('/auth/facebook', authController.authFacebook);
@@ -43,7 +43,11 @@ router.get('/auth/facebook/callback', authController.facebookCallback);
 
 router.get('/account', authController.isLoggedIn, catchErrors(userController.account));
 router.get('/account/edit', authController.isLoggedIn, userController.accountEdit);
-router.post('/account/edit', catchErrors(userController.updateAccount));
+router.post('/account/edit',
+  userController.upload,
+  catchErrors(userController.resize),
+  catchErrors(userController.updateAccount));
+
 router.post('/reviews/:id',
   authController.isLoggedIn,
   catchErrors(reviewController.addReview)
