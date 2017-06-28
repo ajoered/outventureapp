@@ -1,7 +1,8 @@
 import axios from 'axios';
 var markers = [];
 var map;
-var q = "";
+var tagArray = [];
+var q = [];
 
 const defaultMapOptions =  {
   center: { lat: 34.01, lng: -118.42 },
@@ -27,7 +28,7 @@ function initMap(mapDiv) {
       };
       input.placeholder = "Close to you..."
       map = new google.maps.Map(mapDiv, mapOptions);
-      loadPlaces(map, q, position.coords.latitude, position.coords.longitude)
+      loadPlaces(map, q)
       reloadOnDragMap(map);
     }, function() {
     });
@@ -46,38 +47,62 @@ function initMap(mapDiv) {
       zoom: 9
     }
     map = new google.maps.Map(mapDiv, newMapOptions); // Create and center map in new location
-    loadPlaces(map, q, place.geometry.location.lat(), place.geometry.location.lng())
+    loadPlaces(map, q)
     reloadOnDragMap(map)
+  });
+}
+
+function loadPlaces(map, q) {
+  var lat = map.getCenter().lat()
+  var lng = map.getCenter().lng()
+  console.log(q);
+  axios.get(`/api/plans/near?lat=${lat}&lng=${lng}${q.join()}`)
+  .then(res => {
+    const plans = res.data;
+    console.log(plans);
+    createMarkers(plans, map)
+    createCards(plans)
   });
 }
 
 function reloadOnDragMap(map) {
   google.maps.event.addListener(map, 'dragend', function functionName() {//loadplaces on map move
-    loadPlaces(map, q, map.getCenter().lat(), map.getCenter().lng())
+    loadPlaces(map, q)
   } );
 }
 
-function loadPlaces(map, q, lat = 34.01, lng = -118.42) {
-  axios.get(`/api/plans/near?lat=${lat}&lng=${lng}&${q}`)
-    .then(res => {
-      const plans = res.data;
-      createMarkers(plans, map)
-      createCards(plans)
-    });
+window.updateTags = function (input) {
+  if ( $(input).is(':checked') ) {
+  tagArray.push(input.value)
+} else {
+  var searchTerm = input.value
+  var index = tagArray.indexOf(searchTerm);    // <-- Not supported in <IE9 :/
+    if (index !== -1) {
+        tagArray.splice(index, 1);
+    }
+}
 }
 
-window.updateQuery = function (input) {
-  q = ""
-  var activityString;
-  const activityValue = $('#activities').val()
-  if ((activityValue == null || activityValue.includes("All")) ? activityString = " " : activityString = "activities=" + activityValue.join(","))
+window.updateQuery = function () {
+  q = []
 
-  var skillLevelString;
-  const skillLevelValue = $('#skillLevel').val()
-  if ((skillLevelValue == null || skillLevelValue.includes("All")) ? skillLevelString = " " : skillLevelString = "skillLevel=" + skillLevelValue.join(","))
+  var activityValues = $('#activities').val()
+  if (activityValues != null) {
+    var activityString = "&activities=" + activityValues.join(",")
+    q.push(activityString)
+  }
 
-  q = activityString + "&" + skillLevelString
-  q.replace(/\s+/g, ' ');
+  var skillLevelValues = $('#skillLevel').val()
+  if (skillLevelValues != null) {
+    var skillLevelString = "&skillLevel=" + skillLevelValues.join(",")
+    q.push(skillLevelString)
+  }
+
+  if (tagArray.length > 0) {
+    var tagString = "&tags=" + tagArray.join(",")
+    q.push(tagString)
+  }
+
   loadPlaces(map, q)
   reloadOnDragMap(map);
 }
@@ -214,7 +239,5 @@ function createCards(plans) {
     lightUpMarker()
   })
 }
-
-
 
 export default initMap;

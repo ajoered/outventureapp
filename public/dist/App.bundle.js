@@ -1003,7 +1003,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var markers = [];
 var map;
-var q = "";
+var tagArray = [];
+var q = [];
 
 var defaultMapOptions = {
   center: { lat: 34.01, lng: -118.42 },
@@ -1029,7 +1030,7 @@ function initMap(mapDiv) {
       };
       input.placeholder = "Close to you...";
       map = new google.maps.Map(mapDiv, mapOptions);
-      loadPlaces(map, q, position.coords.latitude, position.coords.longitude);
+      loadPlaces(map, q);
       reloadOnDragMap(map);
     }, function () {});
   }
@@ -1048,37 +1049,62 @@ function initMap(mapDiv) {
       zoom: 9
     };
     map = new google.maps.Map(mapDiv, newMapOptions); // Create and center map in new location
-    loadPlaces(map, q, place.geometry.location.lat(), place.geometry.location.lng());
+    loadPlaces(map, q);
     reloadOnDragMap(map);
+  });
+}
+
+function loadPlaces(map, q) {
+  var lat = map.getCenter().lat();
+  var lng = map.getCenter().lng();
+  console.log(q);
+  _axios2.default.get('/api/plans/near?lat=' + lat + '&lng=' + lng + q.join()).then(function (res) {
+    var plans = res.data;
+    console.log(plans);
+    createMarkers(plans, map);
+    createCards(plans);
   });
 }
 
 function reloadOnDragMap(map) {
   google.maps.event.addListener(map, 'dragend', function functionName() {
     //loadplaces on map move
-    loadPlaces(map, q, map.getCenter().lat(), map.getCenter().lng());
+    loadPlaces(map, q);
   });
 }
 
-function loadPlaces(map, q) {
-  var lat = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 34.01;
-  var lng = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : -118.42;
+window.updateTags = function (input) {
+  if ($(input).is(':checked')) {
+    tagArray.push(input.value);
+  } else {
+    var searchTerm = input.value;
+    var index = tagArray.indexOf(searchTerm); // <-- Not supported in <IE9 :/
+    if (index !== -1) {
+      tagArray.splice(index, 1);
+    }
+  }
+};
 
-  _axios2.default.get('/api/plans/near?lat=' + lat + '&lng=' + lng + '&' + q).then(function (res) {
-    var plans = res.data;
-    createMarkers(plans, map);
-    createCards(plans);
-  });
-}
+window.updateQuery = function () {
+  q = [];
 
-window.updateQuery = function (input) {
-  q = "";
-  var activityString;
-  var activityValue = $('#activities').val();
-  if (activityValue == null || activityValue.includes("All") ? activityString = " " : activityString = "activities=" + activityValue.join(",")) var skillLevelString;
-  var skillLevelValue = $('#skillLevel').val();
-  if (skillLevelValue == null || skillLevelValue.includes("All") ? skillLevelString = " " : skillLevelString = "skillLevel=" + skillLevelValue.join(",")) q = activityString + "&" + skillLevelString;
-  q.replace(/\s+/g, ' ');
+  var activityValues = $('#activities').val();
+  if (activityValues != null) {
+    var activityString = "&activities=" + activityValues.join(",");
+    q.push(activityString);
+  }
+
+  var skillLevelValues = $('#skillLevel').val();
+  if (skillLevelValues != null) {
+    var skillLevelString = "&skillLevel=" + skillLevelValues.join(",");
+    q.push(skillLevelString);
+  }
+
+  if (tagArray.length > 0) {
+    var tagString = "&tags=" + tagArray.join(",");
+    q.push(tagString);
+  }
+
   loadPlaces(map, q);
   reloadOnDragMap(map);
 };
@@ -2024,6 +2050,15 @@ $(document).ready(function () {
     $('.carousel').carousel();
     $('.modal').modal();
     $('.collapsible').collapsible();
+
+    $('#modal-tags').modal({
+        dismissible: false, // Modal can be dismissed by clicking outside of the modal
+        opacity: .9, // Opacity of modal background
+        inDuration: 300, // Transition in duration
+        outDuration: 200, // Transition out duration
+        startingTop: '4%', // Starting top style attribute
+        endingTop: '10%' // Ending top style attribute
+    });
 
     scrollMagic();
     (0, _textChange2.default)();
