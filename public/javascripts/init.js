@@ -31,10 +31,13 @@ $(document).ready(function(){
     }
   );
 
+  Materialize.scrollFire(scrollFireOptions);
   scrollMagic();
   slide()
 
 });
+
+  var scrollFireOptions = [ {selector: '.fade-in', offset: 300, callback: function(el) { Materialize.fadeInImage($(el)); } }, {selector: '.fade-in-late', offset: 100, callback: function(el) { Materialize.fadeInImage($(el)); } }]
 
   const hearts = document.querySelectorAll('form.heart');
   $(hearts).on("submit", ajaxHeart)

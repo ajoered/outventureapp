@@ -19,6 +19,11 @@ html {
   top: -1px!important;
 }
 
+input[type="checkbox"].filled-in:checked + label:after {
+  background-color: #202D3D!important;
+  border: 2px solid #202D3D;
+}
+
 .lightUpCard {
   box-shadow: 1px 1px 15px #343434!important;
 }
@@ -36,6 +41,10 @@ html {
 .header-info-section {
   position: relative;
   height: 100vh;
+}
+
+#info-section {
+  padding-bottom: 100px;
 }
 
 .material-icons {

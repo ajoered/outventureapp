@@ -1,20 +1,22 @@
 mixin searchBar()
-  #search-nav.row.search-nav.center.white
+  #search-nav.row.search-nav.white
     #search-bar.col.m4.s8
-      form
-        .input-field.z-depth-2
-          input.validate#search(type='search' name='geolocate' placeholder="Location")
-          label.label-icon(for='search')
-            i.material-icons location_on
-          i.material-icons close
+      .input-field.z-depth-2
+        input.validate#search(type='search' name='geolocate' placeholder="Location")
+        label.label-icon(for='search')
+          i.material-icons location_on
+        i.material-icons close
     .col.m7.s2
-      .input-field.col.m3.push-m1.s12.hide-on-med-and-down
-        select(multiple='' id='planType' onchange='')
-          option(value='All' disabled='') All
-          option(value='Beginner') Plan Ideas
-          option(value='Intermediate') Outings
-        label Looking for:
-      .input-field.col.m3.push-m1.s12.hide-on-med-and-down
+      .input-field.col.m3.s12.hide-on-med-and-down
+        input#ideas(type='checkbox' class='filled-in' checked='checked')
+        label(for='ideas') 
+          i.fa.fa-lightbulb-o.fa-lg.amber-text(aria-hidden='true')
+          |  IDEAS
+        input#outings(type='checkbox' class='filled-in' checked='checked')
+        label(for='outings') 
+          i.fa.fa-users.red-text.text-lighten-2(aria-hidden='true')
+          |  OUTINGS
+      .input-field.col.m4.s12.hide-on-med-and-down
         select(multiple='' id='activities' onchange='updateQuery()')
           option(value='All' disabled='') All
           optgroup(label='Water')
@@ -28,15 +30,15 @@ mixin searchBar()
             option(value='Camping' name='Camping') Camping
             option(value='Hiking' name='Hiking') Hiking
         label Activities:
-      .input-field.col.m3.push-m1.s12.hide-on-med-and-down
+      .input-field.col.m4.s12.hide-on-med-and-down
         select(multiple='' id='skillLevel' onchange='updateQuery()')
           option(value='All' disabled='') All
           option(value='Beginner' name='Beginner') Beginner
           option(value='Intermediate' name='Intermediate') Intermediate
           option(value='Advanced' name='Advanced') Advanced
           option(value='Expert' name='Expert') Expert
-        label Skill Level:
-      .search-buttons.col.m3.push-m1.s12
+        label Level:
+      .search-buttons.col.m1.s12
         a.waves-effect.waves-light.btn.primary-blue(href='#modal-tags')
           i.prefix.fa.fa-sliders(aria-hidden='true')
           |  +1

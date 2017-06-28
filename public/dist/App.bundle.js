@@ -2060,9 +2060,16 @@ $(document).ready(function () {
         endingTop: '10%' // Ending top style attribute
     });
 
+    Materialize.scrollFire(scrollFireOptions);
     scrollMagic();
     (0, _textChange2.default)();
 });
+
+var scrollFireOptions = [{ selector: '.fade-in', offset: 300, callback: function callback(el) {
+        Materialize.fadeInImage($(el));
+    } }, { selector: '.fade-in-late', offset: 100, callback: function callback(el) {
+        Materialize.fadeInImage($(el));
+    } }];
 
 var hearts = document.querySelectorAll('form.heart');
 $(hearts).on("submit", _heart2.default);
