@@ -102,18 +102,10 @@ exports.accountEdit = (req, res) => {
 };
 
 exports.updateAccount = async (req, res) => {
-  const updates = {
-    name: req.body.name,
-    email: req.body.email,
-    bio: req.body.bio,
-    photo: `/uploads/${req.body.photo}`
-  };
-
-  const user = await User.findOneAndUpdate(
-    { _id: req.user._id },
-    { $set: updates },
-    { new: true, runValidators: true, context: 'query' }
-  );
+  const user = await User.findOneAndUpdate({ _id: req.user.id }, req.body, {
+    new: true, // return the new user instead of the old one
+    runValidators: true
+  }).exec();
   req.flash('success', 'Updated the profile!');
   res.redirect('/account');
 };

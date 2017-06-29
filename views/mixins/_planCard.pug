@@ -19,13 +19,25 @@ mixin planCard(plan = {})
           i.material-icons.right close
         p= plan.description
         a.btn-floating.waves-effect.teal.lighten-3.waves-light(href=`/plans/${plan.slug}`) #{plan.name}
-      a.btn-floating.midway-fab.waves-effect.transparent.waves-light
+      a.btn-floating.share-fab.waves-effect.transparent.waves-light
         i.fa.fa-share-square-o(aria-hidden='true')
+      a.btn-floating.done-fab.waves-effect.transparent.waves-light
+        i.fa.fa-check(aria-hidden='true')
       form.heart(method="POST" action=`/api/plans/${plan._id}/heart`)
         - const heartStrings = user.hearts.map(obj => obj.toString())
         - const heartClass = heartStrings.includes(plan._id.toString()) ? 'primary-pink-text' : ''
-        button.btn-floating.halfway-fab.waves-effect.waves-light.transparent(type='submit' name='heart' )
+        button.btn-floating.saved-fab.waves-effect.waves-light.transparent(type='submit' name='heart' )
           i.fa.fa-heart(aria-hidden='true' class=heartClass)
       if user && plan.author.equals(user._id)
         a.btn-floating.edit-fab.waves-effect.transparent.waves-light(href=`/plans/${plan._id}/edit`)
           i.material-icons.right mode_edit
+      a.review-fab
+        p.text-300.grey-text.text-lighten-2 ★★★★
+      a.saved-fab-symbol.primary-pink-text 
+        i.fa.fa-heart(aria-hidden='true')
+      a.saved-fab-number.grey-text.text-lighten-2 
+        p.text-300.grey-text.text-lighten-2 4
+      a.done-fab-symbol.green-text  
+        i.fa.fa-check(aria-hidden='true')
+      a.done-fab-number.grey-text.text-lighten-2 
+        p.text-300.grey-text.text-lighten-2 2

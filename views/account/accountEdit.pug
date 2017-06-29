@@ -15,13 +15,12 @@ block content
       br    
       .row
         .col.m2.push-m5.s4.push-s4
-          img.circle.responsive-img(src=user.photo || '/images/photos/user.png') 
+          img.circle.responsive-img(src=`/uploads/${user.photo}` || '/images/photos/user.png' id="edit-image") 
           .file-field.input-field
-            .btn.waves-effect.waves-light.btn.primary-blue
+            .btn.waves-effect.waves-light.primary-blue
               span Edit Photo
-              input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
-            .file-path-wrapper
-              input.file-path.validate(type='text')  
+              input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg") 
+      br
       .row
         .input-field.col.m5.s12
           i.material-icons.prefix.fa.fa-user-o

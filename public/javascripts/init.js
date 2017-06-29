@@ -23,7 +23,7 @@ $(document).ready(function(){
 
   $('#modal-tags').modal({
       dismissible: false, // Modal can be dismissed by clicking outside of the modal
-      opacity: .9, // Opacity of modal background
+      opacity: .8, // Opacity of modal background
       inDuration: 300, // Transition in duration
       outDuration: 200, // Transition out duration
       startingTop: '4%', // Starting top style attribute
@@ -31,11 +31,30 @@ $(document).ready(function(){
     }
   );
 
+  var flashSuccess = $( '.flash-success' );
+  if ( flashSuccess.length ) {
+      setTimeout( function() {
+          flashSuccess.addClass('animated bounceOutLeft');
+      }, 2000 );
+  }
+
   Materialize.scrollFire(scrollFireOptions);
   scrollMagic();
   slide()
 
 });
+
+document.getElementById("photo").onchange = function () {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("edit-image").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+};
 
   var scrollFireOptions = [ {selector: '.fade-in', offset: 300, callback: function(el) { Materialize.fadeInImage($(el)); } }, {selector: '.fade-in-late', offset: 100, callback: function(el) { Materialize.fadeInImage($(el)); } }]
 

@@ -1016,7 +1016,7 @@ var normalIcon = {
 };
 var highlightedIcon = {
   url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/c_scale,w_64/v1497124913/light-bulb_egba8l.svg',
-  scaledSize: new google.maps.Size(36, 36)
+  scaledSize: new google.maps.Size(40, 40)
 };
 
 function initMap(mapDiv) {
@@ -1177,10 +1177,7 @@ function createCards(plans) {
     var activityHtml = plan.activities.map(function (activity) {
       return '<div class="chip">\n      <img src="https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png">\n      ' + activity + '\n      </div>';
     }).slice(0, 2).join(" ");
-    var skillLevelHtml = plan.skillLevel.map(function (skillLevel) {
-      return '\n      ' + skillLevel + '\n    ';
-    }).join(" / ");
-    var cardHtml = '\n\n<div class="card medium z-depth-2">\n  <div class="card-image waves-effect waves-block waves-light">\n    <img class="activator" src="images/photos/' + plan.activities[0] + '.jpg">\n  </div>\n    <div class="card-content">\n      <span class="card-title activator grey-text text-darken-4">' + plan.title + '\n        <i class="material-icons right">more_vert</i>\n      </span>' + activityHtml + '\n      <div class="div">' + skillLevelHtml + ('</div>\n    </div>\n\n    <div class="card-reveal">\n      <span class="card-title grey-text text-darken-4">' + plan.title + '\n        <i class="material-icons right">close</i>\n      </span>\n      <p>' + plan.description + '</p>\n      <a class="btn-floating waves-effect teal lighten-3 waves-light" href="' + plan.slug + '"></a>\n    </div>\n\n    <a class="btn-floating midway-fab waves-effect transparent waves-light">\n      <i class="fa fa-share-square-o" aria-hidden="true"></i></a>\n      <form class="heart" method="POST" action="/api/plans/' + plan._id + '/heart">\n        <button class="btn-floating halfway-fab waves-effect waves-light transparent" type="submit" name="heart">\n          <i class="fa fa-heart primary-pink-text" aria-hidden="true"></i>\n        </button>\n      </form>\n  </div>');
+    var cardHtml = '\n\n<div class="card medium z-depth-2">\n  <div class="card-image waves-effect waves-block waves-light">\n    <img class="activator" src="images/photos/' + plan.activities[0] + '.jpg">\n  </div>\n    <div class="card-content">\n      <span class="card-title activator grey-text text-darken-4">' + plan.title + '\n        <i class="material-icons right">more_vert</i>\n      </span>' + activityHtml + ('\n      <div class="div">' + plan.skillLevel + '</div>\n    </div>\n\n    <div class="card-reveal">\n      <span class="card-title grey-text text-darken-4">' + plan.title + '\n        <i class="material-icons right">close</i>\n      </span>\n      <p>' + plan.description + '</p>\n      <a class="btn-floating waves-effect teal lighten-3 waves-light" href="' + plan.slug + '"></a>\n    </div>\n\n    <a class="btn-floating midway-fab waves-effect transparent waves-light">\n      <i class="fa fa-share-square-o" aria-hidden="true"></i></a>\n      <form class="heart" method="POST" action="/api/plans/' + plan._id + '/heart">\n        <button class="btn-floating halfway-fab waves-effect waves-light transparent" type="submit" name="heart">\n          <i class="fa fa-heart primary-pink-text" aria-hidden="true"></i>\n        </button>\n      </form>\n  </div>');
     var cardDiv = document.createElement('div');
     cardDiv.className = "col m6 s12";
     cardDiv.setAttribute("id", plan._id);
@@ -2053,17 +2050,36 @@ $(document).ready(function () {
 
     $('#modal-tags').modal({
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
-        opacity: .9, // Opacity of modal background
+        opacity: .8, // Opacity of modal background
         inDuration: 300, // Transition in duration
         outDuration: 200, // Transition out duration
         startingTop: '4%', // Starting top style attribute
         endingTop: '10%' // Ending top style attribute
     });
 
+    var flashSuccess = $('.flash-success');
+    if (flashSuccess.length) {
+        setTimeout(function () {
+            flashSuccess.addClass('animated bounceOutLeft');
+        }, 2000);
+    }
+
     Materialize.scrollFire(scrollFireOptions);
     scrollMagic();
     (0, _textChange2.default)();
 });
+
+document.getElementById("photo").onchange = function () {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("edit-image").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+};
 
 var scrollFireOptions = [{ selector: '.fade-in', offset: 300, callback: function callback(el) {
         Materialize.fadeInImage($(el));

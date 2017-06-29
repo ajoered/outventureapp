@@ -12,7 +12,7 @@ block content
       .container.container-profile
         .row.center
           .col.m2.push-m5.s4.push-s4
-            img.circle.responsive-img(src=user.photo || '/images/photos/user.png') 
+            img.circle.responsive-img(src=`/uploads/${user.photo}` || '/images/photos/user.png') 
         .row.center
           .col.s12
             h4.white-text.text-300= "@" + user.name
@@ -20,7 +20,7 @@ block content
             if user.bio
               i.white-text.text-300=user.bio
             else
-              i.white-text.text-300 Write a bio!  
+              i.white-text.text-300 Write a bio!
           .col.m2.push-m4.s12
             a.btn-floating.waves-effect.transparent.waves-light(href=`/account/edit`)
               i.material-icons.right mode_edit

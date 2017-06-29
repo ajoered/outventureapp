@@ -49,6 +49,7 @@ exports.addPlan = (req, res) => {
 exports.createPlan = async (req, res) => {
   req.body.author = req.user._id;
   const plan = new Plan(req.body)
+  console.log(req.body);
   await plan.save()
   User.findByIdAndUpdate(req.user._id,
       { $addToSet: { plans: req.params.id } },

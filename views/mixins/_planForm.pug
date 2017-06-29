@@ -1,66 +1,68 @@
 mixin planForm(plan = {})
-  .section
-  main
-    .section
-    .container
-      .z-depth-1.grey.lighten-4.row(style='padding: 32px 48px 0px 48px; border: 1px solid #EEE;')
-        form(action=`/addPlan/${plan._id || ''}` method="POST" enctype="multipart/form-data")
-          .row.center
-            .col.s12
-              i.fa.fa-lightbulb-o.fa-3x.orange-text(aria-hidden='true')
-          .row.center
-            .col.s12
-              h4.text-300 Add a plan idea 
-              p Adventures are detailed guides about specific hike, camping spot, or other activities. If you want to add a more personal account, travel blog, videos, photo stories, or other thoughtful stories, add a story.
-          br
-          .row
-          .input-field
-            label.active(for="title") Title
-            input#title.validate(type="text" name="title" value=plan.title)
-          .input-field
-            label.active(for='description') Description
-            textarea#description.materialize-textarea(name="description")= plan.description
-            //- address, lng and lat
-          .input-field
-            label(for="address") Location
-            input(type="text" id="address" name="location[address]" value=(plan.location && plan.location.address) required)
-          .input-field
-            input(type="hidden" id="lng" name="location[coordinates][0]" value=(plan.location && plan.location.coordinates[0]) required)
-          .input-field
-            input(type="hidden" id="lat" name="location[coordinates][1]" value=(plan.location && plan.location.coordinates[1]) required)
-          p Skill-Level
-          - const skillChoices = ['Beginner', 'Intermediate', 'Advanced', 'Expert']
-          - const skillLevel = plan.skillLevel || []
-          .input-field
-            each skill in skillChoices
-              input(type="checkbox" id=skill value=skill name="skillLevel" checked=(skillLevel.includes(skill)))
-              label(for=skill) #{skill}
-              br
-          br
-          p Activities
-          - const activityChoices = ['Hiking', 'Backpacking', 'Camping', 'Climbing', 'Surfing', 'Scuba-Diving', 'Canoeing']
-          - const activities = plan.activities || []
-          .input-field
-            each activity in activityChoices
-              input(type="checkbox" id=activity value=activity name="activities" checked=(activities.includes(activity)))
-              label(for=activity) #{activity}
-              br
-          br
-          p Tags
-          - const tagChoices = ['Lake', 'Beach', 'River', 'Waterfall', 'Wildlife', 'Forest', 'Mountain', 'Dog friendly', 'Family friendly', 'Easy Parking', 'Scenic', 'Romantic']
-          - const tags = plan.tags || []
-          .input-field
-            each tag in tagChoices
-              input(type="checkbox" id=tag value=tag name="tags" checked=(tags.includes(tag)))
-              label(for=tag) #{tag}
-              br
-          br
-          .file-field.input-field
-            .btn
-              span Photo
-              input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
-            .file-path-wrapper
-              input.file-path.validate(type='text')
-              if plan.photo
-                img(src=`/uploads/${plan.photo}`, alt=plan.name width=200)
-          input(type="submit" value="Save →" class="btn")
+  .container
+    br
+    br
+    form(action=`/addPlan/${plan._id || ''}` method="POST" enctype="multipart/form-data")
+      .row.center.swag-promo.blue-grey.lighten-5     
+        .col.m10.push-m1.s12.center
+          h5.text-700 The Best Plan Ideas Get Free Swag! 
+          p.center Plan Ideas are detailed guides about specific hike, camping spot, or any other activity. They help people like you learn everything they need to know to spend more time outdoors. We reward the best ones.
+          a.btn.teal.darken-4 What Swag?
+      .row.center
+        .col.s12
+          i.fa.fa-lightbulb-o.fa-3x.orange-text(aria-hidden='true')
+        .col.m10.push-m1.s12.center
+          h5.text-700 Add a New Plan Idea 
+          p.text-700.center Have any hidden gems to share with our community? It's time to share your wisdom!           
+      br
+      .row
+        .input-field
+          label(for="title") Title
+          input#title.validate(type="text" name="title" value=plan.title placeholder="Ex. 'Hike Runyon Canyon' / 'Surf Venice Beach' / 'Scuba Dive in Catalina'")
+        .input-field
+          label.active(for="tagline") Tagline
+          input#tagline.materialize-textarea(type="text" name="tagline" value=plan.shortDescription placeholder="Define your plan in one sentence. What makes it special? Ex. 'Awesome beginner hike in the heart of LA with spectacular views'")
+        .input-field.col.m6.s12
+          select(id="skillLevel" name='skillLevel')
+            option(value='', disabled='', selected='') Select a skill Level
+            option(value='Beginner') Beginner
+            option(value='Intermediate') Intermediate
+            option(value='Advanced') Advanced
+            option(value='Expert') Expert
+        .input-field.col.m6.s12
+          label(for="address") Location
+          input(type="text" id="address" name="location[address]" value=(plan.location && plan.location.address) required)
+        .input-field
+          input(type="hidden" id="lng" name="location[coordinates][0]" value=(plan.location && plan.location.coordinates[0]) required)
+        .input-field
+          input(type="hidden" id="lat" name="location[coordinates][1]" value=(plan.location && plan.location.coordinates[1]) required)
+        p Activities
+        - const activityChoices = ['Hiking', 'Backpacking', 'Camping', 'Climbing', 'Surfing', 'Scuba-Diving', 'Canoeing']
+        - const activities = plan.activities || []
+        .input-field
+          each activity in activityChoices
+            input(type="checkbox" id=activity value=activity name="activities" checked=(activities.includes(activity)))
+            label(for=activity) #{activity}
+            br
+        br
+        p Tags
+        - const tagChoices = ['Lake', 'Beach', 'River', 'Waterfall', 'Wildlife', 'Forest', 'Mountain', 'Dog friendly', 'Family friendly', 'Easy Parking', 'Scenic', 'Romantic']
+        - const tags = plan.tags || []
+        .input-field
+          each tag in tagChoices
+            input(type="checkbox" id=tag value=tag name="tags" checked=(tags.includes(tag)))
+            label(for=tag) #{tag}
+            br
+        br
+        .input-field
+          label.active(for='description') Description
+          textarea#description.materialize-textarea(name="description" placeholder="Devil's in the detail. Please provide a detailed description of your adventure. Ex. 'Awesome Trail is a 2.5 mile heavily trafficked loop trail located near Los Angeles, California that offers beautiful views of the city and is great for beginners. You enter the trail through...'")= plan.description
+        .file-field.input-field
+          .btn
+            span Photo
+            input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+          .file-path-wrapper
+            input.file-path.validate(type='text')
+            if plan.photo
+              img(src=`/uploads/${plan.photo}`, alt=plan.name width=200)
+        input(type="submit" value="Save →" class="btn")

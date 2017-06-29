@@ -8,12 +8,17 @@ const planSchema = new mongoose.Schema({
     trim: true,
     required: 'Please enter a title for your awesome plan!'
   },
+  tagline: {
+    type: String,
+    trim: true,
+    required: 'Please enter a tagline for your awesome plan!'
+  },
   description: {
     type: String,
     trim: true
   },
   activities: [String],
-  skillLevel: [String],
+  skillLevel: String,
   created: {
     type: Date,
     default: Date.now

@@ -14,7 +14,7 @@ const normalIcon = {
 };
 const highlightedIcon = {
   url: 'https://res.cloudinary.com/dx1s7kdgz/image/upload/c_scale,w_64/v1497124913/light-bulb_egba8l.svg',
-  scaledSize: new google.maps.Size(36,36)
+  scaledSize: new google.maps.Size(40,40)
 };
 
 function initMap(mapDiv) {
@@ -193,11 +193,6 @@ function createCards(plans) {
       ${activity}
       </div>`
     }).slice(0, 2).join(" ")
-    const skillLevelHtml = plan.skillLevel.map(skillLevel => {
-      return `
-      ${skillLevel}
-    `
-  }).join(" / ")
     const cardHtml = `
 
 <div class="card medium z-depth-2">
@@ -210,9 +205,7 @@ function createCards(plans) {
       </span>`+
       activityHtml +
       `
-      <div class="div">`+
-        skillLevelHtml +
-      `</div>
+      <div class="div">${plan.skillLevel}</div>
     </div>
 
     <div class="card-reveal">
