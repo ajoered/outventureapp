@@ -110,7 +110,7 @@ exports.mapPlans = async (req, res) => {
       skillLevel: skillLevel,
       tags: tags
     };
-  const plans = await Plan.find(q).limit(100);
+  const plans = await Plan.find(q).populate(' author ').limit(100);
   res.json(plans);
 };
 
@@ -122,6 +122,18 @@ exports.heartPlan = async (req, res) => {
   const user = await User
     .findByIdAndUpdate(req.user._id,
       { [operator]: { hearts: req.params.id } },
+      { new: true }
+    );
+  res.json(user);
+};
+
+exports.donePlan = async (req, res) => {
+  const dones = req.user.dones.map(obj => obj.toString());
+  //if not included add, else remove
+  const operator = dones.includes(req.params.id) ? '$pull' : '$addToSet';
+  const user = await User
+    .findByIdAndUpdate(req.user._id,
+      { [operator]: { dones: req.params.id } },
       { new: true }
     );
   res.json(user);

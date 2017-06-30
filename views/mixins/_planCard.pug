@@ -10,19 +10,21 @@ mixin planCard(plan = {})
         each activity in activities
           .chip= activity
             img(src=`https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png`)
-        - const skillLevels = plan.skillLevel || []
-        .div
-          each skillLevel in skillLevels
-            =skillLevel + " "
+        - const tags = plan.tags.slice(0, 4) || []
+        each tag in tags
+          .chip= tag
       .card-reveal
         span.card-title.grey-text.text-darken-4= plan.title
           i.material-icons.right close
-        p= plan.description
-        a.btn-floating.waves-effect.teal.lighten-3.waves-light(href=`/plans/${plan.slug}`) #{plan.name}
+        p= plan.tagline
+        a.btn.waves-effect.teal.darken-3.waves-light.center(href=`/plans/${plan.slug}`) More info
       a.btn-floating.share-fab.waves-effect.transparent.waves-light
         i.fa.fa-share-square-o(aria-hidden='true')
-      a.btn-floating.done-fab.waves-effect.transparent.waves-light
-        i.fa.fa-check(aria-hidden='true')
+      form.done(method="POST" action=`/api/plans/${plan._id}/done`)
+        - const doneStrings = user.dones.map(obj => obj.toString())
+        - const doneClass = doneStrings.includes(plan._id.toString()) ? 'green-text' : ''
+        button.btn-floating.done-fab.waves-effect.transparent.waves-light(type='submit' name='done' )
+          i.fa.fa-check(aria-hidden='true' class=doneClass)    
       form.heart(method="POST" action=`/api/plans/${plan._id}/heart`)
         - const heartStrings = user.hearts.map(obj => obj.toString())
         - const heartClass = heartStrings.includes(plan._id.toString()) ? 'primary-pink-text' : ''
@@ -33,6 +35,13 @@ mixin planCard(plan = {})
           i.material-icons.right mode_edit
       a.review-fab
         p.text-300.grey-text.text-lighten-2 ★★★★
+      a.level-fab
+        p.text-300.grey-text= plan.skillLevel
+      a.time-fab
+        p.text-300.grey-text.text-lighten-2 >4h / Day 
+      a.time-fab-symbol.primary-pink-text 
+      a.time-fab-symbol.white-text
+        i.fa.fa-clock-o(aria-hidden='true')  
       a.saved-fab-symbol.primary-pink-text 
         i.fa.fa-heart(aria-hidden='true')
       a.saved-fab-number.grey-text.text-lighten-2 

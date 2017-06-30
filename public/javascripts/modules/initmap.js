@@ -76,7 +76,7 @@ window.updateTags = function (input) {
   tagArray.push(input.value)
 } else {
   var searchTerm = input.value
-  var index = tagArray.indexOf(searchTerm);    // <-- Not supported in <IE9 :/
+  var index = tagArray.indexOf(searchTerm);    // Search for value and delete. Not supported in <IE9 :/
     if (index !== -1) {
         tagArray.splice(index, 1);
     }
@@ -187,43 +187,57 @@ function createCards(plans) {
       cardsContainer.removeChild(cardsContainer.firstChild);
   }
   plans.forEach(plan => {
+
     const activityHtml = plan.activities.map(activity => {
       return `<div class="chip">
       <img src="https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png">
       ${activity}
       </div>`
     }).slice(0, 2).join(" ")
-    const cardHtml = `
 
+    const tagHtml = plan.tags.map(tag => {
+      return `<div class="chip">
+      ${tag}
+      </div>`
+    }).slice(0, 4).join(" ")
+
+    const heartStrings = plan.author.hearts.map(obj => obj.toString())
+    const heartClass = heartStrings.includes(plan._id.toString()) ? 'primary-pink-text' : ''
+
+    const donesStrings = plan.author.dones.map(obj => obj.toString())
+    const doneClass = donesStrings.includes(plan._id.toString()) ? 'green-text' : ''
+
+    const cardHtml = `
 <div class="card medium z-depth-2">
   <div class="card-image waves-effect waves-block waves-light">
     <img class="activator" src="images/photos/${plan.activities[0]}.jpg">
   </div>
-    <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4">${plan.title}
-        <i class="material-icons right">more_vert</i>
-      </span>`+
-      activityHtml +
-      `
-      <div class="div">${plan.skillLevel}</div>
-    </div>
-
-    <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">${plan.title}
-        <i class="material-icons right">close</i>
-      </span>
-      <p>${plan.description}</p>
-      <a class="btn-floating waves-effect teal lighten-3 waves-light" href="${plan.slug}"></a>
-    </div>
-
-    <a class="btn-floating midway-fab waves-effect transparent waves-light">
-      <i class="fa fa-share-square-o" aria-hidden="true"></i></a>
-      <form class="heart" method="POST" action="/api/plans/${plan._id}/heart">
-        <button class="btn-floating halfway-fab waves-effect waves-light transparent" type="submit" name="heart">
-          <i class="fa fa-heart primary-pink-text" aria-hidden="true"></i>
-        </button>
-      </form>
-  </div>`
+  <div class="card-content">
+    <span class="card-title activator grey-text text-darken-4">${plan.title}<i class="material-icons right">more_vert</i></span>`+
+    activityHtml + tagHtml +
+  `</div>
+  <div class="card-reveal">
+    <span class="card-title grey-text text-darken-4">${plan.title}<i class="material-icons right">close</i></span>
+    <p>${plan.tagline}</p>
+    <a class="btn waves-effect teal darken-3 waves-light center" href="/plans/${plan.slug}">More info</a>
+  </div>
+  <a class="btn-floating share-fab waves-effect transparent waves-light"><i class="fa fa-share-square-o" aria-hidden="true"></i></a>
+  <button class="btn-floating done-fab waves-effect waves-light transparent" value=${plan._id} onclick=donePlan(this) name="done">
+    <i class="fa fa-check ${doneClass} ${'done' + plan._id}" aria-hidden="true"></i>
+  </button>
+  <button class="btn-floating saved-fab waves-effect waves-light transparent" value=${plan._id} onclick=heartPlan(this) name="heart">
+    <i class="fa fa-heart ${heartClass} ${'heart' + plan._id}" aria-hidden="true"></i>
+  </button>
+  <a class="review-fab"><p class="text-300 grey-text text-lighten-2">★★★★</p></a>
+  <a class="level-fab"><p class="text-300 grey-text">${plan.skillLevel}</p></a>
+  <a class="time-fab"><p class="text-300 grey-text text-lighten-2">&gt;4h / Day </p></a>
+  <a class="time-fab-symbol primary-pink-text"></a>
+  <a class="time-fab-symbol white-text"><i class="fa fa-clock-o" aria-hidden="true"></i></a>
+  <a class="saved-fab-symbol primary-pink-text"><i class="fa fa-heart" aria-hidden="true"></i></a>
+  <a class="saved-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">4</p></a>
+  <a class="done-fab-symbol green-text"><i class="fa fa-check" aria-hidden="true"></i></a>
+  <a class="done-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">2</p></a>
+</div>`
     const cardDiv = document.createElement('div');
     cardDiv.className = "col m6 s12"
     cardDiv.setAttribute("id", plan._id);

@@ -375,6 +375,27 @@ color: #fff;
     z-index: 1;
   }
 
+  .level-fab {
+    position: absolute;
+    right: 20px;
+    bottom: 0px;
+    z-index: 1;
+  }
+
+  .time-fab {
+    position: absolute;
+    left: 130px;
+    top: 190px;
+    z-index: 1;
+  }
+
+  .time-fab-symbol {
+    position: absolute;
+    left: 110px;;
+    top: 205px;
+    z-index: 1;
+  }
+
   .saved-fab-symbol {
     position: absolute;
     right: 20px;

@@ -56,5 +56,6 @@ router.post('/reviews/:id',
 //API
 router.get('/api/plans/near', catchErrors(planController.mapPlans))
 router.post('/api/plans/:id/heart', catchErrors(planController.heartPlan))
+router.post('/api/plans/:id/done', catchErrors(planController.donePlan))
 
 module.exports = router;

@@ -31,7 +31,7 @@ exports.resize = async (req, res, next) => {
   req.body.photo = `${uuid.v4()}.${extension}`;
   // now we resize
   const photo = await jimp.read(req.file.buffer);
-  await photo.resize(800, jimp.AUTO);
+  await photo.cover(800, 800);
   await photo.write(`./public/uploads/${req.body.photo}`);
   // once we have written the photo to our filesystem, keep going!
   next();
@@ -94,7 +94,11 @@ exports.account = async (req, res) => {
     _id: { $in: req.user.hearts }
   });
 
-  res.render('account/account', {userPlans, userHeartedPlans, title: 'Your Account' });
+  const userDonePlans = await Plan.find({
+    _id: { $in: req.user.dones }
+  });
+
+  res.render('account/account', {userPlans, userHeartedPlans, userDonePlans,title: 'Your Account' });
 };
 
 exports.accountEdit = (req, res) => {

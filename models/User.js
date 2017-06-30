@@ -28,6 +28,9 @@ const userSchema = new Schema({
   photo: String,
   hearts: [
     { type: mongoose.Schema.ObjectId, ref: 'Plan' }
+  ],
+  dones: [
+    { type: mongoose.Schema.ObjectId, ref: 'Plan' }
   ]
 });
 

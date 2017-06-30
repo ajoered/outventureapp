@@ -2,6 +2,9 @@ import autocomplete from './modules/autocomplete';
 import initMap from './modules/initmap';
 import slide from './modules/textChange';
 import ajaxHeart from './modules/heart';
+import ajaxDone from './modules/done';
+import heartPlan from './modules/heartDynamic';
+import donePlan from './modules/doneDynamic';
 
 $(document).ready(function(){
   $('.button-collapse').sideNav();
@@ -30,36 +33,46 @@ $(document).ready(function(){
       endingTop: '10%' // Ending top style attribute
     }
   );
+  Materialize.scrollFire(scrollFireOptions);
+  scrollMagic();
+  slide()
 
-  var flashSuccess = $( '.flash-success' );
+  const flashSuccess = $('.flash-success')
   if ( flashSuccess.length ) {
       setTimeout( function() {
           flashSuccess.addClass('animated bounceOutLeft');
       }, 2000 );
   }
 
-  Materialize.scrollFire(scrollFireOptions);
-  scrollMagic();
-  slide()
+  const profilePhoto = $('#photo')
+  if (profilePhoto.length) {
+    profilePhoto.change(function () {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("edit-image").src = e.target.result;
+      };
+
+      // read the image file as a data URL.
+      reader.readAsDataURL(this.files[0]);
+    });
+  }
+
 
 });
 
-document.getElementById("photo").onchange = function () {
-    var reader = new FileReader();
+var scrollFireOptions = [ {selector: '.fade-in', offset: 300, callback: function(el) { Materialize.fadeInImage($(el)); } }, {selector: '.fade-in-late', offset: 100, callback: function(el) { Materialize.fadeInImage($(el)); } }]
 
-    reader.onload = function (e) {
-        // get loaded data and render thumbnail.
-        document.getElementById("edit-image").src = e.target.result;
-    };
 
-    // read the image file as a data URL.
-    reader.readAsDataURL(this.files[0]);
-};
-
-  var scrollFireOptions = [ {selector: '.fade-in', offset: 300, callback: function(el) { Materialize.fadeInImage($(el)); } }, {selector: '.fade-in-late', offset: 100, callback: function(el) { Materialize.fadeInImage($(el)); } }]
 
   const hearts = document.querySelectorAll('form.heart');
-  $(hearts).on("submit", ajaxHeart)
+  $(hearts).on("submit", ajaxHeart);
+
+  const dones = document.querySelectorAll('form.done');
+  $(dones).on("submit", ajaxDone);
+  heartPlan();
+  donePlan();
 
   initMap(document.getElementById('map'));
 

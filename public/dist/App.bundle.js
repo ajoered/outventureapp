@@ -1078,7 +1078,7 @@ window.updateTags = function (input) {
     tagArray.push(input.value);
   } else {
     var searchTerm = input.value;
-    var index = tagArray.indexOf(searchTerm); // <-- Not supported in <IE9 :/
+    var index = tagArray.indexOf(searchTerm); // Search for value and delete. Not supported in <IE9 :/
     if (index !== -1) {
       tagArray.splice(index, 1);
     }
@@ -1174,10 +1174,26 @@ function createCards(plans) {
     cardsContainer.removeChild(cardsContainer.firstChild);
   }
   plans.forEach(function (plan) {
+
     var activityHtml = plan.activities.map(function (activity) {
       return '<div class="chip">\n      <img src="https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png">\n      ' + activity + '\n      </div>';
     }).slice(0, 2).join(" ");
-    var cardHtml = '\n\n<div class="card medium z-depth-2">\n  <div class="card-image waves-effect waves-block waves-light">\n    <img class="activator" src="images/photos/' + plan.activities[0] + '.jpg">\n  </div>\n    <div class="card-content">\n      <span class="card-title activator grey-text text-darken-4">' + plan.title + '\n        <i class="material-icons right">more_vert</i>\n      </span>' + activityHtml + ('\n      <div class="div">' + plan.skillLevel + '</div>\n    </div>\n\n    <div class="card-reveal">\n      <span class="card-title grey-text text-darken-4">' + plan.title + '\n        <i class="material-icons right">close</i>\n      </span>\n      <p>' + plan.description + '</p>\n      <a class="btn-floating waves-effect teal lighten-3 waves-light" href="' + plan.slug + '"></a>\n    </div>\n\n    <a class="btn-floating midway-fab waves-effect transparent waves-light">\n      <i class="fa fa-share-square-o" aria-hidden="true"></i></a>\n      <form class="heart" method="POST" action="/api/plans/' + plan._id + '/heart">\n        <button class="btn-floating halfway-fab waves-effect waves-light transparent" type="submit" name="heart">\n          <i class="fa fa-heart primary-pink-text" aria-hidden="true"></i>\n        </button>\n      </form>\n  </div>');
+
+    var tagHtml = plan.tags.map(function (tag) {
+      return '<div class="chip">\n      ' + tag + '\n      </div>';
+    }).slice(0, 4).join(" ");
+
+    var heartStrings = plan.author.hearts.map(function (obj) {
+      return obj.toString();
+    });
+    var heartClass = heartStrings.includes(plan._id.toString()) ? 'primary-pink-text' : '';
+
+    var donesStrings = plan.author.dones.map(function (obj) {
+      return obj.toString();
+    });
+    var doneClass = donesStrings.includes(plan._id.toString()) ? 'green-text' : '';
+
+    var cardHtml = '\n<div class="card medium z-depth-2">\n  <div class="card-image waves-effect waves-block waves-light">\n    <img class="activator" src="images/photos/' + plan.activities[0] + '.jpg">\n  </div>\n  <div class="card-content">\n    <span class="card-title activator grey-text text-darken-4">' + plan.title + '<i class="material-icons right">more_vert</i></span>' + activityHtml + tagHtml + ('</div>\n  <div class="card-reveal">\n    <span class="card-title grey-text text-darken-4">' + plan.title + '<i class="material-icons right">close</i></span>\n    <p>' + plan.tagline + '</p>\n    <a class="btn waves-effect teal darken-3 waves-light center" href="/plans/' + plan.slug + '">More info</a>\n  </div>\n  <a class="btn-floating share-fab waves-effect transparent waves-light"><i class="fa fa-share-square-o" aria-hidden="true"></i></a>\n  <button class="btn-floating done-fab waves-effect waves-light transparent" value=' + plan._id + ' onclick=donePlan(this) name="done">\n    <i class="fa fa-check ' + doneClass + ' ' + ('done' + plan._id) + '" aria-hidden="true"></i>\n  </button>\n  <button class="btn-floating saved-fab waves-effect waves-light transparent" value=' + plan._id + ' onclick=heartPlan(this) name="heart">\n    <i class="fa fa-heart ' + heartClass + ' ' + ('heart' + plan._id) + '" aria-hidden="true"></i>\n  </button>\n  <a class="review-fab"><p class="text-300 grey-text text-lighten-2">\u2605\u2605\u2605\u2605</p></a>\n  <a class="level-fab"><p class="text-300 grey-text">' + plan.skillLevel + '</p></a>\n  <a class="time-fab"><p class="text-300 grey-text text-lighten-2">&gt;4h / Day </p></a>\n  <a class="time-fab-symbol primary-pink-text"></a>\n  <a class="time-fab-symbol white-text"><i class="fa fa-clock-o" aria-hidden="true"></i></a>\n  <a class="saved-fab-symbol primary-pink-text"><i class="fa fa-heart" aria-hidden="true"></i></a>\n  <a class="saved-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">4</p></a>\n  <a class="done-fab-symbol green-text"><i class="fa fa-check" aria-hidden="true"></i></a>\n  <a class="done-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">2</p></a>\n</div>');
     var cardDiv = document.createElement('div');
     cardDiv.className = "col m6 s12";
     cardDiv.setAttribute("id", plan._id);
@@ -2028,6 +2044,18 @@ var _heart = __webpack_require__(10);
 
 var _heart2 = _interopRequireDefault(_heart);
 
+var _done = __webpack_require__(32);
+
+var _done2 = _interopRequireDefault(_done);
+
+var _heartDynamic = __webpack_require__(31);
+
+var _heartDynamic2 = _interopRequireDefault(_heartDynamic);
+
+var _doneDynamic = __webpack_require__(33);
+
+var _doneDynamic2 = _interopRequireDefault(_doneDynamic);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 $(document).ready(function () {
@@ -2056,6 +2084,9 @@ $(document).ready(function () {
         startingTop: '4%', // Starting top style attribute
         endingTop: '10%' // Ending top style attribute
     });
+    Materialize.scrollFire(scrollFireOptions);
+    scrollMagic();
+    (0, _textChange2.default)();
 
     var flashSuccess = $('.flash-success');
     if (flashSuccess.length) {
@@ -2064,22 +2095,21 @@ $(document).ready(function () {
         }, 2000);
     }
 
-    Materialize.scrollFire(scrollFireOptions);
-    scrollMagic();
-    (0, _textChange2.default)();
+    var profilePhoto = $('#photo');
+    if (profilePhoto.length) {
+        profilePhoto.change(function () {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                // get loaded data and render thumbnail.
+                document.getElementById("edit-image").src = e.target.result;
+            };
+
+            // read the image file as a data URL.
+            reader.readAsDataURL(this.files[0]);
+        });
+    }
 });
-
-document.getElementById("photo").onchange = function () {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-        // get loaded data and render thumbnail.
-        document.getElementById("edit-image").src = e.target.result;
-    };
-
-    // read the image file as a data URL.
-    reader.readAsDataURL(this.files[0]);
-};
 
 var scrollFireOptions = [{ selector: '.fade-in', offset: 300, callback: function callback(el) {
         Materialize.fadeInImage($(el));
@@ -2089,6 +2119,11 @@ var scrollFireOptions = [{ selector: '.fade-in', offset: 300, callback: function
 
 var hearts = document.querySelectorAll('form.heart');
 $(hearts).on("submit", _heart2.default);
+
+var dones = document.querySelectorAll('form.done');
+$(dones).on("submit", _done2.default);
+(0, _heartDynamic2.default)();
+(0, _doneDynamic2.default)();
 
 (0, _initmap2.default)(document.getElementById('map'));
 
@@ -2185,6 +2220,104 @@ function scrollMagic() {
     var offset2 = mapFix.offset();
     mapFix.offset(-150);
 };
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = __webpack_require__(2);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+window.heartPlan = function (input) {
+  var planId = $(input).val();
+  var heartIcon = $('.heart' + planId);
+  _axios2.default.post('/api/plans/' + planId + '/heart').then(function (res) {
+    console.log(res);
+    if ($(heartIcon).hasClass("primary-pink-text")) {
+      $(heartIcon).removeClass("primary-pink-text");
+    } else {
+      $(heartIcon).addClass("primary-pink-text");
+    }
+    $('.heart-count').html(res.data.hearts.length.toString());
+  }).catch(console.error);
+};
+
+exports.default = heartPlan;
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = __webpack_require__(2);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ajaxDone(e) {
+  var _this = this;
+
+  e.preventDefault();
+  console.log('Done ITTT!!!!!!!!!!!!!!!!');
+  console.log(this);
+  _axios2.default.post(this.action).then(function (res) {
+    console.log(_this.done);
+    var isDone = _this.done.firstChild.classList.toggle('green-text');
+    // $('.heart-count').html(res.data.hearts.length.toString());
+  }).catch(console.error);
+}
+
+exports.default = ajaxDone;
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = __webpack_require__(2);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+window.donePlan = function (input) {
+  var planId = $(input).val();
+  var doneIcon = $('.done' + planId);
+  _axios2.default.post('/api/plans/' + planId + '/heart').then(function (res) {
+    console.log(res);
+    if ($(doneIcon).hasClass("green-text")) {
+      $(doneIcon).removeClass("green-text");
+    } else {
+      $(doneIcon).addClass("green-text");
+    }
+    // $('.heart-count').html(res.data.hearts.length.toString());
+  }).catch(console.error);
+};
+
+exports.default = donePlan;
 
 /***/ })
 /******/ ]);
