@@ -143,7 +143,7 @@ function checkScroll(){
 
     if($(window).scrollTop() > startY){
         $('.nav-wrapper-landing').addClass("scrolled");
-        document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-03_bnkfhn.png";
+        document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-04_qzk92u.png";
     }else{
         $('.nav-wrapper-landing').removeClass("scrolled");
         document.getElementById("nav-landing-logo").src="https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-04_qzk92u.png";

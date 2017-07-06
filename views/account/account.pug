@@ -9,36 +9,57 @@ block header
 block content
   .parallaxx.parallax-profile
     .header-profile-section.background-transparent-grey
-      .container.container-profile
-        .row.center
-          .col.m2.push-m5.s4.push-s4
+      .container.container-profile.background-profile-grey
+        .row.row-user-name-bio
+          .col.m2.push-m2.s4.push-s4
             img.circle.responsive-img(src=`/uploads/${user.photo}` || '/images/photos/user.png') 
-        .row.center
-          .col.s12
+          .col.m6.push-m2.s12.left
             h4.white-text.text-300= "@" + user.name
-          .col.m6.push-m3.s12
             if user.bio
               i.white-text.text-300=user.bio
             else
               i.white-text.text-300 Write a bio!
-          .col.m2.push-m4.s12
-            a.btn-floating.waves-effect.transparent.waves-light(href=`/account/edit`)
-              i.material-icons.right mode_edit
+          .col.m2.push-m2.s12.white-text.edit-button-profile
+            a.btn.waves-effect.transparent.waves-light(href=`/account/edit`)
+              | Edit
+        .row.grey-text.text-lighten-2.text-300
+          .col.m2.push-m3.s6.push-s2
+            i.fa.fa-li.fa-venus-mars.fa-lg(aria-hidden='true')
+            |  Male
+          .col.m2.push-m3.s6.push-s2
+            i.fa.fa-li.fa-map-marker.fa-lg(aria-hidden='true')
+            |  Madrid
+          .col.m2.push-m3.s6.push-s2
+            i.fa.fa-li.fa-user-times.fa-lg(aria-hidden='true')
+            |  2 Followers
+          .col.m2.push-m3.s6.push-s2
+            i.fa.fa-li.fa-users.fa-lg(aria-hidden='true')
+            |  3 Following 
+        br    
+        .row.grey-text.text-lighten-2.text-300.center    
+          .col.m10.push-m1.s12
+            .chip Hiking
+              img(src=`https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png`)
+            .chip Scuba-Diving
+              img(src=`https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png`)
+            .chip Surfing
+              img(src=`https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png`)          
         br
-        .row
+      .row.profile-tabs
+        .col.m10.push-m1
           ul.tabs.tabs-fixed-width.transparent
             li.tab.white-text
               i.fa.fa-plus-square-o.fa-lg(aria-hidden='true')
-              a(href='#created').white-text.plan-count=userPlans.length
+              a(href='#created').plan-count=userPlans.length
                 |  CREATED
             li.tab.white-text
               i.fa.fa-heart-o.fa-lg(aria-hidden='true')
-              a(href='#saved').white-text=userHeartedPlans.length
+              a(href='#saved')=userHeartedPlans.length
                 |  WISH LIST
             li.tab.white-text
               i.fa.fa-check-square-o.fa-lg(aria-hidden='true')
-              a(href='#done')
-                |  4 DONE
+              a(href='#done')=userDonePlans.length
+                |  DONE
             li.tab.white-text
               i.fa.fa-star.fa-lg(aria-hidden='true')
               a(href='#done')
@@ -54,3 +75,6 @@ block content
         each plan in userHeartedPlans
           +planCard(plan)
     #done
+      .row
+        each plan in userDonePlans
+          +planCard(plan)

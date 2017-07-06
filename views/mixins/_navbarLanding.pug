@@ -1,7 +1,7 @@
 mixin navbarLanding()
   .navbar-fixed.z-depth-0
     nav
-      .nav-wrapper.nav-wrapper-landing.z-depth-0
+      .nav-wrapper.nav-wrapper-landing.z-depth-0.text-300
         // logo
         a.brand-logo(href='/')
           img#nav-landing-logo(src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1494986580/outventure_white-01_gofmj3.png', alt='Logo')
@@ -36,8 +36,8 @@ mixin navbarLanding()
                 i.material-icons.right arrow_drop_down
         else
           ul.right.hide-on-med-and-down
-            a.waves-effect.waves-light.btn.cyan.grey.lighten-5(href='/login', style='color:black!important;') Login
-            a.waves-effect.waves-light.btn.primary-blue(href='/register', style='margin-left:-10px;color:white!important;') Sign Up
+            a.waves-effect.waves-light.btn.transparent(href='/login', style='color:white!important;') Login
+            a.waves-effect.waves-light.btn.yellow.darken-4(href='/register', style='margin-left:-10px;color:white!important;') Sign up
         ul#profile-dropdown.dropdown-content(style="width: 300px !important")
           li
             a(href='/account') My Account

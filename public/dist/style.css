@@ -79,21 +79,22 @@ input[type="checkbox"].filled-in:checked + label:after {
 }
 
 .nav-wrapper.scrolled {
-    background-color: #fff;
-    color: black;
+    background-color: #2B3E50;
+    /*00394D*/
+    color: white;
 }
 
 .nav-wrapper.scrolledFix {
-    background-color: #fff;
-    color: black;
+  background-color: #2B3E50;
+  color: white;
 }
 
 .scrolled > ul a  {
-  color: black;
+  color: white;
 }
 
 .scrolledFix > ul a  {
-  color: black;
+  color: white;
 }
 
 .primary-pink {
@@ -104,9 +105,23 @@ input[type="checkbox"].filled-in:checked + label:after {
   color: #EF6267!important;
 }
 
-.primary-blue {
-  background-color: #202D3D!important
+.primary-blue-text {
+  color: #2B3E50!important;
 }
+
+.secondary-blue-text {
+  color: #007299!important;
+}
+
+.primary-blue {
+  background-color: #2B3E50!important
+}
+
+.secondary-blue {
+  background-color: #007299!important
+}
+
+007299
 
 .text-500 {
   font-weight: 500;
@@ -207,7 +222,8 @@ input[type="checkbox"].filled-in:checked + label:after {
 
 @media screen and (max-width: 1128px) {
   .listings-wrapper {
-      margin-right: 24px;
+      margin-right: 10px;
+      margin-left: -15px;
   }
   .listings-section .cards-container {
       width: 100%;
@@ -230,6 +246,28 @@ input[type="checkbox"].filled-in:checked + label:after {
   margin-left: 0px;
   margin-top: 4px;
 }
+
+.parallax-profile {
+  margin-top: -15%!important;
+  margin-bottom: 5%!important;
+  height: 100vh!important;
+}
+
+.header-profile-section {
+  position: relative;
+  height: 100vh!important;
+  padding-top: 100px;
+}
+
+.edit-button-profile {
+  position: absolute!important;
+  right: -120px!important;
+}
+
+.row-user-name-bio {
+  text-align: center!important;
+}
+
 }
 
 .learn-more {
@@ -542,6 +580,11 @@ color: #fff;
   background-color: rgba(14, 26, 33, 0.62)
 }
 
+.background-profile-grey {
+  background-color: rgba(14, 26, 33, 0.81);
+  padding-top: 20px;
+}
+
 .tabs .tab a {
   color: rgb(210, 210, 210)!important;
   display: inline!important;
@@ -642,9 +685,15 @@ color: #fff;
   padding-top: 100px;
 }
 
+.profile-tabs {
+  margin-top: 20px;
+}
+
+
 .profile-info {
   padding-top: 90px;
 }
+
 
 
 

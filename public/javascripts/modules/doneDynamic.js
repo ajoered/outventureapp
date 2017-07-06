@@ -12,7 +12,7 @@ window.donePlan = function (input) {
       } else {
         $(doneIcon).addClass( "green-text" )
       }
-      // $('.heart-count').html(res.data.hearts.length.toString());
+      $('.done-count').html(res.data.hearts.length.toString());
     })
     .catch(console.error);
 }
