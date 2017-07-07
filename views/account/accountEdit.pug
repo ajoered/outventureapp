@@ -33,12 +33,18 @@ block content
       .row
         .input-field.col.m5.s12
           i.material-icons.prefix.fa.fa-globe
-          input#name(type='text', name='city', value=user.city)
-          label(for='city') City          
+          label(for="city") City
+          input(type="text" id="city" name="location[city]" value=(user.location && user.location.city) required)
+        .input-field
+          input(type="hidden" id="lngCity" name="location[coordinates][0]" value=(user.location && user.location.coordinates[0]) required)
+        .input-field
+          input(type="hidden" id="latCity" name="location[coordinates][1]" value=(user.location && user.location.coordinates[1]) required)  
         .input-field.col.m5.push-m1.s12
           i.material-icons.prefix.fa.fa-venus-mars
-          input#email.validate(type='text', name='gender', value=user.gender)
-          label(for='gender') Gender          
+          select(id="gender" name='gender' value=user.gender) Gender
+            option(value='Male') Male
+            option(value='Female') Female
+            option(value='Other') Other        
       .row
         .input-field.col.s12
           i.material-icons.prefix
@@ -46,20 +52,13 @@ block content
           input#email.validate(type='text', name='bio', value=user.bio)
           label(for='bio') Bio
       .row
-        .input-field.col.s12
-          select(multiple='' id='activities')
-            option(value='All' disabled='') What activities are you interested in?
-            optgroup(label='Water')
-              option(value='Surf' name='Surf') Surf
-              option(value='Sailing' name='Sailing') Sailing
-              option(value='Scuba-diving' name='Scuba-Diving') Scuba-diving
-              option(value='Canoeing' name='Canoeing') Canoeing
-            optgroup(label='Land')
-              option(value='Climbing' name='Climbing') Climbing
-              option(value='Backpacking' name='Backpacking') Backpacking
-              option(value='Camping' name='Camping') Camping
-              option(value='Hiking' name='Hiking') Hiking
-          label Interests:
+        p Activities
+        - const activityChoices = ['Hiking', 'Backpacking', 'Camping', 'Cycling', 'Climbing', 'Surfing', 'Scuba-Diving', 'Canoeing', 'Fishing']
+        - const activities = user.activities || []
+        .input-field.center
+          each activity in activityChoices
+            input(type="checkbox" id=activity value=activity name="activities" checked=(activities.includes(activity)))
+            label(for=activity style="padding-right:15px;") #{activity}
       br
       center
         .row

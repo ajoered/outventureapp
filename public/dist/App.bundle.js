@@ -1002,14 +1002,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 window.donePlan = function (input) {
   var planId = $(input).val();
   var doneIcon = $('.done' + planId);
-  _axios2.default.post('/api/plans/' + planId + '/heart').then(function (res) {
+  _axios2.default.post('/api/plans/' + planId + '/done').then(function (res) {
     console.log(res);
     if ($(doneIcon).hasClass("green-text")) {
       $(doneIcon).removeClass("green-text");
     } else {
       $(doneIcon).addClass("green-text");
     }
-    $('.done-count').html(res.data.hearts.length.toString());
+    $('.done-count').html(res.data.dones.length.toString());
   }).catch(console.error);
 };
 
@@ -1274,7 +1274,7 @@ function createCards(plans) {
   plans.forEach(function (plan) {
 
     var activityHtml = plan.activities.map(function (activity) {
-      return '<div class="chip">\n      <img src="https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png">\n      ' + activity + '\n      </div>';
+      return '<div class="chip">\n      <img src="/images/icons/' + activity + '.png">\n      ' + activity + '\n      </div>';
     }).slice(0, 2).join(" ");
 
     var tagHtml = plan.tags.map(function (tag) {
@@ -2130,6 +2130,10 @@ var _autocomplete = __webpack_require__(9);
 
 var _autocomplete2 = _interopRequireDefault(_autocomplete);
 
+var _autocompleteCity = __webpack_require__(34);
+
+var _autocompleteCity2 = _interopRequireDefault(_autocompleteCity);
+
 var _initmap = __webpack_require__(14);
 
 var _initmap2 = _interopRequireDefault(_initmap);
@@ -2227,6 +2231,8 @@ $(dones).on("submit", _done2.default);
 
 (0, _autocomplete2.default)(document.getElementById("address"), document.getElementById("lat"), document.getElementById("lng"));
 
+(0, _autocomplete2.default)(document.getElementById("city"), document.getElementById("latCity"), document.getElementById("lngCity"));
+
 scaleVideoContainer();
 
 initBannerVideoSize('.video-container .poster img');
@@ -2318,6 +2324,39 @@ function scrollMagic() {
     var offset2 = mapFix.offset();
     mapFix.offset(-150);
 };
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function autocompleteCity(input, latInput, lngInput) {
+
+  if (!input) return; // skip this fn from running if there is not input on the page
+
+  var options = {
+    types: ['(cities)']
+  };
+
+  var dropdown = new google.maps.places.Autocomplete(input, options);
+
+  dropdown.addListener('place_changed', function () {
+    var place = dropdown.getPlace();
+    latInput.value = place.geometry.location.lat();
+    lngInput.value = place.geometry.location.lng();
+  });
+  // if someone hits enter on the address field, don't submit the form
+  input.addEventListener('keydown', function (e) {
+    if (e.keyCode === 13) e.preventDefault();
+  });
+}
+
+exports.default = autocompleteCity;
 
 /***/ })
 /******/ ]);

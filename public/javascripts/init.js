@@ -1,4 +1,5 @@
 import autocomplete from './modules/autocomplete';
+import autocompleteCity from './modules/autocompleteCity';
 import initMap from './modules/initmap';
 import slide from './modules/textChange';
 import ajaxHeart from './modules/heart';
@@ -77,6 +78,8 @@ var scrollFireOptions = [ {selector: '.fade-in', offset: 300, callback: function
   initMap(document.getElementById('map'));
 
   autocomplete( document.getElementById("address"), document.getElementById("lat"), document.getElementById("lng") );
+
+  autocomplete( document.getElementById("city"), document.getElementById("latCity"), document.getElementById("lngCity") );
 
   scaleVideoContainer();
 

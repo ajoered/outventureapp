@@ -16,12 +16,28 @@ const userSchema = new Schema({
     required: 'Please Supply an email address'
   },
   facebook: String,
+  gender: String,
   name: {
     type: String,
     required: 'Please supply a name',
     trim: true
   },
   bio: String,
+  activities: [String],
+  location: {
+  type: {
+    type: String,
+    default: 'Point'
+  },
+  coordinates: [{
+    type: Number,
+    required: 'You must supply coordinates!'
+  }],
+  city: {
+    type: String,
+    required: 'You must supply an address!'
+  }
+  },
   city: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date,

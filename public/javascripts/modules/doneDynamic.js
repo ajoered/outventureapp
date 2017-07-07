@@ -4,7 +4,7 @@ window.donePlan = function (input) {
   const planId = $(input).val();
   const doneIcon = $('.done' + planId)
   axios
-    .post(`/api/plans/${planId}/heart`)
+    .post(`/api/plans/${planId}/done`)
     .then(res => {
       console.log(res);
       if ($(doneIcon).hasClass( "green-text" )) {
@@ -12,7 +12,7 @@ window.donePlan = function (input) {
       } else {
         $(doneIcon).addClass( "green-text" )
       }
-      $('.done-count').html(res.data.hearts.length.toString());
+      $('.done-count').html(res.data.dones.length.toString());
     })
     .catch(console.error);
 }

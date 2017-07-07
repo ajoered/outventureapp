@@ -9,7 +9,7 @@ mixin planCard(plan = {})
         - const activities = plan.activities.slice(0, 2) || []
         each activity in activities
           .chip= activity
-            img(src=`https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png`)
+            img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
         - const tags = plan.tags.slice(0, 4) || []
         each tag in tags
           .chip= tag

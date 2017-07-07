@@ -25,10 +25,10 @@ block content
         .row.grey-text.text-lighten-2.text-300
           .col.m2.push-m3.s6.push-s2
             i.fa.fa-li.fa-venus-mars.fa-lg(aria-hidden='true')
-            |  Male
+            = user.gender
           .col.m2.push-m3.s6.push-s2
             i.fa.fa-li.fa-map-marker.fa-lg(aria-hidden='true')
-            |  Madrid
+            =  user.location.city.split(",")[0]
           .col.m2.push-m3.s6.push-s2
             i.fa.fa-li.fa-user-times.fa-lg(aria-hidden='true')
             |  2 Followers
@@ -36,14 +36,16 @@ block content
             i.fa.fa-li.fa-users.fa-lg(aria-hidden='true')
             |  3 Following 
         br    
-        .row.grey-text.text-lighten-2.text-300.center    
+        .row.grey-text.text-lighten-2.text-300.center.truncate   
           .col.m10.push-m1.s12
-            .chip Hiking
-              img(src=`https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png`)
-            .chip Scuba-Diving
-              img(src=`https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png`)
-            .chip Surfing
-              img(src=`https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png`)          
+            if user.activities
+              - const activities = user.activities 
+              each activity in activities
+                .chip= activity
+                  img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
+            else 
+              | Add some activites!        
+         
         br
       .row.profile-tabs
         .col.m10.push-m1

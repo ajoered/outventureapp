@@ -190,7 +190,7 @@ function createCards(plans) {
 
     const activityHtml = plan.activities.map(activity => {
       return `<div class="chip">
-      <img src="https://cdn2.iconfinder.com/data/icons/sport-ii/79/08-512.png">
+      <img src="/images/icons/${activity}.png">
       ${activity}
       </div>`
     }).slice(0, 2).join(" ")
