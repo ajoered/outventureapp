@@ -35,14 +35,14 @@ mixin navbar()
             li(style="margin-left:-10px;padding-right:15px;")
               i.left.fa.fa-heart-o(aria-hidden='true')
             li(style="padding-top:8px")
-              img.avatar(src=`/uploads/${user.photo}`|| '/images/photos/user.png')
+              img.avatar(src=`${user.photo}`|| '/images/photos/user.png')
             li
               a.dropdown-button(href='#', data-activates='profile-dropdown', data-beloworigin='true', data-constrainwidth='true')=user.name
                 i.material-icons.right arrow_drop_down
         else
           ul.right.hide-on-med-and-down
-            a.waves-effect.waves-light.btn.secondary-blue(href='/login', style='color:white!important;') Login
-            a.waves-effect.waves-light.btn.white(href='/register', style='margin-left:-10px;color:black!important;') Sign up
+            a#login.waves-effect.waves-light.btn.transparent(href='/login', style='color:white!important;') Login
+            a#register.waves-effect.waves-light.btn.white(href='#', style='margin-left:-10px;color:black!important;') Sign up
           // Dropdown Structures
         ul#profile-dropdown.dropdown-content
           li

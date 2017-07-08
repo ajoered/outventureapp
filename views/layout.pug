@@ -11,6 +11,7 @@ head
   // CSS
   link(rel='stylesheet', href='/dist/style.css')
   link(rel='stylesheet', href='/dist/materialize.css')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.css')
   link(rel='stylesheet prefetch', href='https://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css')
   link(rel="shortcut icon" type="image/png" href="/images/icons/symbolBlack.png")
   body
@@ -38,6 +39,8 @@ head
       script(src='http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js')
       script(src='http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.js')
       script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.MAP_KEY}&libraries=places`)
+      //SwalAlert
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.js')
       script(src="/dist/App.bundle.js")
       script(src="/javascripts/materialize.js")
       script.

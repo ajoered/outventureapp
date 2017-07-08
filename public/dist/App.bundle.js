@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 33);
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -376,7 +376,7 @@ module.exports = {
 "use strict";
 
 
-module.exports = __webpack_require__(16);
+module.exports = __webpack_require__(18);
 
 /***/ }),
 /* 2 */
@@ -386,7 +386,7 @@ module.exports = __webpack_require__(16);
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(30);
+var normalizeHeaderName = __webpack_require__(32);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -481,12 +481,12 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(22);
-var buildURL = __webpack_require__(25);
-var parseHeaders = __webpack_require__(31);
-var isURLSameOrigin = __webpack_require__(29);
+var settle = __webpack_require__(24);
+var buildURL = __webpack_require__(27);
+var parseHeaders = __webpack_require__(33);
+var isURLSameOrigin = __webpack_require__(31);
 var createError = __webpack_require__(6);
-var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(24);
+var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(26);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -579,7 +579,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(27);
+      var cookies = __webpack_require__(29);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ? cookies.read(config.xsrfCookieName) : undefined;
@@ -696,7 +696,7 @@ module.exports = function isCancel(value) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(21);
+var enhanceError = __webpack_require__(23);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -960,6 +960,39 @@ exports.default = autocomplete;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+function autocompleteCity(input, latInput, lngInput) {
+
+  if (!input) return; // skip this fn from running if there is not input on the page
+
+  var options = {
+    types: ['(cities)']
+  };
+
+  var dropdown = new google.maps.places.Autocomplete(input, options);
+
+  dropdown.addListener('place_changed', function () {
+    var place = dropdown.getPlace();
+    latInput.value = place.geometry.location.lat();
+    lngInput.value = place.geometry.location.lng();
+  });
+  // if someone hits enter on the address field, don't submit the form
+  input.addEventListener('keydown', function (e) {
+    if (e.keyCode === 13) e.preventDefault();
+  });
+}
+
+exports.default = autocompleteCity;
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _axios = __webpack_require__(1);
 
@@ -983,7 +1016,7 @@ function ajaxDone(e) {
 exports.default = ajaxDone;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1000,6 +1033,7 @@ var _axios2 = _interopRequireDefault(_axios);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 window.donePlan = function (input) {
+  if (!input) return;
   var planId = $(input).val();
   var doneIcon = $('.done' + planId);
   _axios2.default.post('/api/plans/' + planId + '/done').then(function (res) {
@@ -1010,13 +1044,21 @@ window.donePlan = function (input) {
       $(doneIcon).addClass("green-text");
     }
     $('.done-count').html(res.data.dones.length.toString());
-  }).catch(console.error);
+  }).catch(function (error) {
+    swal({
+      title: 'LOGIN | SIGNUP',
+      html: '<a style="" href="/auth/facebook" class="col s12 waves-effect waves-light btn-large social facebook light-blue darken-4"><i class="fa fa-facebook"></i>Facebook</a>' + '<a style="margin-top:10px;" href="/auth/facebook" class="col s12 waves-effect waves-light btn-large social google red darken-3"><i class="fa fa-google"></i>Google</a>' + '<a style="margin-top:10px;" href="/login" class="col s12 waves-effect waves-light btn-large social mail grey darken-3"><i class="fa fa-envelope"></i>Email</a>',
+      showCloseButton: true,
+      confirmButtonColor: '#2B3E50',
+      confirmButtonText: 'Not now'
+    });
+  });
 };
 
 exports.default = donePlan;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1048,7 +1090,7 @@ function ajaxHeart(e) {
 exports.default = ajaxHeart;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1065,6 +1107,7 @@ var _axios2 = _interopRequireDefault(_axios);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 window.heartPlan = function (input) {
+  if (!input) return;
   var planId = $(input).val();
   var heartIcon = $('.heart' + planId);
   _axios2.default.post('/api/plans/' + planId + '/heart').then(function (res) {
@@ -1075,13 +1118,21 @@ window.heartPlan = function (input) {
       $(heartIcon).addClass("primary-pink-text");
     }
     $('.heart-count').html(res.data.hearts.length.toString());
-  }).catch(console.error);
+  }).catch(function (error) {
+    swal({
+      title: 'LOGIN | SIGNUP',
+      html: '<a style="" href="/auth/facebook" class="col s12 waves-effect waves-light btn-large social facebook light-blue darken-4"><i class="fa fa-facebook"></i>Facebook</a>' + '<a style="margin-top:10px;" href="/auth/facebook" class="col s12 waves-effect waves-light btn-large social google red darken-3"><i class="fa fa-google"></i>Google</a>' + '<a style="margin-top:10px;" href="/login" class="col s12 waves-effect waves-light btn-large social mail grey darken-3"><i class="fa fa-envelope"></i>Email</a>',
+      showCloseButton: true,
+      confirmButtonColor: '#2B3E50',
+      confirmButtonText: 'Not now'
+    });
+  });
 };
 
 exports.default = heartPlan;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1304,7 +1355,30 @@ function createCards(plans) {
 exports.default = initMap;
 
 /***/ }),
-/* 15 */
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function registerPopup(input) {
+  input.click(function () {
+    swal({
+      title: 'LOGIN | SIGNUP',
+      html: '<a style="" href="/auth/facebook" class="col s12 waves-effect waves-light btn-large social facebook light-blue darken-4"><i class="fa fa-facebook"></i>Facebook</a>' + '<a style="margin-top:10px;" href="/auth/facebook" class="col s12 waves-effect waves-light btn-large social google red darken-3"><i class="fa fa-google"></i>Google</a>' + '<a style="margin-top:10px;" href="/register" class="col s12 waves-effect waves-light btn-large social mail grey darken-3"><i class="fa fa-envelope"></i>Email</a>',
+      showCloseButton: true,
+      showConfirmButton: false
+    });
+  });
+}
+
+exports.default = registerPopup;
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1332,7 +1406,7 @@ function slide() {
 exports.default = slide;
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1340,7 +1414,7 @@ exports.default = slide;
 
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(7);
-var Axios = __webpack_require__(18);
+var Axios = __webpack_require__(20);
 var defaults = __webpack_require__(2);
 
 /**
@@ -1375,14 +1449,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(4);
-axios.CancelToken = __webpack_require__(17);
+axios.CancelToken = __webpack_require__(19);
 axios.isCancel = __webpack_require__(5);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(32);
+axios.spread = __webpack_require__(34);
 
 module.exports = axios;
 
@@ -1390,7 +1464,7 @@ module.exports = axios;
 module.exports.default = axios;
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1453,7 +1527,7 @@ CancelToken.source = function source() {
 module.exports = CancelToken;
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1461,10 +1535,10 @@ module.exports = CancelToken;
 
 var defaults = __webpack_require__(2);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(19);
-var dispatchRequest = __webpack_require__(20);
-var isAbsoluteURL = __webpack_require__(28);
-var combineURLs = __webpack_require__(26);
+var InterceptorManager = __webpack_require__(21);
+var dispatchRequest = __webpack_require__(22);
+var isAbsoluteURL = __webpack_require__(30);
+var combineURLs = __webpack_require__(28);
 
 /**
  * Create a new instance of Axios
@@ -1544,7 +1618,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = Axios;
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1602,14 +1676,14 @@ InterceptorManager.prototype.forEach = function forEach(fn) {
 module.exports = InterceptorManager;
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(23);
+var transformData = __webpack_require__(25);
 var isCancel = __webpack_require__(5);
 var defaults = __webpack_require__(2);
 
@@ -1668,7 +1742,7 @@ module.exports = function dispatchRequest(config) {
 };
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1694,7 +1768,7 @@ module.exports = function enhanceError(error, config, code, response) {
 };
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1720,7 +1794,7 @@ module.exports = function settle(resolve, reject, response) {
 };
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1746,7 +1820,7 @@ module.exports = function transformData(data, headers, fns) {
 };
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1787,7 +1861,7 @@ function btoa(input) {
 module.exports = btoa;
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1854,7 +1928,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 };
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1873,7 +1947,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 };
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1932,7 +2006,7 @@ function nonStandardBrowserEnv() {
 }();
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1954,7 +2028,7 @@ module.exports = function isAbsoluteURL(url) {
 };
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2023,7 +2097,7 @@ function nonStandardBrowserEnv() {
 }();
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2041,7 +2115,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 };
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2086,7 +2160,7 @@ module.exports = function parseHeaders(headers) {
 };
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2120,7 +2194,7 @@ module.exports = function spread(callback) {
 };
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2130,33 +2204,37 @@ var _autocomplete = __webpack_require__(9);
 
 var _autocomplete2 = _interopRequireDefault(_autocomplete);
 
-var _autocompleteCity = __webpack_require__(34);
+var _autocompleteCity = __webpack_require__(10);
 
 var _autocompleteCity2 = _interopRequireDefault(_autocompleteCity);
 
-var _initmap = __webpack_require__(14);
+var _initmap = __webpack_require__(15);
 
 var _initmap2 = _interopRequireDefault(_initmap);
 
-var _textChange = __webpack_require__(15);
+var _textChange = __webpack_require__(17);
 
 var _textChange2 = _interopRequireDefault(_textChange);
 
-var _heart = __webpack_require__(12);
+var _heart = __webpack_require__(13);
 
 var _heart2 = _interopRequireDefault(_heart);
 
-var _done = __webpack_require__(10);
+var _done = __webpack_require__(11);
 
 var _done2 = _interopRequireDefault(_done);
 
-var _heartDynamic = __webpack_require__(13);
+var _heartDynamic = __webpack_require__(14);
 
 var _heartDynamic2 = _interopRequireDefault(_heartDynamic);
 
-var _doneDynamic = __webpack_require__(11);
+var _doneDynamic = __webpack_require__(12);
 
 var _doneDynamic2 = _interopRequireDefault(_doneDynamic);
+
+var _registerPopup = __webpack_require__(16);
+
+var _registerPopup2 = _interopRequireDefault(_registerPopup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2213,6 +2291,7 @@ $(document).ready(function () {
     }
 });
 
+(0, _registerPopup2.default)($('#register'));
 var scrollFireOptions = [{ selector: '.fade-in', offset: 300, callback: function callback(el) {
         Materialize.fadeInImage($(el));
     } }, { selector: '.fade-in-late', offset: 100, callback: function callback(el) {
@@ -2221,10 +2300,10 @@ var scrollFireOptions = [{ selector: '.fade-in', offset: 300, callback: function
 
 var hearts = document.querySelectorAll('form.heart');
 $(hearts).on("submit", _heart2.default);
+(0, _heartDynamic2.default)();
 
 var dones = document.querySelectorAll('form.done');
 $(dones).on("submit", _done2.default);
-(0, _heartDynamic2.default)();
 (0, _doneDynamic2.default)();
 
 (0, _initmap2.default)(document.getElementById('map'));
@@ -2324,39 +2403,6 @@ function scrollMagic() {
     var offset2 = mapFix.offset();
     mapFix.offset(-150);
 };
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-function autocompleteCity(input, latInput, lngInput) {
-
-  if (!input) return; // skip this fn from running if there is not input on the page
-
-  var options = {
-    types: ['(cities)']
-  };
-
-  var dropdown = new google.maps.places.Autocomplete(input, options);
-
-  dropdown.addListener('place_changed', function () {
-    var place = dropdown.getPlace();
-    latInput.value = place.geometry.location.lat();
-    lngInput.value = place.geometry.location.lng();
-  });
-  // if someone hits enter on the address field, don't submit the form
-  input.addEventListener('keydown', function (e) {
-    if (e.keyCode === 13) e.preventDefault();
-  });
-}
-
-exports.default = autocompleteCity;
 
 /***/ })
 /******/ ]);

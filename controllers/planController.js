@@ -116,25 +116,33 @@ exports.mapPlans = async (req, res) => {
 
 
 exports.heartPlan = async (req, res) => {
-  const hearts = req.user.hearts.map(obj => obj.toString());
-  //if not included add, else remove
-  const operator = hearts.includes(req.params.id) ? '$pull' : '$addToSet';
-  const user = await User
-    .findByIdAndUpdate(req.user._id,
-      { [operator]: { hearts: req.params.id } },
-      { new: true }
-    );
-  res.json(user);
+  if (req.user == undefined) {
+    return res.status(500).send({ error: 'You must login' })
+  } else {
+    const hearts = req.user.hearts.map(obj => obj.toString());
+    //if not included add, else remove
+    const operator = hearts.includes(req.params.id) ? '$pull' : '$addToSet';
+    const user = await User
+      .findByIdAndUpdate(req.user._id,
+        { [operator]: { hearts: req.params.id } },
+        { new: true }
+      );
+    res.json(user);
+  }
 };
 
 exports.donePlan = async (req, res) => {
-  const dones = req.user.dones.map(obj => obj.toString());
-  //if not included add, else remove
-  const operator = dones.includes(req.params.id) ? '$pull' : '$addToSet';
-  const user = await User
-    .findByIdAndUpdate(req.user._id,
-      { [operator]: { dones: req.params.id } },
-      { new: true }
-    );
-  res.json(user);
+  if (req.user == undefined) {
+    return res.status(500).send({ error: 'You must login' })
+  } else {
+    const dones = req.user.dones.map(obj => obj.toString());
+    //if not included add, else remove
+    const operator = dones.includes(req.params.id) ? '$pull' : '$addToSet';
+    const user = await User
+      .findByIdAndUpdate(req.user._id,
+        { [operator]: { dones: req.params.id } },
+        { new: true }
+      );
+    res.json(user);
+    }
 };

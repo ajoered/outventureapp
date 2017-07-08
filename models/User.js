@@ -17,9 +17,12 @@ const userSchema = new Schema({
   },
   facebook: String,
   gender: String,
-  name: {
+  firstName: {
     type: String,
-    required: 'Please supply a name',
+    trim: true
+  },
+  lastName: {
+    type: String,
     trim: true
   },
   bio: String,
@@ -30,15 +33,12 @@ const userSchema = new Schema({
     default: 'Point'
   },
   coordinates: [{
-    type: Number,
-    required: 'You must supply coordinates!'
+    type: Number
   }],
   city: {
-    type: String,
-    required: 'You must supply an address!'
+    type: String
   }
   },
-  city: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   photo: String,

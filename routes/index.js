@@ -47,6 +47,8 @@ router.post('/account/edit',
   userController.upload,
   catchErrors(userController.resize),
   catchErrors(userController.updateAccount));
+router.get('/account/addProfileInfo', authController.isLoggedIn, userController.accountAddProfileInfo);
+
 
 router.post('/reviews/:id',
   authController.isLoggedIn,

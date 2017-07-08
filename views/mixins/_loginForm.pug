@@ -2,35 +2,35 @@ mixin loginForm()
   .section
   main
     center
-      .section
       .container
-        .z-depth-1.grey.lighten-4.row(style='padding: 32px 48px 0px 48px; border: 1px solid #EEE;')
-          form.col.s12(action="/login" method='post')
+        form.col.s12(action="/login" method='post')
+          .row
+            img.responsive-img(style='width: 150px;', src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-03_bnkfhn.png')
+          .row
+            .input-field.col.s12
+              i.material-icons.prefix.fa.fa-user-o
+              input#email.validate(type='email', name='email')
+              label(for='email') Email
+          .row
+            .input-field.col.s12
+              i.material-icons.prefix.fa.fa-keyboard-o
+              input#password.validate(type='password', name='password')
+              label(for='password') Password
+            label(style='float: right;')
+              a(href='#!')
+                b Forgot Password?
+          br
+          center
             .row
-              img.responsive-img(style='width: 150px;', src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-03_bnkfhn.png')
+              button.col.s12.btn.btn-large.waves-effect.primary-blue(type='submit', name='btn_login') Login
+            br  
             .row
-              .input-field.col.s12
-                i.material-icons.prefix.fa.fa-user-o
-                input#email.validate(type='email', name='email')
-                label(for='email') Email
-            .row
-              .input-field.col.s12
-                i.material-icons.prefix.fa.fa-keyboard-o
-                input#password.validate(type='password', name='password')
-                label(for='password') Password
-              label(style='float: right;')
-                a(href='#!')
-                  b Forgot Password?
-            br
-            center
-              .row
-                button.col.s12.btn.btn-large.waves-effect.primary-blue(type='submit', name='btn_login') Login
-              .row
-                a.col.s12.text.waves-effect.waves-light.btn.btn-large.social.facebook.light-blue.darken-4(href='/auth/facebook')
-                  i.fa.fa-facebook
-                  |  Sign in with Facebook
-              //- .row
-              //-   button.col.s12.btn-large.waves-effect.cyan.darken-4(type='submit', name='') Facebook
-      a(href='#!') Not a member? Create an account
-    .section
-    .section
+              a.col.s12.waves-effect.waves-light.btn-large.social.facebook.light-blue.darken-4(href='/auth/facebook')
+                i.fa.fa-facebook
+                |  Login with Facebook
+              a.col.s12.waves-effect.waves-light.btn-large.social.google.red.darken-3(style='margin-top:10px;' href='/auth/facebook')
+                i.fa.fa-google
+                |  Login with Google
+            //- .row
+            //-   button.col.s12.btn-large.waves-effect.cyan.darken-4(type='submit', name='') Facebook
+          a(href='/login') Not a member? Create an account

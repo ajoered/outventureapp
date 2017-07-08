@@ -105,26 +105,37 @@ input[type="checkbox"].filled-in:checked + label:after {
   color: #EF6267!important;
 }
 
-.primary-blue-text {
-  color: #2B3E50!important;
-}
-
-.secondary-blue-text {
-  color: #007299!important;
-}
-
 .primary-blue {
   background-color: #2B3E50!important
+}
+
+.primary-blue-text {
+  color: #2B3E50!important;
 }
 
 .secondary-blue {
   background-color: #007299!important
 }
 
+.secondary-blue-text {
+  color: #007299!important;
+}
+
+.primary-green {
+  background-color: #7BAE7F!important;
+}
+
+.primary-green-text {
+  color: #7BAE7F!important;
+}
+
+7BAE7F
+
+
 007299
 
 .text-500 {
-  font-weight: 500;
+  font-weight: 500!important;
 }
 
 .text-700 {
@@ -266,6 +277,12 @@ input[type="checkbox"].filled-in:checked + label:after {
 
 .row-user-name-bio {
   text-align: center!important;
+}
+
+.profile-tabs {
+  width: 100%;
+  position: absolute;
+  top: 90vh!important;
 }
 
 }
@@ -581,7 +598,7 @@ color: #fff;
 }
 
 .background-profile-grey {
-  background-color: rgba(14, 26, 33, 0.81);
+  background-color: rgba(14, 26, 33, 0.71);
   padding-top: 20px;
 }
 
@@ -667,7 +684,7 @@ color: #fff;
 
 .parallax-profile {
     /* The image used */
-    background-image: url('https://static.pexels.com/photos/26559/pexels-photo-26559.jpg');
+    background-image: url('https://static.pexels.com/photos/292600/pexels-photo-292600.jpeg');
     background-position: 50% 90%!important;
     /* Full height */
     height: 70vh;
@@ -687,6 +704,10 @@ color: #fff;
 
 .profile-tabs {
   margin-top: 20px;
+  background-color: rgba(14, 26, 33, 0.19);
+  width: 100%;
+  position: absolute;
+  top: 60vh;
 }
 
 

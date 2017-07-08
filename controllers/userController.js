@@ -21,6 +21,16 @@ const multerOptions = {
 exports.upload = multer(multerOptions).single('photo');
 
 exports.resize = async (req, res, next) => {
+  const updates = {
+    photo: 'uploads/' + req.body.photo
+  };
+
+  const user = await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $set: updates },
+    { new: true, runValidators: true, context: 'query' }
+  );
+
   console.log(req.file);
   // check if there is no new file to resize
   if (!req.file) {
@@ -46,8 +56,7 @@ exports.registerForm = (req, res) => {
 };
 
 exports.validateRegister = (req, res, next) => {
-  req.sanitizeBody('name');
-  req.checkBody('name', 'You must supply a name!').notEmpty();
+  req.checkBody('email', 'You must supply an email!').notEmpty();
   req.checkBody('email', 'That Email is not valid!').isEmail();
   req.sanitizeBody('email').normalizeEmail({
     gmail_remove_dots: false,
@@ -68,7 +77,7 @@ exports.validateRegister = (req, res, next) => {
 };
 
 exports.register = async (req, res, next) => {
-  const user = new User({ email: req.body.email, name: req.body.name });
+  const user = new User({ email: req.body.email });
   const register = promisify(User.register, User);
   await register(user, req.body.password, (err) => {
     console.log(err);
@@ -86,6 +95,7 @@ exports.register = async (req, res, next) => {
 };
 
 exports.account = async (req, res) => {
+
   const userPlans = await Plan.find({
     author: { $in: req.user._id }
   });
@@ -105,10 +115,15 @@ exports.accountEdit = (req, res) => {
   res.render('account/accountEdit', { title: 'Edit Your Account' });
 };
 
+exports.accountAddProfileInfo = (req, res) => {
+  res.render('account/addProfileInfo', { title: 'Complete your profile' });
+};
+
 exports.updateAccount = async (req, res) => {
   const user = await User.findOneAndUpdate({ _id: req.user.id }, req.body, {
     new: true, // return the new user instead of the old one
-    runValidators: true
+    runValidators: true,
+    context: 'query'
   }).exec();
   req.flash('success', 'Updated the profile!');
   res.redirect('/account');

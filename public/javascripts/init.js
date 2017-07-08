@@ -6,6 +6,7 @@ import ajaxHeart from './modules/heart';
 import ajaxDone from './modules/done';
 import heartPlan from './modules/heartDynamic';
 import donePlan from './modules/doneDynamic';
+import registerPopup from './modules/registerPopup';
 
 $(document).ready(function(){
   $('.button-collapse').sideNav();
@@ -63,16 +64,15 @@ $(document).ready(function(){
 
 });
 
-var scrollFireOptions = [ {selector: '.fade-in', offset: 300, callback: function(el) { Materialize.fadeInImage($(el)); } }, {selector: '.fade-in-late', offset: 100, callback: function(el) { Materialize.fadeInImage($(el)); } }]
-
-
+  registerPopup($('#register'))
+  var scrollFireOptions = [ {selector: '.fade-in', offset: 300, callback: function(el) {    Materialize.fadeInImage($(el)); } }, {selector: '.fade-in-late', offset: 100, callback: function(el) { Materialize.fadeInImage($(el)); } }]
 
   const hearts = document.querySelectorAll('form.heart');
   $(hearts).on("submit", ajaxHeart);
+  heartPlan();
 
   const dones = document.querySelectorAll('form.done');
   $(dones).on("submit", ajaxDone);
-  heartPlan();
   donePlan();
 
   initMap(document.getElementById('map'));

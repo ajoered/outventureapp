@@ -12,40 +12,52 @@ block content
       .container.container-profile.background-profile-grey
         .row.row-user-name-bio
           .col.m2.push-m2.s4.push-s4
-            img.circle.responsive-img(src=`/uploads/${user.photo}` || '/images/photos/user.png') 
+            if user.photo
+              img.circle.responsive-img(src=`${user.photo}`) 
+            else
+              img.circle.responsive-img(src='/images/photos/user.png')
+              a(href=`/account/edit`) Add Profile Picture
           .col.m6.push-m2.s12.left
-            h4.white-text.text-300= "@" + user.name
+            h4.white-text.text-300=user.firstName + " " + user.lastName
             if user.bio
               i.white-text.text-300=user.bio
             else
-              i.white-text.text-300 Write a bio!
+              a.text-300(href=`/account/edit`) Write a bio! →
           .col.m2.push-m2.s12.white-text.edit-button-profile
             a.btn.waves-effect.transparent.waves-light(href=`/account/edit`)
               | Edit
         .row.grey-text.text-lighten-2.text-300
           .col.m2.push-m3.s6.push-s2
-            i.fa.fa-li.fa-venus-mars.fa-lg(aria-hidden='true')
-            = user.gender
+            if user.gender
+              i.fa.fa-li.fa-venus-mars.fa-lg(aria-hidden='true')
+              = user.gender
+            else
+              i.fa.fa-li.fa-venus-mars.fa-lg(aria-hidden='true')
+              a(href="/account/edit") Gender
           .col.m2.push-m3.s6.push-s2
-            i.fa.fa-li.fa-map-marker.fa-lg(aria-hidden='true')
-            =  user.location.city.split(",")[0]
+            if user.location.city
+              i.fa.fa-li.fa-map-marker.fa-lg(aria-hidden='true')
+              =  user.location.city.split(",")[0]
+            else
+              i.fa.fa-li.fa-map-marker.fa-lg(aria-hidden='true')
+              a(href="/account/edit") City
           .col.m2.push-m3.s6.push-s2
             i.fa.fa-li.fa-user-times.fa-lg(aria-hidden='true')
-            |  2 Followers
+            |  0 Followers
           .col.m2.push-m3.s6.push-s2
             i.fa.fa-li.fa-users.fa-lg(aria-hidden='true')
-            |  3 Following 
-        br    
-        .row.grey-text.text-lighten-2.text-300.center.truncate   
+            |  0 Following
+        br
+        .row.grey-text.text-lighten-2.text-300.center.truncate
           .col.m10.push-m1.s12
-            if user.activities
-              - const activities = user.activities 
+            if user.activities = []
+              a(href="/account/edit") Add some activites!
+            else
+              - const activities = user.activities
               each activity in activities
                 .chip= activity
-                  img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
-            else 
-              | Add some activites!        
-         
+                img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
+
         br
       .row.profile-tabs
         .col.m10.push-m1
@@ -70,8 +82,20 @@ block content
     br
     #created
       .row
-        each plan in userPlans
-          +planCard(plan)
+        if (userPlans != "")
+          each plan in userPlans
+            +planCard(plan)
+        else
+          .col.s12.center
+            br
+            a.waves-effect.waves-light.btn-large.secondary-blue(href="/addPlan")
+              i.fa.fa-plus-square-o.left
+              | Create my first plan
+          .col.s12.center
+            br
+            a.waves-effect.waves-light.btn-large.secondary-blue(href="/")
+              i.fa.fa-search.left
+              | Discover
     #saved
       .row
         each plan in userHeartedPlans

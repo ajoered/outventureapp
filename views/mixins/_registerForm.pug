@@ -2,46 +2,38 @@ mixin registerForm()
   .section
   main
     center
-      .section
       .container
-        .z-depth-1.grey.lighten-4.row(style='padding: 32px 48px 0px 48px; border: 1px solid #EEE;')
-          form.col.s12(action="/register" method="POST")
+        form(action="/register" method="POST")
+          .row
+            .col.s12
+              img.responsive-img(style='width: 150px;', src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-03_bnkfhn.png')
+          .row
+            .input-field.col.s12
+              i.material-icons.prefix.fa.fa-envelope-o
+              input#name.validate(type='email', name='email')
+              label(for='email') Enter your email
+          .row
+            .input-field.col.s12
+              i.material-icons.prefix.fa.fa-keyboard-o
+              input#password.validate(type='password', name='password')
+              label(for='password') Enter your password
+          .row
+            .input-field.col.s12
+              i.material-icons.prefix.fa.fa-check-circle-o
+              input#password-confirm.validate(type='password', name='password-confirm')
+              label(for='password-confirm') Confirm your password
+            label(style='float: right;')
+              a(href='#!')
+                b Forgot Password?
+          br
+          center
             .row
-              .col.s12
-                img.responsive-img(style='width: 150px;', src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-03_bnkfhn.png')
+              button.col.s12.btn.btn-large.waves-effect.primary-blue(type='submit', name='btn-register') Register
+            br  
             .row
-              a.col.m8.push-m2.s12.waves-effect.waves-light.btn.social.facebook.light-blue.darken-4(style='margin:10px;' href='/auth/facebook')
+              a.col.s12.waves-effect.waves-light.btn-large.social.facebook.light-blue.darken-4(href='/auth/facebook')
                 i.fa.fa-facebook
                 |  Sign up with Facebook
-              a.col.m8.push-m2.s12.waves-effect.waves-light.btn.social.google.red.darken-3(style='margin:10px;' href='/auth/facebook')
+              a.col.s12.waves-effect.waves-light.btn-large.social.google.red.darken-3(style='margin-top:10px;' href='/auth/facebook')
                 i.fa.fa-google
                 |  Sign up with Google
-            | or use email:     
-            .row
-              .input-field.col.s12
-                i.material-icons.prefix.fa.fa-user-o
-                input#name.validate(type='text', name='name')
-                label(for='name') Enter your name
-            .row
-              .input-field.col.s12
-                i.material-icons.prefix.fa.fa-envelope-o
-                input#email.validate(type='email', name='email')
-                label(for='email') Enter your email
-            .row
-              .input-field.col.s12
-                i.material-icons.prefix.fa.fa-keyboard-o
-                input#password.validate(type='password', name='password')
-                label(for='password') Enter your password
-            .row
-              .input-field.col.s12
-                i.material-icons.prefix.fa.fa-check-circle-o
-                input#password-confirm.validate(type='password', name='password-confirm')
-                label(for='password-confirm') Confirm your password
-              label(style='float: right;')
-                a(href='#!')
-                  b Forgot Password?
-            br
-            center
-              .row
-                button.col.s12.btn.btn-large.waves-effect.primary-blue(type='submit', name='btn-register') Register
-                .form-group

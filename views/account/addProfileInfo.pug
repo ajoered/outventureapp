@@ -9,17 +9,25 @@ block content
   .container
     form.col.s12(action="/account/edit" method="POST" enctype="multipart/form-data")
       br
-      .row
-        .col.s12
-          h5 My Profile
+      .row.center.swag-promo.primary-blue.grey-text.text-lighten-3.z-depth-1
+        .col.s12.center
+          img.responsive-img(style='width: 150px;', src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-04_qzk92u.png')
+          h5 Welcome to Outventure! 
+          p.center Please complete your profile...
+
       br    
       .row
         .col.m2.push-m5.s4.push-s4
-          img.circle.responsive-img(src=`${user.photo}` || '/images/photos/user.png' id="edit-image") 
+          if user.photo
+            img.circle.responsive-img(src=`${user.photo}` id="edit-image") 
+          else  
+            img.circle.responsive-img(src='/images/photos/user.png' id="edit-image") 
+        .col.s12.center
           .file-field.input-field
-            .btn.waves-effect.waves-light.primary-blue
-              span Edit Photo
-              input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg") 
+            i.material-icons mode_edit
+            a Upload a profile photo!
+            input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg") 
+      br
       br
       .row
         .input-field.col.m5.s12
@@ -29,23 +37,20 @@ block content
         .input-field.col.m5.push-m1.s12
           i.material-icons.prefix.fa.fa-user-o
           input#name(type='text', name='lastName', value=user.lastName)
-          label(for='lastName') Last Name          
-        //- .input-field.col.m5.push-m1.s12
-        //-   i.material-icons.prefix.fa.fa-envelope-o
-        //-   input#email.validate(type='email', name='email', value=user.email)
-        //-   label(for='email') Email
+          label(for='lastName') Last Name  
       .row
         .input-field.col.m5.s12
           i.material-icons.prefix.fa.fa-globe
           label(for="city") City
-          input(type="text" id="city" name="location[city]" value=(user.location && user.location.city))
+          input(type="text" id="city" name="location[city]" value=(user.location && user.location.city) placeholder="Where do you live?" required)
         .input-field
-          input(type="hidden" id="lngCity" name="location[coordinates][0]" value=(user.location && user.location.coordinates[0]))
+          input(type="hidden" id="lngCity" name="location[coordinates][0]" value=(user.location && user.location.coordinates[0]) required)
         .input-field
-          input(type="hidden" id="latCity" name="location[coordinates][1]" value=(user.location && user.location.coordinates[1]))  
+          input(type="hidden" id="latCity" name="location[coordinates][1]" value=(user.location && user.location.coordinates[1]) required)  
         .input-field.col.m5.push-m1.s12
           i.material-icons.prefix.fa.fa-venus-mars
           select(id="gender" name='gender' value=user.gender) Gender
+            option(value='' disabled="" selected="") What is your gender?
             option(value='Male') Male
             option(value='Female') Female
             option(value='Other') Other        
@@ -53,7 +58,7 @@ block content
         .input-field.col.s12
           i.material-icons.prefix
             | mode_edit
-          input#email.validate(type='text', name='bio', value=user.bio)
+          input#email(type='text', name='bio', value=user.bio, placeholder="Where are you from? What sports are you into? What do you want to learn?")
           label(for='bio') Bio
       .row
         p Activities
@@ -66,4 +71,4 @@ block content
       br
       center
         .row
-          button.col.s12.btn.btn-large.waves-effect.primary-blue(type='submit', name='btn-update') Update 
+          button.col.s12.btn.btn-large.waves-effect.primary-blue(type='submit', name='btn-update') Create Profile

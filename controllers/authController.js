@@ -7,8 +7,8 @@ const promisify = require('es6-promisify');
 exports.Registerlogin = passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: 'Failed Login!',
-  successRedirect: '/account/edit',
-  successFlash: 'Tell us a little more about you...'
+  successRedirect: '/account/addProfileInfo',
+  successFlash: 'Tell us a little more about you!'
 });
 
 exports.login = passport.authenticate('local', {
@@ -23,7 +23,7 @@ exports.facebookCallback = passport.authenticate('facebook', {
   failureFlash: 'Failed Login!',
   successRedirect: '/account',
   successFlash: 'You are now logged in!'
-}),
+});
 
 exports.authFacebook = passport.authenticate('facebook', { scope: ['email', 'public_profile'] })
 
