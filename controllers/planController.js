@@ -110,7 +110,7 @@ exports.mapPlans = async (req, res) => {
       skillLevel: skillLevel,
       tags: tags
     };
-  const plans = await Plan.find(q).populate(' author ').limit(100);
+  const plans = await Plan.find(q).populate(' author reviews ').limit(100);
   res.json(plans);
 };
 

@@ -187,7 +187,7 @@ function createCards(plans) {
       cardsContainer.removeChild(cardsContainer.firstChild);
   }
   plans.forEach(plan => {
-
+console.log(plan);
     const activityHtml = plan.activities.map(activity => {
       return `<div class="chip">
       <img src="/images/icons/${activity}.png">

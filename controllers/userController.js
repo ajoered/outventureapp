@@ -77,6 +77,7 @@ exports.validateRegister = (req, res, next) => {
 };
 
 exports.register = async (req, res, next) => {
+  console.log(req.body);
   const user = new User({ email: req.body.email });
   const register = promisify(User.register, User);
   await register(user, req.body.password, (err) => {

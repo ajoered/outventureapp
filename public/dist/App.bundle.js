@@ -1323,7 +1323,7 @@ function createCards(plans) {
     cardsContainer.removeChild(cardsContainer.firstChild);
   }
   plans.forEach(function (plan) {
-
+    console.log(plan);
     var activityHtml = plan.activities.map(function (activity) {
       return '<div class="chip">\n      <img src="/images/icons/' + activity + '.png">\n      ' + activity + '\n      </div>';
     }).slice(0, 2).join(" ");

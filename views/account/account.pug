@@ -50,13 +50,13 @@ block content
         br
         .row.grey-text.text-lighten-2.text-300.center.truncate
           .col.m10.push-m1.s12
-            if user.activities = []
-              a(href="/account/edit") Add some activites!
-            else
+            if user.activities
               - const activities = user.activities
               each activity in activities
                 .chip= activity
-                img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
+                  img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
+            else
+              a(href="/account/edit") Add some activites!
 
         br
       .row.profile-tabs

@@ -28,16 +28,16 @@ const userSchema = new Schema({
   bio: String,
   activities: [String],
   location: {
-  type: {
-    type: String,
-    default: 'Point'
-  },
-  coordinates: [{
-    type: Number
-  }],
-  city: {
-    type: String
-  }
+    type: {
+      type: String,
+      default: 'Point'
+    },
+    coordinates: [{
+      type: Number
+    }],
+    city: {
+      type: String
+    }
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
