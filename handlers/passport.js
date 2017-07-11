@@ -12,7 +12,7 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'first_name', 'last_name', 'photos', 'email']
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log(profile.first_name);
+    console.log(profile);
           //check user schema for anyone with a facebook ID of profile.id
           User.findOne({
               'facebook': profile.id
@@ -21,11 +21,11 @@ passport.use(new FacebookStrategy({
                   if (err) console.log(err);
                   return done(err);
               }
-              //No user was found... so create a new user with values from Facebook (all the profile. stuff)
+              //No user was found... so create a new user with values from Facebook
               if (!user) {
                   user = new User({
-                      firstName: profile.first_name,
-                      lastName: profile.last_name,
+                      firstName: profile.name.givenName,
+                      lastName: profile.name.familyName,
                       email: profile.emails[0].value,
                       facebook: profile.id,
                       photo: `https://graph.facebook.com/${profile.id}/picture?type=large`

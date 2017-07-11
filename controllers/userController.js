@@ -56,7 +56,6 @@ exports.registerForm = (req, res) => {
 };
 
 exports.validateRegister = (req, res, next) => {
-  req.checkBody('email', 'You must supply an email!').notEmpty();
   req.checkBody('email', 'That Email is not valid!').isEmail();
   req.sanitizeBody('email').normalizeEmail({
     gmail_remove_dots: false,
