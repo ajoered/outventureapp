@@ -15,7 +15,13 @@ block content
       br    
       .row
         .col.m2.push-m5.s4.push-s4
-          img.circle.responsive-img(src=`${user.photo}` || '/images/photos/user.png' id="edit-image") 
+          if user.photo
+            if user.photo.startsWith("https://graph.facebook.com/")
+              img.circle.responsive-img(src=`${user.photo}` id="edit-image") 
+            else 
+              img.circle.responsive-img(src=`../uploads/${user.photo}` id="edit-image")
+          else      
+            img.circle.responsive-img(src='/images/photos/user.png' id="edit-image") 
           .file-field.input-field
             .btn.waves-effect.waves-light.primary-blue
               span Edit Photo

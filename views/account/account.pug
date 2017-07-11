@@ -13,8 +13,11 @@ block content
         .row.row-user-name-bio
           .col.m2.push-m2.s4.push-s4
             if user.photo
-              img.circle.responsive-img(src=`${user.photo}`) 
-            else
+              if user.photo.startsWith("https://graph.facebook.com/")
+                img.circle.responsive-img(src=`${user.photo}`) 
+              else 
+                img.circle.responsive-img(src=`uploads/${user.photo}`)
+            else      
               img.circle.responsive-img(src='/images/photos/user.png')
               a(href=`/account/edit`) Add Profile Picture
           .col.m6.push-m2.s12.left
@@ -33,14 +36,14 @@ block content
               = user.gender
             else
               i.fa.fa-li.fa-venus-mars.fa-lg(aria-hidden='true')
-              a(href="/account/edit") Gender
+              a(href="/account/edit") Add Gender
           .col.m2.push-m3.s6.push-s2
             if user.location.city
               i.fa.fa-li.fa-map-marker.fa-lg(aria-hidden='true')
               =  user.location.city.split(",")[0]
             else
               i.fa.fa-li.fa-map-marker.fa-lg(aria-hidden='true')
-              a(href="/account/edit") City
+              a(href="/account/edit") Add City
           .col.m2.push-m3.s6.push-s2
             i.fa.fa-li.fa-user-times.fa-lg(aria-hidden='true')
             |  0 Followers
@@ -56,8 +59,7 @@ block content
                 .chip= activity
                   img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
             else
-              a(href="/account/edit") Add some activites!  
-                i.fa.fa-plus.fa-lg(aria-hidden='true')
+              a(href="/account/edit") Add your preferred activites! →
 
         br
       .row.profile-tabs

@@ -21,17 +21,6 @@ const multerOptions = {
 exports.upload = multer(multerOptions).single('photo');
 
 exports.resize = async (req, res, next) => {
-  const updates = {
-    photo: 'uploads/' + req.body.photo
-  };
-
-  const user = await User.findOneAndUpdate(
-    { _id: req.user._id },
-    { $set: updates },
-    { new: true, runValidators: true, context: 'query' }
-  );
-
-  console.log(req.file);
   // check if there is no new file to resize
   if (!req.file) {
     next(); // skip to the next middleware
@@ -43,6 +32,17 @@ exports.resize = async (req, res, next) => {
   const photo = await jimp.read(req.file.buffer);
   await photo.cover(800, 800);
   await photo.write(`./public/uploads/${req.body.photo}`);
+
+  const userPhotoUrl = `/uploads/${req.body.photo}`
+  const updates = {
+    photo: `uploads/${req.body.photo}`
+  };
+
+  const user = await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $set: updates },
+    { new: true, runValidators: true, context: 'query' }
+  );
   // once we have written the photo to our filesystem, keep going!
   next();
 };
