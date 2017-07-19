@@ -7967,7 +7967,7 @@ input[type=range]:focus::-ms-fill-upper {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 20px;
+  top: 0px;
   z-index: 1;
 }
 

@@ -1,153 +1,199 @@
 extends layout
 
-include mixins/_navbarLanding
+include mixins/_navbar
 include mixins/_reviewForm
 
 block header
-  +navbarLanding()
+  +navbar()
   
 block content
-  .parallaxx.parallax-hiking
-    .section.valign-wrapper.header-parallax-section
-      .container.background-transparent-grey
-        h2.header.center.white-text.text-700= plan.title.toUpperCase()
-        hr.hr-header
-        .row.center
-          h6.header.col.s12.white-text.text-500.spaced-text= plan.description
-    .row.left
-      .btn.primary-pink(style='margin-left:20px;margin-top:10px;') Photos
-    .row.right(style='margin-right:20px;')
-      .col.s4
-        a.btn-floating.waves-effect.transparent.waves-light
-          i.fa.fa-share-square-o(aria-hidden='true')
-      .col.s4
-        form.heart(method="POST" action=`/api/plans/${plan._id}/heart`)
-          - const heartStrings = user.hearts.map(obj => obj.toString())
-          - const heartClass = heartStrings.includes(plan._id.toString()) ? 'primary-pink-text' : ''
-          button.btn-floating.waves-effect.waves-light.transparent(type='submit' name='heart' )
-            i.fa.fa-heart(aria-hidden='true' class=heartClass)
-      .col.s4
-        if user && plan.author.equals(user._id)
-          a.btn-floating.waves-effect.transparent.waves-light(href=`/plans/${plan._id}/edit`)
-            i.material-icons.right mode_edit
+  .fotorama(data-width="100%" data-height="70%" data-nav="thumbs" data-allowfullscreen="true" data-fit="cover" data-loop="true" data-keyboard="true" data-arrows="true" data-swipe="true" data-trackpad="true" data-navposition="top" )
+    img(src='/images/photos/camping.jpg')
+    img(src='/images/photos/camp.jpg')
+    img(src='/images/photos/scuba-Diving.jpg')
   .container
     .row
-      .col.s12
-        ul.tabs.tabs-fixed-width
-          li.tab.col.s3
-            a.active(href='#overview') Overview
-          li.tab.col.s3
-            a(href='#transport') Transport
-          li.tab.col.s3
-            a(href='#reviews') Reviews
-      #overview.col.s12
-        br
-        .row.valign-wrapper.symbols.center
-          hr
-          .col.s3.center.orange-text ✪✪✪✪✪
-          .col.s3.center
-            i.fa.fa-map-marker(aria-hidden='true')
-            |  Runyon Canyon
-          .col.s3.center
-            ul
-              li Beginner
-              li Intermediate
-          .col.s3.center
-            ul
-              li Hiking
-              li Backpacking
-        .row.valign-wrapper.symbols2
-          .col.s3.center
-            i.fa.fa-snowflake-o(aria-hidden='true')
-            i.fa.fa-leaf(aria-hidden='true')
-            i.fa.fa-pagelines(aria-hidden='true')
-            i.fa.fa-sun-o(aria-hidden='true')
-            |           Year-round
-          .col.s3.center
-            i.fa.fa-long-arrow-right(aria-hidden='true')
-            |  6.1km loop
-          .col.s3.center
-            ul
-              li No Dogs
-              li Family Friendly
-              li Scenic
-              li Romantic
-          .col.s3.center
-            ul
-              li 1-3 hours
-              li 3-6 hours
-        hr.light-grey
-        br
-        #plan-photos
-          h5.left Photos
-          .carousel
-            a.carousel-item(href='#one!')
-              img(src='https://static1.squarespace.com/static/54e7a4c2e4b07c3f6557e697/t/551eed6fe4b0455e5a88bbe3/1428090232205/IMG_6028.jpg?format=2500w' class='materialboxed' width="300")
-            a.carousel-item(href='#two!')
-              img(src='https://i0.wp.com/www.runyoncanyonhike.com/wp-content/uploads/2014/08/web-1159.jpg?fit=960%2C640' class='materialboxed' width="300")
-            a.carousel-item(href='#three!')
-              img(src='https://media.timeout.com/images/100521819/image.jpg' class='materialboxed' width="300")
-            a.carousel-item(href='#four!')
-              img(src='https://media.timeout.com/images/100521871/image.jpg' class='materialboxed' width="300")
-            a.carousel-item(href='#five!')
-              img(src='http://www.laparks.org/sites/default/files/facility/runyon-canyon-park/images/runyon-canyon-park.JPG' class='materialboxed' width="300")
-        #description
-          .row
-            .col.s12.m2
-              h5 Description
-            .col.s12.m9.push-m1
-              p
-                | For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the top of Runyon Canyon Park, using a trailhead along Mulholland Drive for a short loop to the park's high point.
-        hr.light-grey
-        #pack-list
-          .row
-            .col.s12.m2
-              h5 What to pack
-            .col.s12.m9.push-m1
-              p
-                | Pack light. For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the point.
-      #transport.col.s12
-        div
-          .row
-            .col.s12.m2
-              h5 Parking & transport
-            .col.s12.m9.push-m1
-              p There's a parking spot right at the entrance.
-        #planMap
-          img(src='https://cdn.hikingguy.com/wp-content/uploads/runyon-canyon-hike-location.jpg', alt='')
-      #reviews.col.s12
-        br
-        .row
-          .input-field.col.m4.push-m4.s10.push-s1
-            select
-              option(value='', disabled='', selected='') Sort By
-              option(value='1') Highest First
-              option(value='2') Lowest First
-              option(value='3') Most Helpful
-        if plan.reviews 
-          .row
-            each review in plan.reviews      
-              ul.collapsible(data-collapsible='accordion')
-                li
-                  .collapsible-header
-                    .right-align.orange-text
-                      = "★".repeat(review.rating)
-                    .left-align
-                      i.fa.fa-user-o(aria-hidden='true')
-                      = review.author.name
-                  .collapsible-body
-                    span= review.text
-              //- .col.m6.s12
-              //-   .card-panel.white
-              //-     .row.title.valign-wrapper.center
-              //-       .col.s4.border-right= review.author.name
-              //-       .col.s4.orange-text.border-right(title=`Rated ${review.rating} out of 5 stars`)
-              //-         = "★".repeat(review.rating)
-              //-         = "✩".repeat(5 - review.rating)
-              //-       .col.s4.grey-text(datetime=review.created)
-              //-         = h.moment(review.created).fromNow()
-              //-     hr
-              //-     span.black-text= review.text
-        .row    
-          if user
-            +reviewForm(plan)
+      .col.m8.s12
+        h4.grey-text.text-darken-2.text-700.left-align= plan.title.toUpperCase()
+        h6.header.black-text.text-500.spaced-text= plan.tagline 
+      .col.m3.push-m1.s12(style='padding-top:10px;')
+        h6.black-text.text-700 Activities
+        - const activities = plan.activities
+        each activity in activities
+          .chip= activity
+            img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
+        h6.black-text.text-700 Tags      
+        - const tags = plan.tags
+        each tag in tags
+          .chip= tag
+        h6.black-text.text-700 Minimum Time
+        .chip 4h    
+  .row.social-plan-buttons    
+    a.waves-effect.waves-light.btn-floating.blue.darken-2
+      i.fa.fa-facebook(aria-hidden='true')
+    a.waves-effect.waves-light.btn-floating.blue.margin-left-5
+      i.fa.fa-twitter(aria-hidden='true')
+    a.waves-effect.waves-light.btn-floating.grey.darken-2.margin-left-5
+      i.fa.fa-envelope(aria-hidden='true')
+    a.waves-effect.waves-light.btn-floating.green.darken-1.margin-left-5
+      i.fa.fa-whatsapp(aria-hidden='true')   
+  .row.app-plan-buttons 
+    form.heart(method="POST" action=`/api/plans/${plan._id}/heart`)
+      - const heartStrings = user.hearts.map(obj => obj.toString())
+      - const heartClass = heartStrings.includes(plan._id.toString()) ? 'primary-pink-text' : ''
+      button.btn-floating.waves-effect.waves-light.transparent(type='submit' name='heart' )
+        i.fa.fa-heart(aria-hidden='true' class=heartClass)
+      if user && plan.author.equals(user._id)
+        a.btn-floating.waves-effect.transparent.waves-light(href=`/plans/${plan._id}/edit`)
+          i.material-icons.right mode_edit  
+        
+  //- .parallaxx.parallax-hiking
+  //-   .section.valign-wrapper.header-parallax-section.background-transparent-grey
+  //-     .container.background-info-grey
+  //-       h2.header.center.white-text.text-700= plan.title.toUpperCase()
+  //-       hr.hr-header
+  //-       .row.center
+  //-         h6.header.col.s12.white-text.text-500.spaced-text= plan.tagline
+  //-       .row.grey-text.text-lighten-2.text-300.center.truncate
+  //-         .col.m10.push-m1.s12
+  //-           - const activities = plan.activities
+  //-           each activity in activities
+  //-             .chip= activity
+  //-               img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
+  //-   .row.left
+  //-     .btn.primary-pink(style='margin-left:20px;margin-top:10px;') Photos
+  //-   .row.right(style='margin-right:20px;')
+  //-     .col.s4
+  //-       a.btn-floating.waves-effect.transparent.waves-light
+  //-         i.fa.fa-share-square-o(aria-hidden='true')
+  //-     .col.s4
+  //-       form.heart(method="POST" action=`/api/plans/${plan._id}/heart`)
+  //-         - const heartStrings = user.hearts.map(obj => obj.toString())
+  //-         - const heartClass = heartStrings.includes(plan._id.toString()) ? 'primary-pink-text' : ''
+  //-         button.btn-floating.waves-effect.waves-light.transparent(type='submit' name='heart' )
+  //-           i.fa.fa-heart(aria-hidden='true' class=heartClass)
+  //-     .col.s4
+  //-       if user && plan.author.equals(user._id)
+  //-         a.btn-floating.waves-effect.transparent.waves-light(href=`/plans/${plan._id}/edit`)
+  //-           i.material-icons.right mode_edit
+  //-   .row.profile-tabs
+  //-     .col.m10.push-m1
+  //-       ul.tabs.tabs-fixed-width.transparent
+  //-         li.tab.col.s3.white-text
+  //-           a.active(href='#overview') Overview
+  //-         li.tab.col.s3.white-text
+  //-           a(href='#transport') Transport
+  //-         li.tab.col.s3.white-text
+  //-           a(href='#reviews') Reviews
+  //- .container          
+  //-   #overview.col.s12
+  //-     br
+  //-     .row.valign-wrapper.symbols.center
+  //-       hr
+  //-       .col.s3.center.orange-text ✪✪✪✪✪
+  //-       .col.s3.center
+  //-         i.fa.fa-map-marker(aria-hidden='true')
+  //-         |  Runyon Canyon
+  //-       .col.s3.center
+  //-         ul
+  //-           li Beginner
+  //-           li Intermediate
+  //-       .col.s3.center
+  //-         ul
+  //-           li Hiking
+  //-           li Backpacking
+  //-     .row.valign-wrapper.symbols2
+  //-       .col.s3.center
+  //-         i.fa.fa-snowflake-o(aria-hidden='true')
+  //-         i.fa.fa-leaf(aria-hidden='true')
+  //-         i.fa.fa-pagelines(aria-hidden='true')
+  //-         i.fa.fa-sun-o(aria-hidden='true')
+  //-         |           Year-round
+  //-       .col.s3.center
+  //-         i.fa.fa-long-arrow-right(aria-hidden='true')
+  //-         |  6.1km loop
+  //-       .col.s3.center
+  //-         ul
+  //-           li No Dogs
+  //-           li Family Friendly
+  //-           li Scenic
+  //-           li Romantic
+  //-       .col.s3.center
+  //-         ul
+  //-           li 1-3 hours
+  //-           li 3-6 hours
+  //-     hr.light-grey
+  //-     br
+  //-     #plan-photos
+  //-       h5.left Photos
+  //-       .carousel
+  //-         a.carousel-item(href='#one!')
+  //-           img(src='https://static1.squarespace.com/static/54e7a4c2e4b07c3f6557e697/t/551eed6fe4b0455e5a88bbe3/1428090232205/IMG_6028.jpg?format=2500w' class='materialboxed' width="300")
+  //-         a.carousel-item(href='#two!')
+  //-           img(src='https://i0.wp.com/www.runyoncanyonhike.com/wp-content/uploads/2014/08/web-1159.jpg?fit=960%2C640' class='materialboxed' width="300")
+  //-         a.carousel-item(href='#three!')
+  //-           img(src='https://media.timeout.com/images/100521819/image.jpg' class='materialboxed' width="300")
+  //-         a.carousel-item(href='#four!')
+  //-           img(src='https://media.timeout.com/images/100521871/image.jpg' class='materialboxed' width="300")
+  //-         a.carousel-item(href='#five!')
+  //-           img(src='http://www.laparks.org/sites/default/files/facility/runyon-canyon-park/images/runyon-canyon-park.JPG' class='materialboxed' width="300")
+  //-     #description
+  //-       .row
+  //-         .col.s12.m2
+  //-           h5 Description
+  //-         .col.s12.m9.push-m1
+  //-           p
+  //-             | For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the top of Runyon Canyon Park, using a trailhead along Mulholland Drive for a short loop to the park's high point.
+  //-     hr.light-grey
+  //-     #pack-list
+  //-       .row
+  //-         .col.s12.m2
+  //-           h5 What to pack
+  //-         .col.s12.m9.push-m1
+  //-           p
+  //-             | Pack light. For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the point.
+  //-   #transport.col.s12
+  //-     div
+  //-       .row
+  //-         .col.s12.m2
+  //-           h5 Parking & transport
+  //-         .col.s12.m9.push-m1
+  //-           p There's a parking spot right at the entrance.
+  //-     #planMap
+  //-       img(src='https://cdn.hikingguy.com/wp-content/uploads/runyon-canyon-hike-location.jpg', alt='')
+  //-   #reviews.col.s12
+  //-     br
+  //-     .row
+  //-       .input-field.col.m4.push-m4.s10.push-s1
+  //-         select
+  //-           option(value='', disabled='', selected='') Sort By
+  //-           option(value='1') Highest First
+  //-           option(value='2') Lowest First
+  //-           option(value='3') Most Helpful
+  //-     if plan.reviews 
+  //-       .row
+  //-         each review in plan.reviews      
+  //-           ul.collapsible(data-collapsible='accordion')
+  //-             li
+  //-               .collapsible-header
+  //-                 .right-align.orange-text
+  //-                   = "★".repeat(review.rating)
+  //-                 .left-align
+  //-                   i.fa.fa-user-o(aria-hidden='true')
+  //-                   = review.author.name
+  //-               .collapsible-body
+  //-                 span= review.text
+  //-           //- .col.m6.s12
+  //-           //-   .card-panel.white
+  //-           //-     .row.title.valign-wrapper.center
+  //-           //-       .col.s4.border-right= review.author.name
+  //-           //-       .col.s4.orange-text.border-right(title=`Rated ${review.rating} out of 5 stars`)
+  //-           //-         = "★".repeat(review.rating)
+  //-           //-         = "✩".repeat(5 - review.rating)
+  //-           //-       .col.s4.grey-text(datetime=review.created)
+  //-           //-         = h.moment(review.created).fromNow()
+  //-           //-     hr
+  //-           //-     span.black-text= review.text
+  //-     .row    
+  //-       if user
+  //-         +reviewForm(plan)

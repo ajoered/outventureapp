@@ -7,15 +7,21 @@ mixin searchBar()
           i.material-icons location_on
         i.material-icons close
     .col.m7.s2
-      .input-field.col.m3.s12.hide-on-med-and-down
-        input#ideas(type='checkbox' class='filled-in' checked='checked')
-        label(for='ideas') 
-          i.fa.fa-lightbulb-o.fa-lg.amber-text(aria-hidden='true')
-          |  IDEAS
-        input#outings(type='checkbox' class='filled-in' checked='checked')
-        label(for='outings') 
-          i.fa.fa-users.red-text.text-lighten-2(aria-hidden='true')
-          |  OUTINGS
+      .input-field.col.m3.s12.hide-on-med-and-down(style='margin-top:24px;')
+        .switch
+          label
+            i.fa.fa-2x.fa-lightbulb-o.yellow-text.text-darken-4(aria-hidden='true')
+            input(type='checkbox')
+            span.lever
+            i.fa.fa-2x.fa-user-o.primary-blue-text(aria-hidden='true')
+        //- input#ideas(type='checkbox' class='filled-in' checked='checked')
+        //- label(for='ideas') 
+        //-   i.fa.fa-lightbulb-o.fa-lg.amber-text(aria-hidden='true')
+        //-   |  IDEAS
+        //- input#outings(type='checkbox' class='filled-in' checked='checked')
+        //- label(for='outings') 
+        //-   i.fa.fa-users.red-text.text-lighten-2(aria-hidden='true')
+        //-   |  OUTINGS
       .input-field.col.m4.s12.hide-on-med-and-down
         select(multiple='' id='activities' onchange='updateQuery()')
           option(value='All' disabled='') All

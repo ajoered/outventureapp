@@ -22,9 +22,10 @@ $(document).ready(function(){
       stopPropagation: false // Stops event propagation
     });
   $('.parallax').parallax();
-  $('.carousel').carousel();
+  $('.carousel.carousel-slider').carousel({fullWidth: true});
   $('.modal').modal();
   $('.collapsible').collapsible();
+  $('.slider').slider();
 
   $('#modal-tags').modal({
       dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -35,6 +36,7 @@ $(document).ready(function(){
       endingTop: '10%' // Ending top style attribute
     }
   );
+
   Materialize.scrollFire(scrollFireOptions);
   scrollMagic();
   slide()

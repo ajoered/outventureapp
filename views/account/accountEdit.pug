@@ -30,11 +30,11 @@ block content
       .row
         .input-field.col.m5.s12
           i.material-icons.prefix.fa.fa-user-o
-          input#name(type='text', name='firstName', value=user.firstName)
+          input#name(type='text', name='firstName', value=user.firstName, required="")
           label(for='firstName') First Name   
         .input-field.col.m5.push-m1.s12
           i.material-icons.prefix.fa.fa-user-o
-          input#name(type='text', name='lastName', value=user.lastName)
+          input#name(type='text', name='lastName', value=user.lastName, required="")
           label(for='lastName') Last Name          
         //- .input-field.col.m5.push-m1.s12
         //-   i.material-icons.prefix.fa.fa-envelope-o

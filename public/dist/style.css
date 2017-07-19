@@ -10,6 +10,10 @@ html {
     font-weight: 500;
 }
 
+.margin-left-5 {
+  margin-left: 5px!important;
+}
+
 .input-field label {
   top: -1px!important;
   font-size: 13px!important;
@@ -122,11 +126,11 @@ input[type="checkbox"].filled-in:checked + label:after {
 }
 
 .primary-green {
-  background-color: #7BAE7F!important;
+  background-color: #329F5B!important;
 }
 
 .primary-green-text {
-  color: #7BAE7F!important;
+  color: #329F5B!important;
 }
 
 7BAE7F
@@ -259,6 +263,12 @@ input[type="checkbox"].filled-in:checked + label:after {
 }
 
 .parallax-profile {
+  margin-top: -15%!important;
+  margin-bottom: 5%!important;
+  height: 100vh!important;
+}
+
+.parallax-hiking {
   margin-top: -15%!important;
   margin-bottom: 5%!important;
   height: 100vh!important;
@@ -486,13 +496,25 @@ color: #fff;
     background-image: url('https://static.pexels.com/photos/26559/pexels-photo-26559.jpg');
     background-position: 50% 90%!important;
     /* Full height */
-    height: 80vh;
+    height: 70vh;
     margin-top: -5%;
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.social-plan-buttons {
+  position: absolute!important;
+  top: 75vh!important;
+  right: 10px;
+}
+
+.app-plan-buttons {
+  position: absolute!important;
+  top: 75vh!important;
+  left: 10px;
 }
 
 @media only screen and (max-device-width: 1024px) {
@@ -504,6 +526,7 @@ color: #fff;
 .header-parallax-section {
   position: relative;
   height: 70vh;
+  padding-top: 88px!important;
 }
 
 /* Wrapper */
@@ -597,7 +620,7 @@ color: #fff;
   background-color: rgba(14, 26, 33, 0.62)
 }
 
-.background-profile-grey {
+.background-info-grey {
   background-color: rgba(14, 26, 33, 0.71);
   padding-top: 20px;
 }
