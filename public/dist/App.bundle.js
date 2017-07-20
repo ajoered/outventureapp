@@ -1212,6 +1212,7 @@ function loadPlaces(map, q) {
     console.log(plans);
     createMarkers(plans, map);
     createCards(plans);
+    $('.fotorama').fotorama();
   });
 }
 
@@ -1341,8 +1342,7 @@ function createCards(plans) {
       return obj.toString();
     });
     var doneClass = donesStrings.includes(plan._id.toString()) ? 'green-text' : '';
-
-    var cardHtml = '\n<div class="card medium z-depth-2">\n  <div class="card-image waves-effect waves-block waves-light">\n    <img class="activator" src="images/photos/' + plan.activities[0] + '.jpg">\n  </div>\n  <div class="card-content">\n    <span class="card-title activator grey-text text-darken-4">' + plan.title + '<i class="material-icons right">more_vert</i></span>' + activityHtml + tagHtml + ('</div>\n  <div class="card-reveal">\n    <span class="card-title grey-text text-darken-4">' + plan.title + '<i class="material-icons right">close</i></span>\n    <p>' + plan.tagline + '</p>\n    <a class="btn waves-effect teal darken-3 waves-light center" href="/plans/' + plan.slug + '">More info</a>\n  </div>\n  <a class="btn-floating share-fab waves-effect transparent waves-light"><i class="fa fa-share-square-o" aria-hidden="true"></i></a>\n  <button class="btn-floating done-fab waves-effect waves-light transparent" value=' + plan._id + ' onclick=donePlan(this) name="done">\n    <i class="fa fa-check ' + doneClass + ' ' + ('done' + plan._id) + '" aria-hidden="true"></i>\n  </button>\n  <button class="btn-floating saved-fab waves-effect waves-light transparent" value=' + plan._id + ' onclick=heartPlan(this) name="heart">\n    <i class="fa fa-heart ' + heartClass + ' ' + ('heart' + plan._id) + '" aria-hidden="true"></i>\n  </button>\n  <a class="review-fab"><p class="text-300 grey-text text-lighten-2">\u2605\u2605\u2605\u2605</p></a>\n  <a class="level-fab"><p class="text-300 grey-text">' + plan.skillLevel + '</p></a>\n  <a class="time-fab"><p class="text-300 grey-text text-lighten-2">&gt;4h / Day </p></a>\n  <a class="time-fab-symbol primary-pink-text"></a>\n  <a class="time-fab-symbol white-text"><i class="fa fa-clock-o" aria-hidden="true"></i></a>\n  <a class="saved-fab-symbol primary-pink-text"><i class="fa fa-heart" aria-hidden="true"></i></a>\n  <a class="saved-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">4</p></a>\n  <a class="done-fab-symbol green-text"><i class="fa fa-check" aria-hidden="true"></i></a>\n  <a class="done-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">2</p></a>\n</div>');
+    var cardHtml = '\n<div class="card medium z-depth-2">\n  <div class="card-image waves-effect waves-block waves-light">\n    <div data-width="100%" data-ratio="400/300" data-fit="cover" data-loop="true" data-swipe="true" data-trackpad="true" data-transition="dissolve" data-auto="false" class="fotorama" id="fotorama">\n      <img src="/images/photos/camping.jpg"/>\n      <img src="/images/photos/camp.jpg"/>\n      <img src="/images/photos/scuba-Diving.jpg"/>\n    </div>\n  </div>\n  <div class="card-content">\n    <span class="card-title activator grey-text text-darken-4">' + plan.title + '<i class="material-icons right">control_point</i></span>\n    <p class="text-300">' + plan.tagline + '</p>\n  </div>\n  <div class="card-reveal">\n    <span class="card-title grey-text text-darken-4">' + plan.title + '<i class="material-icons right">close</i></span>\n    <p>Activities</p>' + activityHtml + '\n    <p>Tags</p> ' + tagHtml + ('\n    <p>Minimum Time</p>\n    <div class="chip"> 4h </div>\n    <p></p>\n    <a class="btn waves-effect primary-blue waves-light center" href="/plans/' + plan.slug + '">Full Page<i class="fa fa-external-link left" aria-hidden=\'true\'></i></a>\n  </div>\n  <a class="btn-floating share-fab waves-effect transparent waves-light"><i class="fa fa-share-square-o" aria-hidden="true"></i></a>\n  <button class="btn-floating done-fab waves-effect waves-light transparent" value=' + plan._id + ' onclick=donePlan(this) name="done">\n    <i class="fa fa-check ' + doneClass + ' ' + ('done' + plan._id) + '" aria-hidden="true"></i>\n  </button>\n  <button class="btn-floating saved-fab waves-effect waves-light transparent" value=' + plan._id + ' onclick=heartPlan(this) name="heart">\n    <i class="fa fa-heart ' + heartClass + ' ' + ('heart' + plan._id) + '" aria-hidden="true"></i>\n  </button>\n  <a class="review-fab"><p class="text-300 grey-text text-lighten-2">\u2605\u2605\u2605\u2605</p></a>\n  <a class="level-fab"><p class="text-300 grey-text">' + plan.skillLevel + '</p></a>\n  <a class="saved-fab-symbol primary-pink-text"><i class="fa fa-heart" aria-hidden="true"></i></a>\n  <a class="saved-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">4</p></a>\n  <a class="done-fab-symbol green-text"><i class="fa fa-check" aria-hidden="true"></i></a>\n  <a class="done-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">2</p></a>\n</div>');
     var cardDiv = document.createElement('div');
     cardDiv.className = "col m6 s12";
     cardDiv.setAttribute("id", plan._id);
@@ -2254,7 +2254,6 @@ $(document).ready(function () {
     $('.parallax').parallax();
     $('.carousel.carousel-slider').carousel({ fullWidth: true });
     $('.modal').modal();
-    $('.collapsible').collapsible();
     $('.slider').slider();
 
     $('#modal-tags').modal({
@@ -2265,6 +2264,7 @@ $(document).ready(function () {
         startingTop: '4%', // Starting top style attribute
         endingTop: '10%' // Ending top style attribute
     });
+    $('.collapsible').collapsible();
 
     Materialize.scrollFire(scrollFireOptions);
     scrollMagic();

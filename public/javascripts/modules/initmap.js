@@ -62,6 +62,7 @@ function loadPlaces(map, q) {
     console.log(plans);
     createMarkers(plans, map)
     createCards(plans)
+    $('.fotorama').fotorama()
   });
 }
 
@@ -206,20 +207,27 @@ console.log(plan);
 
     const donesStrings = plan.author.dones.map(obj => obj.toString())
     const doneClass = donesStrings.includes(plan._id.toString()) ? 'green-text' : ''
-
     const cardHtml = `
 <div class="card medium z-depth-2">
   <div class="card-image waves-effect waves-block waves-light">
-    <img class="activator" src="images/photos/${plan.activities[0]}.jpg">
+    <div data-width="100%" data-ratio="400/300" data-fit="cover" data-loop="true" data-swipe="true" data-trackpad="true" data-transition="dissolve" data-auto="false" class="fotorama" id="fotorama">
+      <img src="/images/photos/camping.jpg"/>
+      <img src="/images/photos/camp.jpg"/>
+      <img src="/images/photos/scuba-Diving.jpg"/>
+    </div>
   </div>
   <div class="card-content">
-    <span class="card-title activator grey-text text-darken-4">${plan.title}<i class="material-icons right">more_vert</i></span>`+
-    activityHtml + tagHtml +
-  `</div>
+    <span class="card-title activator grey-text text-darken-4">${plan.title}<i class="material-icons right">control_point</i></span>
+    <p class="text-300">${plan.tagline}</p>
+  </div>
   <div class="card-reveal">
     <span class="card-title grey-text text-darken-4">${plan.title}<i class="material-icons right">close</i></span>
-    <p>${plan.tagline}</p>
-    <a class="btn waves-effect teal darken-3 waves-light center" href="/plans/${plan.slug}">More info</a>
+    <p>Activities</p>`  +  activityHtml + `
+    <p>Tags</p> ` + tagHtml + `
+    <p>Minimum Time</p>
+    <div class="chip"> 4h </div>
+    <p></p>
+    <a class="btn waves-effect primary-blue waves-light center" href="/plans/${plan.slug}">Full Page<i class="fa fa-external-link left" aria-hidden='true'></i></a>
   </div>
   <a class="btn-floating share-fab waves-effect transparent waves-light"><i class="fa fa-share-square-o" aria-hidden="true"></i></a>
   <button class="btn-floating done-fab waves-effect waves-light transparent" value=${plan._id} onclick=donePlan(this) name="done">
@@ -230,9 +238,6 @@ console.log(plan);
   </button>
   <a class="review-fab"><p class="text-300 grey-text text-lighten-2">★★★★</p></a>
   <a class="level-fab"><p class="text-300 grey-text">${plan.skillLevel}</p></a>
-  <a class="time-fab"><p class="text-300 grey-text text-lighten-2">&gt;4h / Day </p></a>
-  <a class="time-fab-symbol primary-pink-text"></a>
-  <a class="time-fab-symbol white-text"><i class="fa fa-clock-o" aria-hidden="true"></i></a>
   <a class="saved-fab-symbol primary-pink-text"><i class="fa fa-heart" aria-hidden="true"></i></a>
   <a class="saved-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">4</p></a>
   <a class="done-fab-symbol green-text"><i class="fa fa-check" aria-hidden="true"></i></a>

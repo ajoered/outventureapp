@@ -21,7 +21,7 @@ mixin planForm(plan = {})
           input#title.validate(type="text" name="title" value=plan.title placeholder="Ex. 'Hike Runyon Canyon' / 'Surf Venice Beach' / 'Scuba Dive in Catalina'")
         .input-field
           label.active(for="tagline") Tagline
-          input#tagline.materialize-textarea(type="text" name="tagline" value=plan.shortDescription placeholder="Define your plan in one sentence. What makes it special? Ex. 'Awesome beginner hike in the heart of LA with spectacular views'")
+          input#tagline.materialize-textarea(type="text" name="tagline" value=plan.tagline placeholder="Define your plan in one sentence. What makes it special? Ex. 'Awesome beginner hike in the heart of LA with spectacular views'")
         .input-field.col.m6.s12
           select(id="skillLevel" name='skillLevel')
             option(value='', disabled='', selected='') Select a skill Level

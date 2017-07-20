@@ -24,7 +24,6 @@ $(document).ready(function(){
   $('.parallax').parallax();
   $('.carousel.carousel-slider').carousel({fullWidth: true});
   $('.modal').modal();
-  $('.collapsible').collapsible();
   $('.slider').slider();
 
   $('#modal-tags').modal({
@@ -36,10 +35,11 @@ $(document).ready(function(){
       endingTop: '10%' // Ending top style attribute
     }
   );
+  $('.collapsible').collapsible();
 
   Materialize.scrollFire(scrollFireOptions);
   scrollMagic();
-  slide()
+  slide();
 
   const flashSuccess = $('.flash-success')
   if ( flashSuccess.length ) {
@@ -65,6 +65,7 @@ $(document).ready(function(){
 
 
 });
+
 
   registerPopup($('#register'))
   var scrollFireOptions = [ {selector: '.fade-in', offset: 300, callback: function(el) {    Materialize.fadeInImage($(el)); } }, {selector: '.fade-in-late', offset: 100, callback: function(el) { Materialize.fadeInImage($(el)); } }]

@@ -511,10 +511,22 @@ color: #fff;
   right: 10px;
 }
 
-.app-plan-buttons {
+.plan-heart {
   position: absolute!important;
   top: 75vh!important;
   left: 10px;
+}
+
+.plan-done {
+  position: absolute!important;
+  top: 75vh!important;
+  left: 50px;
+}
+
+.plan-edit {
+  position: absolute!important;
+  top: 75vh!important;
+  left: 90px;
 }
 
 @media only screen and (max-device-width: 1024px) {

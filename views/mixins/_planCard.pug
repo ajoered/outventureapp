@@ -2,22 +2,32 @@ mixin planCard(plan = {})
   .col.m4.s12
     .card.medium.z-depth-2
       .card-image.waves-effect.waves-block.waves-light
-        img.activator(src=`/images/photos/${plan.activities[0] + '.jpg'}`)
+        .fotorama(data-width="100%"
+     data-ratio="400/300" data-fit="cover" data-loop="true" data-swipe="true" data-trackpad="true" data-click='false' data-transition="dissolve")
+          img(src='/images/photos/camping.jpg')
+          img(src='/images/photos/camp.jpg')
+          img(src='/images/photos/scuba-Diving.jpg')
       .card-content
         span.card-title.activator.grey-text.text-darken-4= plan.title
-          i.material-icons.right more_vert
-        - const activities = plan.activities.slice(0, 2) || []
-        each activity in activities
-          .chip= activity
-            img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
-        - const tags = plan.tags.slice(0, 4) || []
-        each tag in tags
-          .chip= tag
+          i.material-icons.right control_point
+        p.text-300= plan.tagline
       .card-reveal
         span.card-title.grey-text.text-darken-4= plan.title
           i.material-icons.right close
         p= plan.tagline
-        a.btn.waves-effect.teal.darken-3.waves-light.center(href=`/plans/${plan.slug}`) More info
+        p Activities
+          - const activities = plan.activities.slice(0, 2) || []
+          each activity in activities
+            .chip= activity
+              img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
+        p Tags
+          - const tags = plan.tags.slice(0, 4) || []
+          each tag in tags
+            .chip= tag
+        p Minimum time  
+          .chip 4h  
+        a.btn.waves-effect.teal.darken-3.waves-light(href=`/plans/${plan.slug}`) Full Page
+          i.fa.fa-external-link.left(aria-hidden='true')
       a.btn-floating.share-fab.waves-effect.transparent.waves-light
         i.fa.fa-share-square-o(aria-hidden='true')
       form.done(method="POST" action=`/api/plans/${plan._id}/done`)
@@ -36,12 +46,7 @@ mixin planCard(plan = {})
       a.review-fab
         p.text-300.grey-text.text-lighten-2 ★★★★
       a.level-fab
-        p.text-300.grey-text= plan.skillLevel
-      a.time-fab
-        p.text-300.grey-text.text-lighten-2 >4h / Day 
-      a.time-fab-symbol.primary-pink-text 
-      a.time-fab-symbol.white-text
-        i.fa.fa-clock-o(aria-hidden='true')  
+        p.text-300.grey-text= plan.skillLevel 
       a.saved-fab-symbol.primary-pink-text 
         i.fa.fa-heart(aria-hidden='true')
       a.saved-fab-number.grey-text.text-lighten-2 
