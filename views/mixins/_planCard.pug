@@ -3,7 +3,7 @@ mixin planCard(plan = {})
     .card.medium.z-depth-2
       .card-image.waves-effect.waves-block.waves-light
         .fotorama(data-width="100%"
-     data-ratio="400/300" data-fit="cover" data-loop="true" data-swipe="true" data-trackpad="true" data-click='false' data-transition="dissolve")
+     data-ratio="400/300" data-fit="cover" data-loop="true" data-swipe="true" data-trackpad="true" data-click='false' data-transition="slide")
           img(src='/images/photos/camping.jpg')
           img(src='/images/photos/camp.jpg')
           img(src='/images/photos/scuba-Diving.jpg')
@@ -24,8 +24,8 @@ mixin planCard(plan = {})
           - const tags = plan.tags.slice(0, 4) || []
           each tag in tags
             .chip= tag
-        p Minimum time  
-          .chip 4h  
+        p Minimum time
+          .chip 4h
         a.btn.waves-effect.teal.darken-3.waves-light(href=`/plans/${plan.slug}`) Full Page
           i.fa.fa-external-link.left(aria-hidden='true')
       a.btn-floating.share-fab.waves-effect.transparent.waves-light
@@ -34,7 +34,7 @@ mixin planCard(plan = {})
         - const doneStrings = user.dones.map(obj => obj.toString())
         - const doneClass = doneStrings.includes(plan._id.toString()) ? 'green-text' : ''
         button.btn-floating.done-fab.waves-effect.transparent.waves-light(type='submit' name='done' )
-          i.fa.fa-check(aria-hidden='true' class=doneClass)    
+          i.fa.fa-check(aria-hidden='true' class=doneClass)
       form.heart(method="POST" action=`/api/plans/${plan._id}/heart`)
         - const heartStrings = user.hearts.map(obj => obj.toString())
         - const heartClass = heartStrings.includes(plan._id.toString()) ? 'primary-pink-text' : ''
@@ -46,12 +46,12 @@ mixin planCard(plan = {})
       a.review-fab
         p.text-300.grey-text.text-lighten-2 ★★★★
       a.level-fab
-        p.text-300.grey-text= plan.skillLevel 
-      a.saved-fab-symbol.primary-pink-text 
+        p.text-300.grey-text= plan.skillLevel
+      a.saved-fab-symbol.primary-pink-text
         i.fa.fa-heart(aria-hidden='true')
-      a.saved-fab-number.grey-text.text-lighten-2 
+      a.saved-fab-number.grey-text.text-lighten-2
         p.text-300.grey-text.text-lighten-2 4
-      a.done-fab-symbol.green-text  
+      a.done-fab-symbol.green-text
         i.fa.fa-check(aria-hidden='true')
-      a.done-fab-number.grey-text.text-lighten-2 
+      a.done-fab-number.grey-text.text-lighten-2
         p.text-300.grey-text.text-lighten-2 2

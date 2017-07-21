@@ -210,7 +210,7 @@ console.log(plan);
     const cardHtml = `
 <div class="card medium z-depth-2">
   <div class="card-image waves-effect waves-block waves-light">
-    <div data-width="100%" data-ratio="400/300" data-fit="cover" data-loop="true" data-swipe="true" data-trackpad="true" data-transition="dissolve" data-auto="false" class="fotorama" id="fotorama">
+    <div data-width="100%" data-ratio="400/300" data-fit="cover" data-loop="true" data-swipe="true" data-trackpad="true" data-transition="slide" data-auto="false" class="fotorama" id="fotorama">
       <img src="/images/photos/camping.jpg"/>
       <img src="/images/photos/camp.jpg"/>
       <img src="/images/photos/scuba-Diving.jpg"/>

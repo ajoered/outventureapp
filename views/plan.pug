@@ -16,20 +16,60 @@ block content
       h4.grey-text.text-darken-2.text-700.left-align= plan.title.toUpperCase()
       h6.black-text.text-500.spaced-text(style='padding-right:30px;')= plan.tagline 
       br
-      h5 Description
-      p
-        | For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the top of Runyon Canyon Park, using a trailhead along Mulholland Drive for a short loop to the park's high point.
-      hr.light-grey
-      h5 What to pack
-      p
-        | Pack light. For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the point.
-      hr.light-grey  
-      h5 Parking & transport
-      p There's a parking spot right at the entrance.
+      ul.collapsible.popout(data-collapsible='accordion')
+        li
+          .collapsible-header
+            i.material-icons description
+            | Full description
+            i.material-icons.right arrow_drop_down
+          .collapsible-body
+            span= plan.description
+      ul.collapsible.popout(data-collapsible='accordion')
+        li
+          .collapsible-header
+            i.material-icons local_mall
+            | What to pack
+            i.material-icons.right arrow_drop_down
+          .collapsible-body
+            span Pack light. For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the point.
+      ul.collapsible.popout(data-collapsible='accordion')
+        li
+          .collapsible-header
+            i.material-icons directions_car
+            | Parking & Transport
+            i.material-icons.right arrow_drop_down
+          .collapsible-body
+            span Pack light. For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the point.     
+      ul.collapsible.popout(data-collapsible='accordion')
+        li
+          .collapsible-header
+            i.fa.fa-smile-o(aria-hidden="true")
+            | Recommendations
+            i.material-icons.right arrow_drop_down
+          .collapsible-body.flow-text
+            span Pack light. For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the point.      
       #planMap
         img(src='https://cdn.hikingguy.com/wp-content/uploads/runyon-canyon-hike-location.jpg', alt='')
-    .col.m3.push-m2.s12(style='padding-top:10px;')
-      h6.black-text.text-700 Share
+      h4.grey-text.text-darken-2.text-700.left-align Reviews
+      if plan.reviews 
+        .row
+          each review in plan.reviews      
+            ul.collapsible(data-collapsible='accordion')
+              li
+                .collapsible-header
+                  .right.orange-text
+                    = "★".repeat(review.rating)
+                    = "✩".repeat(5 - review.rating)
+                  .left
+                    i.fa.fa-user-o(aria-hidden='true')
+                    | Alvaro  
+                  .truncate.text-300(style='padding-left:10px;')= review.text  
+                .collapsible-body
+                  span= review.text
+                  .grey-text.right(datetime=review.created)
+                    = h.moment(review.created).fromNow()
+    .col.m4.push-m1.s12(style='padding:10px 50px 0px 70px;')
+      h6.black-text.text-700.padding-top-10 Tell a friend
       a.waves-effect.waves-light.btn-floating.blue.darken-2
         i.fa.fa-facebook(aria-hidden='true')
       a.waves-effect.waves-light.btn-floating.blue.margin-left-5
@@ -38,21 +78,25 @@ block content
         i.fa.fa-envelope(aria-hidden='true')
       a.waves-effect.waves-light.btn-floating.green.darken-1.margin-left-5
         i.fa.fa-whatsapp(aria-hidden='true')   
-      h6.black-text.text-700 Activities
+      h6.black-text.text-700.padding-top-10 Activities
       - const activities = plan.activities
       each activity in activities
         .chip= activity
           img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
-      h6.black-text.text-700 Tags      
+      h6.black-text.text-700.padding-top-10 Tags      
       - const tags = plan.tags
       each tag in tags
         .chip= tag
-      h6.black-text.text-700 Rating
-      .yellow-text.text-darken-1 ★★★★ 
-      h6.black-text.text-700 Skill-Level
+      h6.black-text.text-700.padding-top-10 Skill-Level
       .chip Beginner    
-      h6.black-text.text-700 Minimum Time
+      h6.black-text.text-700.padding-top-10 Minimum Time
       .chip 4h  
+      h6.black-text.text-700.padding-top-10 Average Rating
+        .yellow-text.text-darken-1.padding-top-10 ★★★★✩
+      if user
+        +reviewForm(plan) 
+      else 
+        h5 Register to leave a review
   .row.social-plan-buttons    
     a.waves-effect.waves-light.btn-floating.red.darken-1.margin-left-5
       i.fa.fa-file-pdf-o(aria-hidden='true')   

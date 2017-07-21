@@ -1,7 +1,7 @@
 mixin navbar()
   .navbar-fixed
     nav
-      .nav-wrapper.scrolled
+      .nav-wrapper.scrolled.text-300
         // logo
         a.brand-logo(href='/')
           img#nav-logo(src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-04_qzk92u.png', alt='Logo')
@@ -37,10 +37,10 @@ mixin navbar()
             li(style="padding-top:8px")
               if user.photo
                 if user.photo.startsWith("https://graph.facebook.com/")
-                  img.avatar(src=`${user.photo}`) 
-                else 
+                  img.avatar(src=`${user.photo}`)
+                else
                   img.avatar(src=`../uploads/${user.photo}`)
-              else      
+              else
                 img.avatar(src='/images/photos/user.png')
             li
               a.dropdown-button(href='#', data-activates='profile-dropdown', data-beloworigin='true', data-constrainwidth='true')=user.name

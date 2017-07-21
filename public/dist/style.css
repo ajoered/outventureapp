@@ -14,6 +14,10 @@ html {
   margin-left: 5px!important;
 }
 
+.padding-top-10 {
+  padding-top: 10px!important;
+}
+
 .input-field label {
   top: -1px!important;
   font-size: 13px!important;
@@ -719,7 +723,7 @@ color: #fff;
 
 .parallax-profile {
     /* The image used */
-    background-image: url('https://static.pexels.com/photos/292600/pexels-photo-292600.jpeg');
+    background-image: url('https://static.pexels.com/photos/519719/pexels-photo-519719.jpeg');
     background-position: 50% 90%!important;
     /* Full height */
     height: 70vh;
@@ -754,14 +758,27 @@ color: #fff;
 
 
 /*Reviewer*/
+[type="radio"]:not(:checked) + label:before, [type="radio"]:not(:checked) + label:after {
+  border: none!important;
+}
 
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
+  background-color: transparent!important;
+  display: none!important;
+}
+
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+  border: none!important;
+  display: none!important;
+}
 .reviewer__stars {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
-      justify-content: center; }
+  justify-content: center; }
   .reviewer__stars input {
-    display: hidden!important; }
+    display: none!important;
+  visibility: hidden!important;}
     .reviewer__stars input:checked ~ label {
       color: #FFC40E; }
     .reviewer__stars input + label {
@@ -772,7 +789,8 @@ color: #fff;
        */ }
       .reviewer__stars input + label:before {
         content: '\2605';
-        font-size: 2rem; }
+        font-size: 1.5rem;
+         }
       .reviewer__stars input + label[for="star5"] {
         -ms-flex-order: 5;
             order: 5; }
@@ -790,6 +808,16 @@ color: #fff;
             order: 1; }
       .reviewer__stars input + label:hover, .reviewer__stars input + label:hover ~ label {
         color: #ffdd74; }
+        .reviewer__meta {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: center;
+          justify-content: center;
+      align-items: center;
+      border-top: 1px solid #e6e6e6; }
+      .reviewer__meta > * {
+        -ms-flex: 1;
+            flex: 1; }
 
 /*Social buttons*/
 
