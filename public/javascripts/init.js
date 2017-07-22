@@ -1,6 +1,7 @@
 import autocomplete from './modules/autocomplete';
 import autocompleteCity from './modules/autocompleteCity';
 import initMap from './modules/initmap';
+import initPlanMap from './modules/initPlanMap';
 import slide from './modules/textChange';
 import ajaxHeart from './modules/heart';
 import ajaxDone from './modules/done';
@@ -25,7 +26,6 @@ $(document).ready(function(){
   $('.carousel.carousel-slider').carousel({fullWidth: true});
   $('.modal').modal();
   $('.slider').slider();
-
   $('#modal-tags').modal({
       dismissible: false, // Modal can be dismissed by clicking outside of the modal
       opacity: .8, // Opacity of modal background
@@ -63,7 +63,6 @@ $(document).ready(function(){
     });
   }
 
-
 });
 
 
@@ -78,6 +77,7 @@ $(document).ready(function(){
   $(dones).on("submit", ajaxDone);
   donePlan();
 
+  initPlanMap(document.getElementById('planMap'));
   initMap(document.getElementById('map'));
 
   autocomplete( document.getElementById("address"), document.getElementById("lat"), document.getElementById("lng") );

@@ -48,26 +48,8 @@ block content
             i.material-icons.right arrow_drop_down
           .collapsible-body.flow-text
             span Pack light. For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the point.      
-      #planMap
-        img(src='https://cdn.hikingguy.com/wp-content/uploads/runyon-canyon-hike-location.jpg', alt='')
-      h4.grey-text.text-darken-2.text-700.left-align Reviews
-      if plan.reviews 
-        .row
-          each review in plan.reviews      
-            ul.collapsible(data-collapsible='accordion')
-              li
-                .collapsible-header
-                  .right.orange-text
-                    = "★".repeat(review.rating)
-                    = "✩".repeat(5 - review.rating)
-                  .left
-                    i.fa.fa-user-o(aria-hidden='true')
-                    | Alvaro  
-                  .truncate.text-300(style='padding-left:10px;')= review.text  
-                .collapsible-body
-                  span= review.text
-                  .grey-text.right(datetime=review.created)
-                    = h.moment(review.created).fromNow()
+      #planMap(style='height:200px;' lat=plan.location.coordinates[0] lng=plan.location.coordinates[1])
+        .divider
     .col.m4.push-m1.s12(style='padding:10px 50px 0px 70px;')
       h6.black-text.text-700.padding-top-10 Tell a friend
       a.waves-effect.waves-light.btn-floating.blue.darken-2
@@ -92,11 +74,30 @@ block content
       h6.black-text.text-700.padding-top-10 Minimum Time
       .chip 4h  
       h6.black-text.text-700.padding-top-10 Average Rating
-        .yellow-text.text-darken-1.padding-top-10 ★★★★✩
+        .yellow-text.text-darken-1.padding-top-10 ★★★★✩    
+    .col.m7.push-m1.s12.left-align  
+      h4.grey-text.text-darken-2.text-700.left-align Reviews
       if user
         +reviewForm(plan) 
-      else 
-        h5 Register to leave a review
+      if plan.reviews 
+        .row
+          each review in plan.reviews      
+            ul.collapsible(data-collapsible='accordion')
+              li
+                .collapsible-header
+                  .right.orange-text
+                    = "★".repeat(review.rating)
+                    = "✩".repeat(5 - review.rating)
+                  .left
+                    i.fa.fa-user-o(aria-hidden='true')
+                    | Alvaro  
+                  .truncate.text-300(style='padding-left:10px;')= review.text  
+                .collapsible-body
+                  span= review.text
+                  .grey-text.right(datetime=review.created)
+                    = h.moment(review.created).fromNow()
+      else              
+        h4.center Be the first to leave a review!
   .row.social-plan-buttons    
     a.waves-effect.waves-light.btn-floating.red.darken-1.margin-left-5
       i.fa.fa-file-pdf-o(aria-hidden='true')   

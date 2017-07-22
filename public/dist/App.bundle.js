@@ -2212,6 +2212,10 @@ var _initmap = __webpack_require__(15);
 
 var _initmap2 = _interopRequireDefault(_initmap);
 
+var _initPlanMap = __webpack_require__(37);
+
+var _initPlanMap2 = _interopRequireDefault(_initPlanMap);
+
 var _textChange = __webpack_require__(17);
 
 var _textChange2 = _interopRequireDefault(_textChange);
@@ -2255,7 +2259,6 @@ $(document).ready(function () {
     $('.carousel.carousel-slider').carousel({ fullWidth: true });
     $('.modal').modal();
     $('.slider').slider();
-
     $('#modal-tags').modal({
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
         opacity: .8, // Opacity of modal background
@@ -2308,6 +2311,7 @@ var dones = document.querySelectorAll('form.done');
 $(dones).on("submit", _done2.default);
 (0, _doneDynamic2.default)();
 
+(0, _initPlanMap2.default)(document.getElementById('planMap'));
 (0, _initmap2.default)(document.getElementById('map'));
 
 (0, _autocomplete2.default)(document.getElementById("address"), document.getElementById("lat"), document.getElementById("lng"));
@@ -2405,6 +2409,53 @@ function scrollMagic() {
     var offset2 = mapFix.offset();
     mapFix.offset(-150);
 };
+
+/***/ }),
+/* 36 */,
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function initPlanMap(planMapDiv) {
+  if (!planMapDiv) return;
+
+  // const lat = parseFloat(planMapDiv.getAttribute("lat"));
+  // const lng = parseFloat(planMapDiv.getAttribute("lng"));
+  // console.log(lat, lng);
+  //
+  // const mapOptions = {
+  //   center: { lat: -118.35, lng: 34.11 },
+  //   zoom: 9
+  // }
+  //
+  // const map = new google.maps.Map(planMapDiv, mapOptions);
+
+  var lat = parseFloat(parseFloat(planMapDiv.getAttribute("lat")).toPrecision(5));
+  var lng = parseFloat(parseFloat(planMapDiv.getAttribute("lng")).toPrecision(5));
+
+  var myLatlng = new google.maps.LatLng(lat, lng);
+  console.log(myLatlng);
+  var mapOptions = {
+    zoom: 4,
+    center: myLatlng
+  };
+  var map = new google.maps.Map(planMapDiv, mapOptions);
+
+  var marker = new google.maps.Marker({
+    position: myLatlng,
+    title: "Hello World!"
+  });
+
+  // To add the marker to the map, call setMap();
+  marker.setMap(map);
+}
+
+exports.default = initPlanMap;
 
 /***/ })
 /******/ ]);
