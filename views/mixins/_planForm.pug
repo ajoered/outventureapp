@@ -5,24 +5,31 @@ mixin planForm(plan = {})
     form(action=`/addPlan/${plan._id || ''}` method="POST" enctype="multipart/form-data")
       .row.center.swag-promo.blue-grey.lighten-5     
         .col.m10.push-m1.s12.center
-          h5.text-700 The Best Plan Ideas Get Free Swag! 
-          p.center Plan Ideas are detailed guides about specific hike, camping spot, or any other activity. They help people like you learn everything they need to know to spend more time outdoors. We reward the best ones.
+          h5.text-700 The Best Adventure Ideas Get Free Swag! 
+          p.center Adventure Ideas are detailed guides about specific hike, camping spot, or any other activity. They help people like you learn everything they need to know to spend more time outdoors. We reward the best ones.
           a.btn.teal.darken-4 What Swag?
       .row.center
         .col.s12
           i.fa.fa-lightbulb-o.fa-3x.orange-text(aria-hidden='true')
         .col.m10.push-m1.s12.center
-          h5.text-700 Add a New Plan Idea 
+          h5.text-700 Add a New Adventure Idea 
           p.text-700.center Have any hidden gems to share with our community? It's time to share your wisdom!           
       br
       .row
         .input-field
           label(for="title") Title
           input#title.validate(type="text" name="title" value=plan.title placeholder="Ex. 'Hike Runyon Canyon' / 'Surf Venice Beach' / 'Scuba Dive in Catalina'")
+        br    
         .input-field
           label.active(for="tagline") Tagline
           input#tagline.materialize-textarea(type="text" name="tagline" value=plan.tagline placeholder="Define your plan in one sentence. What makes it special? Ex. 'Awesome beginner hike in the heart of LA with spectacular views'")
+        br    
+        .input-field
+          label(for="address") Location
+          input(type="text" id="address" placeholder="Where is this awesome place?" name="location[address]" value=(plan.location && plan.location.address) required)
+        br
         .input-field.col.m6.s12
+          label.active(for="skillLevel") Skill-Level
           select(id="skillLevel" name='skillLevel')
             option(value='', disabled='', selected='') Select a skill Level
             option(value='Beginner') Beginner
@@ -30,10 +37,18 @@ mixin planForm(plan = {})
             option(value='Advanced') Advanced
             option(value='Expert') Expert
         .input-field.col.m6.s12
-          label(for="address") Location
-          input(type="text" id="address" name="location[address]" value=(plan.location && plan.location.address) required)
+          label.active(for="mintime") Minimum Time
+          select(id="mintime" name='mintime')
+            option(value='', disabled='', selected='') What is the min. time required to complete this adventure?
+            option(value='< 4h') < 4h
+            option(value='4h - 8h') 4h - 8h
+            option(value='8h - Full Day') 8h - Full Day 
+            option(value='Weekend') Weekend
+            option(value='Weekend +') Weekend +
+        br
         .input-field
           input(type="hidden" id="lng" name="location[coordinates][0]" value=(plan.location && plan.location.coordinates[0]) required)
+        br
         .input-field
           input(type="hidden" id="lat" name="location[coordinates][1]" value=(plan.location && plan.location.coordinates[1]) required)
         p Activities
@@ -42,8 +57,7 @@ mixin planForm(plan = {})
         .input-field
           each activity in activityChoices
             input(type="checkbox" id=activity value=activity name="activities" checked=(activities.includes(activity)))
-            label(for=activity) #{activity}
-            br
+            label(for=activity style="padding-right:20px;") #{activity}
         br
         p Tags
         - const tagChoices = ['Lake', 'Beach', 'River', 'Waterfall', 'Wildlife', 'Forest', 'Mountain', 'Dog friendly', 'Family friendly', 'Easy Parking', 'Scenic', 'Romantic']
@@ -51,18 +65,32 @@ mixin planForm(plan = {})
         .input-field
           each tag in tagChoices
             input(type="checkbox" id=tag value=tag name="tags" checked=(tags.includes(tag)))
-            label(for=tag) #{tag}
-            br
+            label(for=tag style="padding-right:20px;") #{tag}
+        br
+        br  
+        .input-field
+          label.active(for='description') Full Description
+          textarea#description.materialize-textarea(name="description" placeholder="Devil's in the detail. Please provide a detailed description of your adventure. Ex. 'Awesome Trail is a 2.5 mile heavily trafficked loop trail located near Los Angeles, California that offers beautiful views of the city and is great for beginners. You enter the trail through...'")= plan.description
         br
         .input-field
-          label.active(for='description') Description
-          textarea#description.materialize-textarea(name="description" placeholder="Devil's in the detail. Please provide a detailed description of your adventure. Ex. 'Awesome Trail is a 2.5 mile heavily trafficked loop trail located near Los Angeles, California that offers beautiful views of the city and is great for beginners. You enter the trail through...'")= plan.description
-        .file-field.input-field
-          .btn
-            span Photo
-            input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
-          .file-path-wrapper
-            input.file-path.validate(type='text')
-            if plan.photo
-              img(src=`/uploads/${plan.photo}`, alt=plan.name width=200)
-        input(type="submit" value="Save →" class="btn")
+          label.active(for='packlist') What to pack
+          textarea#packlist.materialize-textarea(name="packlist" placeholder="A useful list of things to pack canchange your adventure. What gear will they need? Backpack? Raincoat? Hiking Shoes?")= plan.packlist  
+        br
+        .input-field
+          label.active(for='parking') Parking and Transport 
+          textarea#parking.materialize-textarea(name="parking" placeholder="What is the best way to get there? How do you usually park?")= plan.parking  
+        br
+        .input-field
+          label.active(for='recommendations') Recommendations
+          textarea#recommendations.materialize-textarea(name="recommendations" placeholder="Adventures are much better with insider knowledge. Any good places to photograph? Anyone worth talking to? Let us know!")= plan.recommendations    
+          .file-field.input-field
+            .row
+              .btn.secondary-blue.btn-large.col.m8.push-m2.s12
+                span Upload Photos
+                input(type="file" name="photos" id="photos" accept="image/gif, image/png, image/jpeg" multiple='')
+            if plan.photos
+              .fotorama(data-width="40%" data-height="40%" data-nav="thumbs" data-allowfullscreen="true" data-fit="cover" data-loop="true" data-keyboard="true" data-arrows="true" data-swipe="true" data-trackpad="true" data-navposition="top" data-thumbwidth='88px')
+                for photo in plan.photos
+                  img(src=`/uploads/${photo}`, alt=plan.name width=200)
+      .row
+        input.btn.btn-large.primary-blue.col.m12.s12(type="submit" value="Save →")

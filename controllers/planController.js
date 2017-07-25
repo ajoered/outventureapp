@@ -7,31 +7,43 @@ const uuid = require('uuid');
 
 const multerOptions = {
   storage: multer.memoryStorage(),
-  fileFilter(req, file, next) {
-    const isPhoto = file.mimetype.startsWith('image/');
-    if(isPhoto) {
-      next(null, true);
-    } else {
-      next({ message: 'That filetype isn\'t allowed! Please only upload jpg/png/gif' }, false);
-    }
-  }
+  // fileFilter(req, file, next) {
+  //   const isPhoto = file.mimetype.startsWith('image/');
+  //   if(isPhoto) {
+  //     next(null, true);
+  //   } else {
+  //     next({ message: 'That filetype isn\'t allowed! Please only upload jpg/png/gif' }, false);
+  //   }
+  // }
 };
 
-exports.upload = multer(multerOptions).single('photo');
+exports.upload = multer(multerOptions).array('photos', 10);
 
 exports.resize = async (req, res, next) => {
-  console.log(req.file);
+  // console.log(req.files);
+  // console.log(req.body);
+  const files = req.files
   // check if there is no new file to resize
-  if (!req.file) {
+  if (!req.files) {
     next(); // skip to the next middleware
     return;
   }
-  const extension = req.file.mimetype.split('/')[1];
-  req.body.photo = `${uuid.v4()}.${extension}`;
-  // now we resize
-  const photo = await jimp.read(req.file.buffer);
-  await photo.resize(800, jimp.AUTO);
-  await photo.write(`./public/uploads/${req.body.photo}`);
+  if (!req.body.photos) {
+    req.body.photos = [];
+  }
+  files.forEach(function(file) {
+    const extension = file.mimetype.split('/')[1];
+    const photoId = `${uuid.v4()}.${extension}`
+    req.body.photos.push(photoId);
+    // now we resize
+    jimp.read(file.buffer, function (err, photo) {
+      console.log(photo);
+      if (err) throw err;
+      photo.resize(800, jimp.AUTO).write(`./public/uploads/${photoId}`);
+    });
+
+  });
+
   // once we have written the photo to our filesystem, keep going!
   next();
 };

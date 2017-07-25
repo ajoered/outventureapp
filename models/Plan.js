@@ -19,6 +19,10 @@ const planSchema = new mongoose.Schema({
   },
   activities: [String],
   skillLevel: String,
+  mintime: String,
+  packlist: String,
+  parking: String,
+  recommendations: String,
   created: {
     type: Date,
     default: Date.now
@@ -39,7 +43,7 @@ const planSchema = new mongoose.Schema({
     required: 'You must supply an address!'
   }
 },
-photo: String,
+photos: [String],
 author: {
   type: mongoose.Schema.ObjectId,
   ref: 'User',
