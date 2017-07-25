@@ -517,20 +517,20 @@ color: #fff;
 
 .plan-heart {
   position: absolute!important;
-  top: 75vh!important;
-  left: 10px;
+  top: 74vh!important;
+  right: 20px;
 }
 
 .plan-done {
   position: absolute!important;
-  top: 75vh!important;
-  left: 50px;
+  top: 74vh!important;
+  right: 70px;
 }
 
 .plan-edit {
   position: absolute!important;
-  top: 75vh!important;
-  left: 90px;
+  top: 74vh!important;
+  left: 20px;
 }
 
 @media only screen and (max-device-width: 1024px) {

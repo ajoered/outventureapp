@@ -7,7 +7,7 @@ block header
   +navbar()
   
 block content
-  .fotorama(data-width="100%" data-height="70%" data-nav="thumbs" data-allowfullscreen="true" data-fit="cover" data-loop="true" data-keyboard="true" data-arrows="true" data-swipe="true" data-trackpad="true" data-navposition="top" )
+  .fotorama(data-width="100%" data-height="70%" data-nav="thumbs" data-allowfullscreen="true" data-fit="cover" data-loop="true" data-keyboard="true" data-arrows="true" data-swipe="true" data-trackpad="true" data-navposition="top" data-thumbwidth='88px')
     img(src='/images/photos/camping.jpg')
     img(src='/images/photos/camp.jpg')
     img(src='/images/photos/scuba-Diving.jpg')
@@ -48,7 +48,7 @@ block content
             i.material-icons.right arrow_drop_down
           .collapsible-body.flow-text
             span Pack light. For something really short and easy (0.85 miles and 200 feet of elevation change), hikers can begin from the point.      
-      #planMap(style='height:200px;' lat=plan.location.coordinates[0] lng=plan.location.coordinates[1])
+      #planMap(style='height:300px;' lat=plan.location.coordinates[0] lng=plan.location.coordinates[1])
         .divider
     .col.m4.push-m1.s12(style='padding:10px 50px 0px 70px;')
       h6.black-text.text-700.padding-top-10 Tell a friend
@@ -60,6 +60,9 @@ block content
         i.fa.fa-envelope(aria-hidden='true')
       a.waves-effect.waves-light.btn-floating.green.darken-1.margin-left-5
         i.fa.fa-whatsapp(aria-hidden='true')   
+      h6.black-text.text-700.padding-top-10 Download PDF
+      a.waves-effect.waves-light.btn-floating.red.darken-1.margin-left-5
+        i.fa.fa-file-pdf-o(aria-hidden='true')  
       h6.black-text.text-700.padding-top-10 Activities
       - const activities = plan.activities
       each activity in activities
@@ -98,9 +101,6 @@ block content
                     = h.moment(review.created).fromNow()
       else              
         h4.center Be the first to leave a review!
-  .row.social-plan-buttons    
-    a.waves-effect.waves-light.btn-floating.red.darken-1.margin-left-5
-      i.fa.fa-file-pdf-o(aria-hidden='true')   
   .row.plan-heart 
     form.heart(method="POST" action=`/api/plans/${plan._id}/heart`)
       - const heartStrings = user.hearts.map(obj => obj.toString())

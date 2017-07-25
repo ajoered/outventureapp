@@ -12,13 +12,14 @@ function initPlanMap(planMapDiv) {
   //
   // const map = new google.maps.Map(planMapDiv, mapOptions);
 
-  const lat = parseFloat(parseFloat(planMapDiv.getAttribute("lat")).toPrecision(5));
-  const lng = parseFloat(parseFloat(planMapDiv.getAttribute("lng")).toPrecision(5));
-
-  var myLatlng = new google.maps.LatLng(lat, lng);
+  const lat = parseFloat(planMapDiv.getAttribute("lat"));
+  const lng = parseFloat(planMapDiv.getAttribute("lng"));
+  console.log(lat);
+  var myLatlng = new google.maps.LatLng(lng, lat);
   console.log(myLatlng);
+
   var mapOptions = {
-    zoom: 4,
+    zoom: 12,
     center: myLatlng
   }
   var map = new google.maps.Map(planMapDiv, mapOptions);
@@ -28,7 +29,6 @@ function initPlanMap(planMapDiv) {
       title:"Hello World!"
   });
 
-  // To add the marker to the map, call setMap();
   marker.setMap(map);
 }
 

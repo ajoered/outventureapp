@@ -26,10 +26,13 @@ mixin navbarLanding()
         if user
           ul.right.hide-on-med-and-down
             li
+              a.done-count(href='/account' style='font-size:24px;') #{user.dones.length}
+            li(style="margin-left:-10px;")
+              i.left.fa.fa-check(aria-hidden='true')
+            li
               a.heart-count(href='/account' style='font-size:24px;') #{user.hearts.length}
             li(style="margin-left:-10px;padding-right:15px;")
               i.left.fa.fa-heart-o(aria-hidden='true')
-            li(style="padding-top:8px")
               if user.photo
                 if user.photo.startsWith("https://graph.facebook.com/")
                   img.avatar(src=`${user.photo}`) 

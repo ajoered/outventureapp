@@ -59,7 +59,6 @@ function loadPlaces(map, q) {
   axios.get(`/api/plans/near?lat=${lat}&lng=${lng}${q.join()}`)
   .then(res => {
     const plans = res.data;
-    console.log(plans);
     createMarkers(plans, map)
     createCards(plans)
     $('.fotorama').fotorama()

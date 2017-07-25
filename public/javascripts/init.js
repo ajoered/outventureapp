@@ -63,6 +63,8 @@ $(document).ready(function(){
     });
   }
 
+  initPlanMap(document.getElementById('planMap'));
+
 });
 
 
@@ -77,7 +79,6 @@ $(document).ready(function(){
   $(dones).on("submit", ajaxDone);
   donePlan();
 
-  initPlanMap(document.getElementById('planMap'));
   initMap(document.getElementById('map'));
 
   autocomplete( document.getElementById("address"), document.getElementById("lat"), document.getElementById("lng") );
