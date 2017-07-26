@@ -11,9 +11,9 @@ mongoose.connection.on('error', (err) => {
 });
 
 //Import models
-require('./models/plan.js')
-require('./models/user.js')
-require('./models/review.js')
+require('../models/plan.js')
+require('../models/user.js')
+require('../models/review.js')
 
 // Start the app
 const app = require('./app');
