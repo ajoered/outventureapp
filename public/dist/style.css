@@ -75,7 +75,6 @@ input[type="checkbox"].filled-in:checked + label:after {
    height: 50px!important;
  }
 
-
 .icon-block {
   padding: 0 15px;
 }
