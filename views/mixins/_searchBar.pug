@@ -50,9 +50,13 @@ mixin searchBar()
           |  +1
   #modal-tags.modal.bottom-sheet
     .modal-content.row
-      .col.m5.s12
+      .col.m2.push-m10.s12.center
+        a.modal-action.modal-close.waves-effect.waves-green.btn.secondary-blue.col.s12.m12(href='#!' onclick='updateQuery()' style="margin-bottom:5px;") Apply
+        br
+        a.modal-action.modal-close.waves-effect.waves-green.btn.primary-blue.col.s12.m12(href='#!' onclick='') Clear All
+      .col.m6.pull-m2.s12
         h5.center Tags
-        .col.m4.s12
+        .col.m3.s12
           p
             input.input-tag#lake(type='checkbox' value='Lake' onchange='updateTags(this)')
             label(for='lake') Lake
@@ -65,7 +69,7 @@ mixin searchBar()
           p
             input.input-tag#waterfall(type='checkbox' value='Waterfall' onchange='updateTags(this)')
             label(for='waterfall') Waterfall
-        .col.m4.s12
+        .col.m3.s12
           p
             input.input-tag#wildlife(type='checkbox' value='Wildlife' onchange='updateTags(this)')
             label(for='wildlife') Wildlife
@@ -78,7 +82,7 @@ mixin searchBar()
           p
             input.input-tag#dog-friendly(type='checkbox' value='Dog friendly' onchange='updateTags(this)')
             label(for='dog-friendly') Dog friendly
-        .col.m4.s12
+        .col.m3.s12
           p
             input.input-tag#family-friendly(type='checkbox' value='Family Friendly' onchange='updateTags(this)')
             label(for='family-friendly') Family Friendly
@@ -91,30 +95,30 @@ mixin searchBar()
           p
             input.input-tag#romantic(type='checkbox' value='Romantic' onchange='updateTags(this)')
             label(for='romantic') Romantic
-      .col.m3.push-m1.s12
-        h5 Season
-        p
-          input.input-tag#summer(type='checkbox' value='Summer' onchange='updateTags(this)')
-          label(for='summer') Summer
-        p
-          input.input-tag#autumn(type='checkbox' value='Autumn' onchange='updateTags(this)')
-          label(for='autumn') Autumn
-        p
-          input.input-tag#winter(type='checkbox' value='Winter' onchange='updateTags(this)')
-          label(for='winter') Winter
-        p
-          input.input-tag#spring(type='checkbox' value='Spring' onchange='updateTags(this)')
-          label(for='spring') Spring
-      .col.m3.push-m1.s12
+        .col.m3.s12    
+          p
+            input.input-tag#summer(type='checkbox' value='Summer' onchange='updateTags(this)')
+            label(for='summer') Summer
+          p
+            input.input-tag#autumn(type='checkbox' value='Autumn' onchange='updateTags(this)')
+            label(for='autumn') Autumn
+          p
+            input.input-tag#winter(type='checkbox' value='Winter' onchange='updateTags(this)')
+            label(for='winter') Winter
+          p
+            input.input-tag#spring(type='checkbox' value='Spring' onchange='updateTags(this)')
+            label(for='spring') Spring
+      .col.m3.pull-m1.s12
         h5 Time Availability
         p
           input.input-tag#4h(type='checkbox' value='4h' onchange='updateTags(this)')
           label(for='4h')  < 4h
         p
           input.input-tag#day-trip(type='checkbox' value='Day' onchange='updateTags(this)')
-          label(for='day-trip') Day
+          label(for='4 -8') 4h - 8h
+        p
+          input.input-tag#day-trip(type='checkbox' value='Day' onchange='updateTags(this)')
+          label(for='8 - 24') Overnight
         p
           input.input-tag#overnight(type='checkbox' value='Overnight' onchange='updateTags(this)')
-          label(for='overnight') Overnight
-      .modal-footer
-        a.modal-action.modal-close.waves-effect.waves-green.btn.teal.darken-4(href='#!' onclick='updateQuery()') Apply
+          label(for='24 +') Weekend
