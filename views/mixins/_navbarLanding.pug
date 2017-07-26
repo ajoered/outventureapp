@@ -36,10 +36,11 @@ mixin navbarLanding()
             li(style="margin-left:-10px;padding-right:15px;")
               i.left.fa.fa-heart-o(aria-hidden='true')
               if user
-                if user.photo.startsWith("https://graph.facebook.com/")
-                  img.avatar(src=`${user.photo}`)
-                else
-                  img.avatar(src=`../uploads/${user.photo}`)
+                if user.photo
+                  if user.photo.startsWith("https://graph.facebook.com/")
+                    img.avatar(src=`${user.photo}`)
+                  else
+                    img.avatar(src=`../uploads/${user.photo}`)
               else
                 img.avatar(src='/images/photos/user.png')
             li
