@@ -193,27 +193,29 @@ console.log(plan);
       <img src="/images/icons/${activity}.png">
       ${activity}
       </div>`
-    }).slice(0, 2).join(" ")
+    }).join(" ")
+
+    const imagesHtml = plan.photos.map(photo => {
+      return `<img src="/uploads/${photo}">`
+    }).join(" ")
 
     const tagHtml = plan.tags.map(tag => {
       return `<div class="chip">
       ${tag}
       </div>`
-    }).slice(0, 4).join(" ")
+    }).join(" ")
 
     const heartStrings = plan.author.hearts.map(obj => obj.toString())
     const heartClass = heartStrings.includes(plan._id.toString()) ? 'primary-pink-text' : ''
 
     const donesStrings = plan.author.dones.map(obj => obj.toString())
     const doneClass = donesStrings.includes(plan._id.toString()) ? 'green-text' : ''
+    const averageRatingInteger = Math.floor(plan.averageRating)
     const cardHtml = `
 <div class="card medium z-depth-2">
   <div class="card-image waves-effect waves-block waves-light">
-    <div data-width="100%" data-ratio="400/300" data-fit="cover" data-loop="true" data-swipe="true" data-trackpad="true" data-transition="slide" data-auto="false" class="fotorama" id="fotorama">
-      <img src="/images/photos/camping.jpg"/>
-      <img src="/images/photos/camp.jpg"/>
-      <img src="/images/photos/scuba-Diving.jpg"/>
-    </div>
+    <div data-width="100%" data-ratio="400/300" data-fit="cover" data-loop="true" data-swipe="true" data-trackpad="true" data-transition="slide" data-auto="false" class="fotorama" id="fotorama">` + imagesHtml +
+  `</div>
   </div>
   <div class="card-content">
     <span class="card-title activator grey-text text-darken-4">${plan.title}<i class="material-icons right">control_point</i></span>
@@ -226,7 +228,7 @@ console.log(plan);
     <p>Minimum Time</p>
     <div class="chip"> 4h </div>
     <p></p>
-    <a class="btn waves-effect primary-blue waves-light center" href="/plans/${plan.slug}">Full Page<i class="fa fa-external-link left" aria-hidden='true'></i></a>
+      <a class="btn waves-effect primary-blue waves-light center col m12 s12" href="/plans/${plan.slug}">Full Page<i class="fa fa-external-link left" aria-hidden='true'></i></a>
   </div>
   <a class="btn-floating share-fab waves-effect transparent waves-light"><i class="fa fa-share-square-o" aria-hidden="true"></i></a>
   <button class="btn-floating done-fab waves-effect waves-light transparent" value=${plan._id} onclick=donePlan(this) name="done">
@@ -235,7 +237,7 @@ console.log(plan);
   <button class="btn-floating saved-fab waves-effect waves-light transparent" value=${plan._id} onclick=heartPlan(this) name="heart">
     <i class="fa fa-heart ${heartClass} ${'heart' + plan._id}" aria-hidden="true"></i>
   </button>
-  <a class="review-fab"><p class="text-300 grey-text text-lighten-2">★★★★</p></a>
+  <a class="review-fab"><p class="text-300 yellow-text text-darken-2">${"★".repeat(averageRatingInteger) + "✩".repeat(5 - averageRatingInteger)}</p></a>
   <a class="level-fab"><p class="text-300 grey-text">${plan.skillLevel}</p></a>
   <a class="saved-fab-symbol primary-pink-text"><i class="fa fa-heart" aria-hidden="true"></i></a>
   <a class="saved-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">4</p></a>

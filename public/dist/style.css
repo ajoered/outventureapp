@@ -71,6 +71,11 @@ input[type="checkbox"].filled-in:checked + label:after {
      padding-top: 10px;
  }
 
+ #nav-mobile-logo {
+   height: 50px!important;
+ }
+
+
 .icon-block {
   padding: 0 15px;
 }
@@ -239,6 +244,11 @@ input[type="checkbox"].filled-in:checked + label:after {
   margin-left: 40px;
 }
 
+.edit-button-profile {
+  position: absolute!important;
+  right: 200px!important;
+}
+
 @media screen and (max-width: 1128px) {
   .listings-wrapper {
       margin-right: 10px;
@@ -286,16 +296,18 @@ input[type="checkbox"].filled-in:checked + label:after {
 
 .edit-button-profile {
   position: absolute!important;
-  right: -120px!important;
+  right: 20px!important;
 }
 
 .row-user-name-bio {
   text-align: center!important;
 }
 
+.row-gender-city {
+  text-align: center!important;
+}
+
 .profile-tabs {
-  width: 100%;
-  position: absolute;
   top: 90vh!important;
 }
 

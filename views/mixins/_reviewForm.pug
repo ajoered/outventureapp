@@ -7,11 +7,11 @@ mixin reviewForm(plan)
             .reviewer__stars
               each num in [5,4,3,2,1]
                 input(type="radio" id=`star${num}` name="rating" value=num)
-                label(for=`star${num}`) 
-          br    
+                label(for=`star${num}`)
+          br
           p.center-align Tips for future adventurers?
           .row
             .input-field
               textarea(name="text" placeholder='"Such an incredible experience..."' class="materialize-textarea")
-          .row      
-            input.btn(type="submit" value="Submit Review →")
+          .row
+            input.btn.secondary-blue(type="submit" value="Submit Review →")

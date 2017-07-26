@@ -1,0 +1,35 @@
+extends layout
+
+include mixins/_navbar
+
+block header
+  +navbar()
+
+block content
+  .parallax-container.valign-wrapper(style="background:rgba(1, 1, 1, 0.7);height:60vh!important")
+    .parallax
+      img(src="/images/photos/surfing.jpg", alt="")
+    .row.grey-text.text-lighten-3.center-align
+      h2.text-300 We spend 10+ hours a day on digital media
+      h4 It's time for a change.
+  .container    
+    .row.valign-wrapper.center(style="height:500px")
+      .col.m4.s12 
+        h4.text-300 How long can you go without checking your phone?
+      .col.m8.s12
+        h4.text-300 Effects of media addiction infograph
+  .parallax-container.valign-wrapper(style="background:rgba(1, 1, 1, 0.8);height:85vh!important")
+    .parallax
+      img(src="/images/photos/canoeing.jpg", alt="")
+    .row.valign-wrapper.center.grey-text.text-lighten-3
+      .col.m3.s12 
+        h3.text-300 "The Outdoor Effect"
+      .col.m9.s12
+        h4.text-300 Positive effects of an outdoor lifestyle
+  .container.valign-wrapper
+    .row.center(style="height:500px")
+      .col.m4.s12 
+        h3.text-300 Sustainability  
+      .col.m8.s12
+        h5.text-300 "In the end, we'll conserve only what we love, we'll love only what we understand, and we'll understand only what we are taught" -Baba Dioum 
+    

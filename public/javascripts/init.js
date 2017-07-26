@@ -36,7 +36,7 @@ $(document).ready(function(){
     }
   );
   $('.collapsible').collapsible();
-
+  $('ul.tabs').tabs();
   Materialize.scrollFire(scrollFireOptions);
   scrollMagic();
   slide();

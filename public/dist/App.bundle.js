@@ -1009,7 +1009,7 @@ function ajaxDone(e) {
   _axios2.default.post(this.action).then(function (res) {
     console.log(_this.done);
     var isDone = _this.done.firstChild.classList.toggle('green-text');
-    $('.done-count').html(res.data.hearts.length.toString());
+    $('.done-count').html(res.data.dones.length.toString());
   }).catch(console.error);
 }
 
@@ -1372,11 +1372,15 @@ function createCards(plans) {
     console.log(plan);
     var activityHtml = plan.activities.map(function (activity) {
       return '<div class="chip">\n      <img src="/images/icons/' + activity + '.png">\n      ' + activity + '\n      </div>';
-    }).slice(0, 2).join(" ");
+    }).join(" ");
+
+    var imagesHtml = plan.photos.map(function (photo) {
+      return '<img src="/uploads/' + photo + '">';
+    }).join(" ");
 
     var tagHtml = plan.tags.map(function (tag) {
       return '<div class="chip">\n      ' + tag + '\n      </div>';
-    }).slice(0, 4).join(" ");
+    }).join(" ");
 
     var heartStrings = plan.author.hearts.map(function (obj) {
       return obj.toString();
@@ -1387,7 +1391,8 @@ function createCards(plans) {
       return obj.toString();
     });
     var doneClass = donesStrings.includes(plan._id.toString()) ? 'green-text' : '';
-    var cardHtml = '\n<div class="card medium z-depth-2">\n  <div class="card-image waves-effect waves-block waves-light">\n    <div data-width="100%" data-ratio="400/300" data-fit="cover" data-loop="true" data-swipe="true" data-trackpad="true" data-transition="slide" data-auto="false" class="fotorama" id="fotorama">\n      <img src="/images/photos/camping.jpg"/>\n      <img src="/images/photos/camp.jpg"/>\n      <img src="/images/photos/scuba-Diving.jpg"/>\n    </div>\n  </div>\n  <div class="card-content">\n    <span class="card-title activator grey-text text-darken-4">' + plan.title + '<i class="material-icons right">control_point</i></span>\n    <p class="text-300">' + plan.tagline + '</p>\n  </div>\n  <div class="card-reveal">\n    <span class="card-title grey-text text-darken-4">' + plan.title + '<i class="material-icons right">close</i></span>\n    <p>Activities</p>' + activityHtml + '\n    <p>Tags</p> ' + tagHtml + ('\n    <p>Minimum Time</p>\n    <div class="chip"> 4h </div>\n    <p></p>\n    <a class="btn waves-effect primary-blue waves-light center" href="/plans/' + plan.slug + '">Full Page<i class="fa fa-external-link left" aria-hidden=\'true\'></i></a>\n  </div>\n  <a class="btn-floating share-fab waves-effect transparent waves-light"><i class="fa fa-share-square-o" aria-hidden="true"></i></a>\n  <button class="btn-floating done-fab waves-effect waves-light transparent" value=' + plan._id + ' onclick=donePlan(this) name="done">\n    <i class="fa fa-check ' + doneClass + ' ' + ('done' + plan._id) + '" aria-hidden="true"></i>\n  </button>\n  <button class="btn-floating saved-fab waves-effect waves-light transparent" value=' + plan._id + ' onclick=heartPlan(this) name="heart">\n    <i class="fa fa-heart ' + heartClass + ' ' + ('heart' + plan._id) + '" aria-hidden="true"></i>\n  </button>\n  <a class="review-fab"><p class="text-300 grey-text text-lighten-2">\u2605\u2605\u2605\u2605</p></a>\n  <a class="level-fab"><p class="text-300 grey-text">' + plan.skillLevel + '</p></a>\n  <a class="saved-fab-symbol primary-pink-text"><i class="fa fa-heart" aria-hidden="true"></i></a>\n  <a class="saved-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">4</p></a>\n  <a class="done-fab-symbol green-text"><i class="fa fa-check" aria-hidden="true"></i></a>\n  <a class="done-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">2</p></a>\n</div>');
+    var averageRatingInteger = Math.floor(plan.averageRating);
+    var cardHtml = '\n<div class="card medium z-depth-2">\n  <div class="card-image waves-effect waves-block waves-light">\n    <div data-width="100%" data-ratio="400/300" data-fit="cover" data-loop="true" data-swipe="true" data-trackpad="true" data-transition="slide" data-auto="false" class="fotorama" id="fotorama">' + imagesHtml + ('</div>\n  </div>\n  <div class="card-content">\n    <span class="card-title activator grey-text text-darken-4">' + plan.title + '<i class="material-icons right">control_point</i></span>\n    <p class="text-300">' + plan.tagline + '</p>\n  </div>\n  <div class="card-reveal">\n    <span class="card-title grey-text text-darken-4">' + plan.title + '<i class="material-icons right">close</i></span>\n    <p>Activities</p>') + activityHtml + '\n    <p>Tags</p> ' + tagHtml + ('\n    <p>Minimum Time</p>\n    <div class="chip"> 4h </div>\n    <p></p>\n      <a class="btn waves-effect primary-blue waves-light center col m12 s12" href="/plans/' + plan.slug + '">Full Page<i class="fa fa-external-link left" aria-hidden=\'true\'></i></a>\n  </div>\n  <a class="btn-floating share-fab waves-effect transparent waves-light"><i class="fa fa-share-square-o" aria-hidden="true"></i></a>\n  <button class="btn-floating done-fab waves-effect waves-light transparent" value=' + plan._id + ' onclick=donePlan(this) name="done">\n    <i class="fa fa-check ' + doneClass + ' ' + ('done' + plan._id) + '" aria-hidden="true"></i>\n  </button>\n  <button class="btn-floating saved-fab waves-effect waves-light transparent" value=' + plan._id + ' onclick=heartPlan(this) name="heart">\n    <i class="fa fa-heart ' + heartClass + ' ' + ('heart' + plan._id) + '" aria-hidden="true"></i>\n  </button>\n  <a class="review-fab"><p class="text-300 yellow-text text-darken-2">' + ("★".repeat(averageRatingInteger) + "✩".repeat(5 - averageRatingInteger)) + '</p></a>\n  <a class="level-fab"><p class="text-300 grey-text">' + plan.skillLevel + '</p></a>\n  <a class="saved-fab-symbol primary-pink-text"><i class="fa fa-heart" aria-hidden="true"></i></a>\n  <a class="saved-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">4</p></a>\n  <a class="done-fab-symbol green-text"><i class="fa fa-check" aria-hidden="true"></i></a>\n  <a class="done-fab-number grey-text text-lighten-2"><p class="text-300 grey-text text-lighten-2">2</p></a>\n</div>');
     var cardDiv = document.createElement('div');
     cardDiv.className = "col m6 s12";
     cardDiv.setAttribute("id", plan._id);
@@ -2313,7 +2318,7 @@ $(document).ready(function () {
         endingTop: '10%' // Ending top style attribute
     });
     $('.collapsible').collapsible();
-
+    $('ul.tabs').tabs();
     Materialize.scrollFire(scrollFireOptions);
     scrollMagic();
     (0, _textChange2.default)();

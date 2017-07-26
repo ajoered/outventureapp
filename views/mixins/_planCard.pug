@@ -4,9 +4,8 @@ mixin planCard(plan = {})
       .card-image.waves-effect.waves-block.waves-light
         .fotorama(data-width="100%"
      data-ratio="400/300" data-fit="cover" data-loop="true" data-swipe="true" data-trackpad="true" data-click='false' data-transition="slide")
-          img(src='/images/photos/camping.jpg')
-          img(src='/images/photos/camp.jpg')
-          img(src='/images/photos/scuba-Diving.jpg')
+          each photo in plan.photos
+            img(src=`/uploads/${photo}`)
       .card-content
         span.card-title.activator.grey-text.text-darken-4= plan.title
           i.material-icons.right control_point
@@ -44,14 +43,17 @@ mixin planCard(plan = {})
         a.btn-floating.edit-fab.waves-effect.transparent.waves-light(href=`/plans/${plan._id}/edit`)
           i.material-icons.right mode_edit
       a.review-fab
-        p.text-300.grey-text.text-lighten-2 ★★★★
+        p.text-300.yellow-text.text-darken-2
+          - const averageRatingInteger = Math.floor(plan.averageRating)
+          = "★".repeat(averageRatingInteger)
+          = "✩".repeat(5 - averageRatingInteger)
       a.level-fab
         p.text-300.grey-text= plan.skillLevel
       a.saved-fab-symbol.primary-pink-text
         i.fa.fa-heart(aria-hidden='true')
       a.saved-fab-number.grey-text.text-lighten-2
-        p.text-300.grey-text.text-lighten-2 4
+        p.text-300.grey-text.text-lighten-2
       a.done-fab-symbol.green-text
         i.fa.fa-check(aria-hidden='true')
       a.done-fab-number.grey-text.text-lighten-2
-        p.text-300.grey-text.text-lighten-2 2
+        p.text-300.grey-text.text-lighten-2

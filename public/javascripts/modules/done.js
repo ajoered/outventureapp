@@ -9,7 +9,7 @@ function ajaxDone(e) {
   .then(res => {
     console.log(this.done);
     const isDone = this.done.firstChild.classList.toggle('green-text');
-    $('.done-count').html(res.data.hearts.length.toString());
+    $('.done-count').html(res.data.dones.length.toString());
   })
   .catch(console.error);
 }

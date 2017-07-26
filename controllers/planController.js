@@ -7,14 +7,14 @@ const uuid = require('uuid');
 
 const multerOptions = {
   storage: multer.memoryStorage(),
-  // fileFilter(req, file, next) {
-  //   const isPhoto = file.mimetype.startsWith('image/');
-  //   if(isPhoto) {
-  //     next(null, true);
-  //   } else {
-  //     next({ message: 'That filetype isn\'t allowed! Please only upload jpg/png/gif' }, false);
-  //   }
-  // }
+  fileFilter(req, file, next) {
+    const isPhoto = file.mimetype.startsWith('image/');
+    if(isPhoto) {
+      next(null, true);
+    } else {
+      next({ message: 'That filetype isn\'t allowed! Please only upload jpg/png/gif' }, false);
+    }
+  }
 };
 
 exports.upload = multer(multerOptions).array('photos', 10);
@@ -31,6 +31,7 @@ exports.resize = async (req, res, next) => {
   if (!req.body.photos) {
     req.body.photos = [];
   }
+
   files.forEach(function(file) {
     const extension = file.mimetype.split('/')[1];
     const photoId = `${uuid.v4()}.${extension}`
@@ -41,9 +42,7 @@ exports.resize = async (req, res, next) => {
       if (err) throw err;
       photo.resize(800, jimp.AUTO).write(`./public/uploads/${photoId}`);
     });
-
   });
-
   // once we have written the photo to our filesystem, keep going!
   next();
 };
@@ -131,12 +130,25 @@ exports.heartPlan = async (req, res) => {
   if (req.user == undefined) {
     return res.status(500).send({ error: 'You must login' })
   } else {
+
+    // const plan = await Plan
+    //   .findById(req.params.id);
+    //
+    // const userHearts = plan.userHearts.map(obj => obj.toString());
+    // //if not included add, else remove
+    // const planOperator = userHearts.includes(req.user._id) ? '$pull' : '$addToSet';
+    // const newPlan = await Plan
+    //   .findByIdAndUpdate(req.params.id,
+    //     { [planOperator]: { userHearts: req.user._id } },
+    //     { new: true }
+    //   );
+
     const hearts = req.user.hearts.map(obj => obj.toString());
     //if not included add, else remove
-    const operator = hearts.includes(req.params.id) ? '$pull' : '$addToSet';
+    const userOperator = hearts.includes(req.params.id) ? '$pull' : '$addToSet';
     const user = await User
       .findByIdAndUpdate(req.user._id,
-        { [operator]: { hearts: req.params.id } },
+        { [userOperator]: { hearts: req.params.id } },
         { new: true }
       );
     res.json(user);

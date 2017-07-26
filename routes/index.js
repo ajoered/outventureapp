@@ -4,6 +4,7 @@ const planController = require('../controllers/planController')
 const userController = require('../controllers/userController')
 const authController = require('../controllers/authController')
 const reviewController = require('../controllers/reviewController')
+const homeController = require('../controllers/homeController')
 const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(planController.explore))
@@ -49,6 +50,7 @@ router.post('/account/edit',
   catchErrors(userController.updateAccount));
 router.get('/account/addProfileInfo', authController.isLoggedIn, userController.accountAddProfileInfo);
 
+router.get('/purpose', homeController.purpose)
 
 router.post('/reviews/:id',
   authController.isLoggedIn,

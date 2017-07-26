@@ -3,8 +3,10 @@ mixin navbar()
     nav
       .nav-wrapper.scrolled.text-300
         // logo
-        a.brand-logo(href='/')
+        a.brand-logo.hide-on-med-and-down(href='/')
           img#nav-logo(src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1496716199/OUTVENTURE-04_qzk92u.png', alt='Logo')
+        a.brand-logo.hide-on-med-and-up(href='/')
+          img#nav-mobile-logo(src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1497369799/full_white_hkuuce.png', alt='Logo')    
         // Hamburger
         a.button-collapse(href='#', data-activates='nav-mobile')
           i.material-icons menu
@@ -13,7 +15,7 @@ mixin navbar()
           li.active
             a(href='/')
               i.left.fa.fa-search(aria-hidden='true')
-              | DISCOVER
+              | SEARCH
           li
             a.dropdown-button(href='#', data-activates='create-dropdown', data-beloworigin='true', data-constrainwidth='true')
               i.left.fa.fa-plus-square-o(aria-hidden='true')
@@ -39,7 +41,7 @@ mixin navbar()
                 if user.photo.startsWith("https://graph.facebook.com/")
                   img.avatar(src=`${user.photo}`)
                 else
-                  img.avatar(src=`../uploads/${user.photo}`)
+                  img.avatar(src=`../../uploads/${user.photo}`)
               else
                 img.avatar(src='/images/photos/user.png')
             li
@@ -57,54 +59,56 @@ mixin navbar()
             a(href='/logout') Logout
         ul#about-us-dropdown.dropdown-content
           li
-            a(href='#') Our Purpose
+            a(href='/purpose') Our Purpose
           li
             a(href='#') Blog
+          li
+            a(href='#') Become an expert
         ul#create-dropdown.dropdown-content
           li
-            a(href='/addPlan') Plan Idea
-          li
-            a(href='#') Outing
+            a(href='/addPlan') Adventure Idea
         ul#nav-mobile.side-nav
           // user view
           li
             .userView
-              .background
-                img(src='https://www.beautycolorcode.com/006062-2880x1800.png')
-              a(href='#!user')
-                img.circle(src='https://avatars2.githubusercontent.com/u/22107549?v=3&s=460')
+              .background.primary-blue
+                img(src='http://www.colorhexa.com/2b3e50.png')
+              a(href='/account')
+                if user.photo
+                  if user.photo.startsWith("https://graph.facebook.com/")
+                    img.circle(src=`${user.photo}`)
+                  else
+                    img.circle(src=`../uploads/${user.photo}`)
+                else
+                  img.circle(src='/images/photos/user.png')
               a(href='#!name')
-                span.white-text.name Alvaro Rojas
+                span.white-text.name= user.firstName + " " + user.lastName
               a(href='#!email')
-                span.white-text.email arojas@gmail.com
+                span.white-text.email= user.email
           // Profile
           li
             a.subheader My Profile
           li.no-padding
           li
-            a(href='#!')
+            a(href='/account')
               i.material-icons perm_identity
               | My Account
           li
-            a(href='#')
+            a(href='/addPlan')
               i.material-icons edit
-              | Create Plan
+              | Create Idea
           // Main Menu
           li
             a.subheader Main Menu
           li
-            a(href='#')
+            a(href='/')
               i.material-icons language
-              | Explore Plans
+              | Explore Adventures
           li
-            a(href='#')
-              i.material-icons supervisor_account
-              | Connect
-          li
-            a(href='#')
+            a(href='/purpose')
               i.material-icons info_outline
               | About Us
           li
-            a(href='#')
+            a(href='/blog')
               i.material-icons picture_in_picture
               | Blog

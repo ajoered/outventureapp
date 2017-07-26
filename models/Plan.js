@@ -74,14 +74,35 @@ planSchema.pre('save', async function(next) {
     this.slug = `${this.slug}-${plansWithSlug.length + 1}`;
   }
   next();
-  // TODO make more resiliant so slugs are unique
 });
 
-// find reviews where the stores _id property === reviews store property
+// find reviews where the plans _id property === reviews plan property
 planSchema.virtual('reviews', {
   ref: 'Review', // what model to link?
-  localField: '_id', // which field on the store?
+  localField: '_id', // which field on the plan?
   foreignField: 'plan' // which field on the review?
 });
+
+planSchema.virtual('averageRating').get(function() {
+  const ratingArray = [];
+  this.reviews.forEach(function(review) {
+    ratingArray.push(review.rating);
+  });
+  var total = 0;
+  for(var i = 0; i < ratingArray.length; i++) {
+      total += ratingArray[i];
+  }
+  var avgRating = total / ratingArray.length;
+  return avgRating.toFixed(1)
+});
+
+function autopopulate(next) {
+  this.populate('reviews');
+  next();
+}
+
+planSchema.pre('find', autopopulate);
+planSchema.pre('findOne', autopopulate);
+
 
 module.exports = mongoose.model('Plan', planSchema);

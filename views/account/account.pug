@@ -11,6 +11,9 @@ block content
     .header-profile-section.background-transparent-grey
       .container.container-profile.background-info-grey
         .row.row-user-name-bio
+          .white-text.edit-button-profile
+            a.btn.waves-effect.transparent.waves-light(href=`/account/edit`)
+              | Edit
           .col.m2.push-m2.s4.push-s4
             if user.photo
               if user.photo.startsWith("https://graph.facebook.com/")
@@ -26,9 +29,6 @@ block content
               i.white-text.text-300=user.bio
             else
               a.text-300(href=`/account/edit`) Write a bio! →
-          .col.m2.push-m2.s12.white-text.edit-button-profile
-            a.btn.waves-effect.transparent.waves-light(href=`/account/edit`)
-              | Edit
         .row.grey-text.text-lighten-2.text-300
           .col.m2.push-m3.s6.push-s2
             if user.gender
@@ -37,7 +37,7 @@ block content
             else
               i.fa.fa-li.fa-venus-mars.fa-lg(aria-hidden='true')
               a(href="/account/edit") Add Gender
-          .col.m2.push-m3.s6.push-s2
+          .col.m2.push-m3.s4.push-s2
             if user.location.city
               i.fa.fa-li.fa-map-marker.fa-lg(aria-hidden='true')
               =  user.location.city.split(",")[0]
@@ -47,7 +47,7 @@ block content
           .col.m2.push-m3.s6.push-s2
             i.fa.fa-li.fa-user-times.fa-lg(aria-hidden='true')
             |  0 Followers
-          .col.m2.push-m3.s6.push-s2
+          .col.m2.push-m3.s4.push-s2
             i.fa.fa-li.fa-users.fa-lg(aria-hidden='true')
             |  0 Following
         br
@@ -63,25 +63,24 @@ block content
 
         br
       .row.profile-tabs
-        .col.m10.push-m1
-          ul.tabs.tabs-fixed-width.transparent
-            li.tab.white-text
-              i.fa.fa-plus-square-o.fa-lg(aria-hidden='true')
-              a(href='#created').plan-count=userPlans.length
-                |  CREATED
-            li.tab.white-text
-              i.fa.fa-heart-o.fa-lg(aria-hidden='true')
-              a(href='#saved')=userHeartedPlans.length
-                |  WISH LIST
-            li.tab.white-text
-              i.fa.fa-check-square-o.fa-lg(aria-hidden='true')
-              a(href='#done')=userDonePlans.length
-                |  DONE
-            li.tab.white-text
-              i.fa.fa-star.fa-lg(aria-hidden='true')
-              a(href='#done')
-                |  4 REVIEWS
-            .indicator.white
+        ul.tabs.tabs-fixed-width.transparent
+          li.tab.white-text
+            i.fa.fa-plus-square-o.fa-lg(aria-hidden='true')
+            a(href='#created').plan-count=userPlans.length
+              |  CREATED
+          li.tab.white-text
+            i.fa.fa-heart-o.fa-lg(aria-hidden='true')
+            a(href='#saved')=userHeartedPlans.length
+              |  WISH LIST
+          li.tab.white-text
+            i.fa.fa-check-square-o.fa-lg(aria-hidden='true')
+            a(href='#done')=userDonePlans.length
+              |  DONE
+          li.tab.white-text
+            i.fa.fa-star.fa-lg(aria-hidden='true')
+            a(href='#done')
+              |  4 REVIEWS
+          .indicator.white
     br
     #created
       .row
