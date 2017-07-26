@@ -37,7 +37,7 @@ mixin navbar()
             li(style="margin-left:-10px;padding-right:15px;")
               i.left.fa.fa-heart-o(aria-hidden='true')
             li(style="padding-top:8px")
-              if user.photo
+              if user
                 if user.photo.startsWith("https://graph.facebook.com/")
                   img.avatar(src=`${user.photo}`)
                 else
@@ -74,7 +74,7 @@ mixin navbar()
               .background.primary-blue
                 img(src='http://www.colorhexa.com/2b3e50.png')
               a(href='/account')
-                if user.photo
+                if user
                   if user.photo.startsWith("https://graph.facebook.com/")
                     img.circle(src=`${user.photo}`)
                   else
@@ -82,9 +82,11 @@ mixin navbar()
                 else
                   img.circle(src='/images/photos/user.png')
               a(href='#!name')
-                span.white-text.name= user.firstName + " " + user.lastName
+                if user
+                  span.white-text.name= user.firstName + " " + user.lastName
               a(href='#!email')
-                span.white-text.email= user.email
+                if user
+                  span.white-text.email= user.email
           // Profile
           li
             a.subheader My Profile
