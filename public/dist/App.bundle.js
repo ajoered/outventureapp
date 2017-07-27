@@ -2290,6 +2290,10 @@ var _registerPopup = __webpack_require__(17);
 
 var _registerPopup2 = _interopRequireDefault(_registerPopup);
 
+var _mapToggleButton = __webpack_require__(37);
+
+var _mapToggleButton2 = _interopRequireDefault(_mapToggleButton);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 $(document).ready(function () {
@@ -2345,6 +2349,7 @@ $(document).ready(function () {
         });
     }
 
+    $("#map-toggle-button").click((0, _mapToggleButton2.default)());
     (0, _initPlanMap2.default)(document.getElementById('planMap'));
 });
 
@@ -2460,6 +2465,23 @@ function scrollMagic() {
     var offset2 = mapFix.offset();
     mapFix.offset(-150);
 };
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function mapToggleButton(e) {
+  console.log(e);
+  console.log("hi"); // skip this fn from running if there is not input on the page
+}
+
+exports.default = mapToggleButton;
 
 /***/ })
 /******/ ]);

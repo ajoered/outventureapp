@@ -14,11 +14,11 @@ mixin navbarLanding()
         ul.left.hide-on-med-and-down(style='padding-left:20vw;')
           li
             a(href='/')
-              i.left.fa.fa-search(aria-hidden='true')
-              | SEARCH
+              i.material-icons.left explore
+              | EXPLORE
           li
             a.dropdown-button(href='#', data-activates='create-dropdown', data-beloworigin='true', data-constrainwidth='true')
-              i.left.fa.fa-plus-square-o(aria-hidden='true')
+              i.fa.fa-pencil-square-o.fa-lg.left(aria-hidden='true')
               | CREATE
               i.material-icons.right arrow_drop_down
           li
@@ -35,6 +35,7 @@ mixin navbarLanding()
               a.heart-count(href='/account' style='font-size:24px;') #{user.hearts.length}
             li(style="margin-left:-10px;padding-right:15px;")
               i.left.fa.fa-heart-o(aria-hidden='true')
+            li(style="margin-top:8px;")  
               if user.photo
                 if user.photo.startsWith("https://graph.facebook.com/")
                   img.avatar(src=`${user.photo}`)
@@ -65,49 +66,98 @@ mixin navbarLanding()
           li
             a(href='/addPlan') Adventure Idea
         ul#nav-mobile.side-nav
-          // user view
-          li
-            .userView
-              .background.primary-blue
-                img(src='http://www.colorhexa.com/2b3e50.png')
-              a(href='/account')
-                if user
-                  if user.photo.startsWith("https://graph.facebook.com/")
-                    img.circle(src=`${user.photo}`)
+          if user
+            // user view
+            li
+              .userView.center
+                .background.primary-blue
+                  img(src='http://www.colorhexa.com/2b3e50.png')
+                a(href='/account' style="padding-left:104px;")
+                  if user
+                    if user.photo.startsWith("https://graph.facebook.com/")
+                      img.circle(src=`${user.photo}`)
+                    else
+                      img.circle(src=`../uploads/${user.photo}`)
                   else
-                    img.circle(src=`../uploads/${user.photo}`)
-                else
+                    img.circle(src='/images/photos/user.png')
+                a(href='/account' style="padding-bottom:20px;")
+                  if user
+                    span.white-text.name= user.firstName + " " + user.lastName
+                .row
+                  .col.s6   
+                    i.fa.fa-check.green-text(aria-hidden='true')
+                      a.done-count(href='/account' style='font-size:24px;') #{user.dones.length}
+                  .col.s6                         
+                    i.fa.fa-heart-o.red-text.text-lighten-1(aria-hidden='true')    
+                      a.heart-count(href='/account' style='font-size:24px;') #{user.hearts.length} 
+            // Profile
+            li
+              a.subheader My Account
+            li.no-padding
+            li
+              a(href='/account')
+                i.material-icons perm_identity
+                | My Profile
+            li
+              a(href='/logout')
+                i.material-icons exit_to_app
+                | Logout    
+            // Main Menu
+            li
+              a.subheader Main Menu
+            li
+              a(href='/')
+                i.material-icons explore
+                | Explore Adventures
+            li
+              a(href='/addPlan')
+                i.material-icons edit
+                | Create Idea                
+            li
+              a(href='/purpose')
+                i.material-icons info_outline
+                | About Us
+            li
+              a(href='/blog')
+                i.material-icons picture_in_picture
+                | Blog
+          else
+            li
+              .userView
+                .background.primary-blue
+                  img(src='http://www.colorhexa.com/2b3e50.png')
+                a(href='/login')
                   img.circle(src='/images/photos/user.png')
-              a(href='#!name')
-                if user
-                  span.white-text.name= user.firstName + " " + user.lastName
-              a(href='#!email')
-                if user
-                  span.white-text.email= user.email
-          // Profile
-          li
-            a.subheader My Profile
-          li.no-padding
-          li
-            a(href='/account')
-              i.material-icons perm_identity
-              | My Account
-          li
-            a(href='/addPlan')
-              i.material-icons edit
-              | Create Idea
-          // Main Menu
-          li
-            a.subheader Main Menu
-          li
-            a(href='/')
-              i.material-icons language
-              | Explore Adventures
-          li
-            a(href='/purpose')
-              i.material-icons info_outline
-              | About Us
-          li
-            a(href='/blog')
-              i.material-icons picture_in_picture
-              | Blog
+                a(href='#!name')
+                  a#register.waves-effect.waves-light.btn.white(href='#', style='margin-left:-10px;color:black!important;') Register
+                  a#login.waves-effect.waves-light.btn.transparent(href='/login', style='color:white!important;') Login
+                a(href='#!email')
+                  if user
+                    span.white-text.email= user.email
+            // Profile
+            li
+              a.subheader My Profile
+            li.no-padding
+            li
+              a(href='/account')
+                i.material-icons perm_identity
+                | My Account
+            li
+              a(href='/addPlan')
+                i.material-icons edit
+                | Create Idea
+            // Main Menu
+            li
+              a.subheader Main Menu
+            li
+              a(href='/')
+                i.material-icons explore
+                | Explore Adventures
+            li
+              a(href='/purpose')
+                i.material-icons info_outline
+                | About Us
+            li
+              a(href='/blog')
+                i.material-icons picture_in_picture
+                | Blog

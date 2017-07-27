@@ -10,6 +10,9 @@ html {
     font-weight: 500;
 }
 
+.fa a { font-family: 'lato', sans-serif!important;
+}
+
 .margin-left-5 {
   margin-left: 5px!important;
 }

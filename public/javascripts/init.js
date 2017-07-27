@@ -8,6 +8,7 @@ import ajaxDone from './modules/done';
 import heartPlan from './modules/heartDynamic';
 import donePlan from './modules/doneDynamic';
 import registerPopup from './modules/registerPopup';
+import mapToggleButton from './modules/mapToggleButton';
 
 $(document).ready(function(){
   $('.button-collapse').sideNav();
@@ -63,8 +64,8 @@ $(document).ready(function(){
     });
   }
 
+  $( "#map-toggle-button" ).click(mapToggleButton());
   initPlanMap(document.getElementById('planMap'));
-
 });
 
 

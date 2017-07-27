@@ -65,7 +65,7 @@ block content
       .row.profile-tabs
         ul.tabs.tabs-fixed-width.transparent
           li.tab.white-text
-            i.fa.fa-plus-square-o.fa-lg(aria-hidden='true')
+            i.fa.fa-pencil-square-o.fa-lg(aria-hidden='true')
             a(href='#created').plan-count=userPlans.length
               |  CREATED
           li.tab.white-text
@@ -78,7 +78,7 @@ block content
               |  DONE
           li.tab.white-text
             i.fa.fa-star.fa-lg(aria-hidden='true')
-            a(href='#done')
+            a(href='#done')=user.reviews.length
               |  4 REVIEWS
           .indicator.white
     br
@@ -89,15 +89,14 @@ block content
             +planCard(plan)
         else
           .col.s12.center
-            br
-            a.waves-effect.waves-light.btn-large.secondary-blue(href="/addPlan")
-              i.fa.fa-plus-square-o.left
-              | Create my first plan
+            a.waves-effect.waves-light.btn-large.secondary-blue(href="/")
+              i.material-icons.left explore
+              | EXPLORE adventures  
           .col.s12.center
             br
-            a.waves-effect.waves-light.btn-large.secondary-blue(href="/")
-              i.fa.fa-search.left
-              | Discover
+            a.waves-effect.waves-light.btn-large.secondary-blue(href="/addPlan")
+              i.material-icons.left create
+              | Create my first idea
     #saved
       .row
         each plan in userHeartedPlans
