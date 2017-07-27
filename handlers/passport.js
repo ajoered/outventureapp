@@ -8,7 +8,7 @@ passport.use(User.createStrategy());
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FB_SECRET_KEY,
-    callbackURL: "http://localhost:7777/auth/facebook/callback",
+    callbackURL: "https://outventureco.herokuapp.com/auth/facebook/callback",
     profileFields: ['id', 'first_name', 'last_name', 'photos', 'email']
   },
   function(accessToken, refreshToken, profile, done) {
