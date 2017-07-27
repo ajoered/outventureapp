@@ -2348,8 +2348,6 @@ $(document).ready(function () {
             reader.readAsDataURL(this.files[0]);
         });
     }
-
-    $("#map-toggle-button").click((0, _mapToggleButton2.default)());
     (0, _initPlanMap2.default)(document.getElementById('planMap'));
 });
 
@@ -2476,10 +2474,9 @@ function scrollMagic() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-function mapToggleButton(e) {
-  console.log(e);
-  console.log("hi"); // skip this fn from running if there is not input on the page
-}
+window.mapToggleButton = function (e) {
+  $(".cards-container").css("visibility", "hidden");
+};
 
 exports.default = mapToggleButton;
 

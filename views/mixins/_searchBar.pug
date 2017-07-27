@@ -1,13 +1,13 @@
 mixin searchBar()
   #search-nav.row.search-nav.white
-    #search-bar.col.m4.s8
+    #search-bar.col.m4.s12
       .input-field.z-depth-2
         input.validate#search(type='search' name='geolocate' placeholder="Location")
         label.label-icon(for='search')
           i.material-icons location_on
         i.material-icons close
-    .col.m7.s2
-      .input-field.col.m3.s12.hide-on-med-and-down(style='margin-top:24px;')
+    .col.m7.s2.hide-on-med-and-down
+      .input-field.col.m3.s12(style='margin-top:24px;')
         .switch
           label
             i.fa.fa-2x.fa-lightbulb-o.yellow-text.text-darken-4(aria-hidden='true')
@@ -44,10 +44,18 @@ mixin searchBar()
           option(value='Advanced' name='Advanced') Advanced
           option(value='Expert' name='Expert') Expert
         label Level:
-      .search-buttons.col.m1.s12
+      .search-buttons.col.m1.hide-on-med-and-down
         a.waves-effect.waves-light.btn.primary-blue(href='#modal-tags')
           i.prefix.fa.fa-sliders(aria-hidden='true')
           |  +1
+    .row.hide-on-med-and-up
+      .col.s6
+        a.waves-effect.waves-light.btn.primary-blue.col.s12(href='#modal-tags')
+          i.prefix.fa.fa-sliders(aria-hidden='true')
+          |  +1      
+      .col.s6    
+        a.btn.secondary-blue.col.s12#map-toggle-button(onclick="mapToggleButton(this)") Map View
+          i.fa.fa-globe.left(aria-hidden="true")
   #modal-tags.modal.bottom-sheet
     .modal-content.row
       .col.m2.push-m10.s12.center

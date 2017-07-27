@@ -63,8 +63,6 @@ $(document).ready(function(){
       reader.readAsDataURL(this.files[0]);
     });
   }
-
-  $( "#map-toggle-button" ).click(mapToggleButton());
   initPlanMap(document.getElementById('planMap'));
 });
 
