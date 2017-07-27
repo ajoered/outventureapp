@@ -2475,7 +2475,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 window.mapToggleButton = function (e) {
-  $(".cards-container").css("visibility", "hidden");
+  // $(".cards-container").css("visibility", "hidden");
 };
 
 exports.default = mapToggleButton;

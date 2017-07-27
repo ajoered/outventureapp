@@ -75,7 +75,7 @@ mixin navbar()
                 .background.primary-blue
                   img(src='http://www.colorhexa.com/2b3e50.png')
                 a(href='/account' style="padding-left:104px;")
-                  if user
+                  if user && user.photo
                     if user.photo.startsWith("https://graph.facebook.com/")
                       img.circle(src=`${user.photo}`)
                     else

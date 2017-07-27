@@ -18,10 +18,7 @@ block content
       br    
       .row
         .col.m2.push-m5.s4.push-s4
-          if user.photo
-            img.circle.responsive-img(src=`${user.photo}` id="edit-image") 
-          else  
-            img.circle.responsive-img(src='/images/photos/user.png' id="edit-image") 
+          img.circle.responsive-img(src='/images/photos/user.png' id="edit-image") 
         .col.s12.center
           .file-field.input-field
             i.material-icons mode_edit
@@ -32,24 +29,24 @@ block content
       .row
         .input-field.col.m5.s12
           i.material-icons.prefix.fa.fa-user-o
-          input#name(type='text', name='firstName', value=user.firstName)
+          input#name(type='text', name='firstName')
           label(for='firstName') First Name   
         .input-field.col.m5.push-m1.s12
           i.material-icons.prefix.fa.fa-user-o
-          input#name(type='text', name='lastName', value=user.lastName)
+          input#name(type='text', name='lastName')
           label(for='lastName') Last Name  
       .row
         .input-field.col.m5.s12
           i.material-icons.prefix.fa.fa-globe
           label(for="city") City
-          input(type="text" id="city" name="location[city]" value=(user.location && user.location.city) placeholder="Where do you live?" required)
+          input(type="text" id="city" name="location[city]" placeholder="Where do you live?" required)
         .input-field
-          input(type="hidden" id="lngCity" name="location[coordinates][0]" value=(user.location && user.location.coordinates[0]) required)
+          input(type="hidden" id="lngCity" name="location[coordinates][0]" required)
         .input-field
-          input(type="hidden" id="latCity" name="location[coordinates][1]" value=(user.location && user.location.coordinates[1]) required)  
+          input(type="hidden" id="latCity" name="location[coordinates][1]" required)  
         .input-field.col.m5.push-m1.s12
           i.material-icons.prefix.fa.fa-venus-mars
-          select(id="gender" name='gender' value=user.gender) Gender
+          select(id="gender" name='gender' ) Gender
             option(value='' disabled="" selected="") What is your gender?
             option(value='Male') Male
             option(value='Female') Female
@@ -58,12 +55,12 @@ block content
         .input-field.col.s12
           i.material-icons.prefix
             | mode_edit
-          input#email(type='text', name='bio', value=user.bio, placeholder="Where are you from? What sports are you into? What do you want to learn?")
+          input#email(type='text', name='bio', placeholder="Where are you from? What sports are you into? What do you want to learn?")
           label(for='bio') Bio
       .row
         p Activities
         - const activityChoices = ['Hiking', 'Backpacking', 'Camping', 'Cycling', 'Climbing', 'Surfing', 'Scuba-Diving', 'Canoeing', 'Fishing']
-        - const activities = user.activities || []
+        - const activities = []
         .input-field.center
           each activity in activityChoices
             input(type="checkbox" id=activity value=activity name="activities" checked=(activities.includes(activity)))
