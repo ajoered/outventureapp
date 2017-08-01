@@ -14,15 +14,7 @@ mixin searchBar()
             input(type='checkbox')
             span.lever
             i.fa.fa-2x.fa-user-o.primary-blue-text(aria-hidden='true')
-        //- input#ideas(type='checkbox' class='filled-in' checked='checked')
-        //- label(for='ideas') 
-        //-   i.fa.fa-lightbulb-o.fa-lg.amber-text(aria-hidden='true')
-        //-   |  IDEAS
-        //- input#outings(type='checkbox' class='filled-in' checked='checked')
-        //- label(for='outings') 
-        //-   i.fa.fa-users.red-text.text-lighten-2(aria-hidden='true')
-        //-   |  OUTINGS
-      .input-field.col.m4.s12.hide-on-med-and-down
+      .input-field.col.m4.s12
         select(multiple='' id='activities' onchange='updateQuery()')
           option(value='All' disabled='') All
           optgroup(label='Water')
@@ -36,7 +28,7 @@ mixin searchBar()
             option(value='Camping' name='Camping') Camping
             option(value='Hiking' name='Hiking') Hiking
         label Activities:
-      .input-field.col.m4.s12.hide-on-med-and-down
+      .input-field.col.m4.s12
         select(multiple='' id='skillLevel' onchange='updateQuery()')
           option(value='All' disabled='') All
           option(value='Beginner' name='Beginner') Beginner
@@ -52,8 +44,8 @@ mixin searchBar()
       .col.s6
         a.waves-effect.waves-light.btn.primary-blue.col.s12(href='#modal-tags')
           i.prefix.fa.fa-sliders(aria-hidden='true')
-          |  +1      
-      .col.s6    
+          |  +1
+      .col.s6
         a.btn.secondary-blue.col.s12#map-toggle-button(onclick="mapToggleButton(this)") Map View
           i.fa.fa-globe.left(aria-hidden="true")
   #modal-tags.modal.bottom-sheet
@@ -63,6 +55,28 @@ mixin searchBar()
         br
         a.modal-action.modal-close.waves-effect.waves-green.btn.primary-blue.col.s12.m12(href='#!' onclick='') Clear All
       .col.m6.pull-m2.s12
+        h5.center.hide-on-med-and-up Activities
+        .input-field.col.s12.hide-on-med-and-up
+          select(multiple='' id='activities' onchange='updateQuery()')
+            option(value='All' disabled='') All
+            optgroup(label='Water')
+              option(value='Surfing' name='Surfing') Surfing
+              option(value='Sailing' name='Sailing') Sailing
+              option(value='Scuba-Diving' name='Scuba-Diving') Scuba-Diving
+              option(value='Canoeing' name='Canoeing') Canoeing
+            optgroup(label='Land')
+              option(value='Climbing' name='Climbing') Climbing
+              option(value='Backpacking' name='Backpacking') Backpacking
+              option(value='Camping' name='Camping') Camping
+              option(value='Hiking' name='Hiking') Hiking
+        h5.center.hide-on-med-and-up Level
+        .input-field.col.s12.hide-on-med-and-up
+          select(multiple='' id='skillLevel' onchange='updateQuery()')
+            option(value='All' disabled='') All
+            option(value='Beginner' name='Beginner') Beginner
+            option(value='Intermediate' name='Intermediate') Intermediate
+            option(value='Advanced' name='Advanced') Advanced
+            option(value='Expert' name='Expert') Expert
         h5.center Tags
         .col.m3.s12
           p
@@ -103,7 +117,7 @@ mixin searchBar()
           p
             input.input-tag#romantic(type='checkbox' value='Romantic' onchange='updateTags(this)')
             label(for='romantic') Romantic
-        .col.m3.s12    
+        .col.m3.s12
           p
             input.input-tag#summer(type='checkbox' value='Summer' onchange='updateTags(this)')
             label(for='summer') Summer
@@ -123,10 +137,10 @@ mixin searchBar()
           label(for='4h')  < 4h
         p
           input.input-tag#day-trip(type='checkbox' value='Day' onchange='updateTags(this)')
-          label(for='4 -8') 4h - 8h
-        p
-          input.input-tag#day-trip(type='checkbox' value='Day' onchange='updateTags(this)')
-          label(for='8 - 24') Overnight
+          label(for='day-trip') 4h - 8h
         p
           input.input-tag#overnight(type='checkbox' value='Overnight' onchange='updateTags(this)')
-          label(for='24 +') Weekend
+          label(for='overnight') Overnight
+        p
+          input.input-tag#weekend(type='checkbox' value='Weekend' onchange='updateTags(this)')
+          label(for='weekend') Weekend
