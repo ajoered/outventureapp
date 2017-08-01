@@ -5,15 +5,15 @@ include mixins/_reviewForm
 
 block header
   +navbar()
-  
+
 block content
   .fotorama(data-width="100%" data-height="70%" data-nav="thumbs" data-allowfullscreen="true" data-fit="cover" data-loop="true" data-keyboard="true" data-arrows="true" data-swipe="true" data-trackpad="true" data-navposition="top" data-thumbwidth='88px')
     for photo in plan.photos
-      img(src=`/uploads/${photo}`)
+      img(src=`${photo}`)
   .row
     .col.m7.push-m1.s12.left-align
       h4.grey-text.text-darken-2.text-700.left-align= plan.title.toUpperCase()
-      h6.black-text.text-500.spaced-text(style='padding-right:30px;')= plan.tagline 
+      h6.black-text.text-500.spaced-text(style='padding-right:30px;')= plan.tagline
       br
       ul.collapsible.popout(data-collapsible='accordion')
         li
@@ -30,7 +30,7 @@ block content
             | What to pack
             i.material-icons.right arrow_drop_down
           .collapsible-body
-            span= plan.packlist   
+            span= plan.packlist
       ul.collapsible.popout(data-collapsible='accordion')
         li
           .collapsible-header
@@ -38,7 +38,7 @@ block content
             | Parking & Transport
             i.material-icons.right arrow_drop_down
           .collapsible-body
-            span= plan.parking        
+            span= plan.parking
       ul.collapsible.popout(data-collapsible='accordion')
         li
           .collapsible-header
@@ -46,7 +46,7 @@ block content
             | Recommendations
             i.material-icons.right arrow_drop_down
           .collapsible-body.flow-text
-            span= plan.recommendations    
+            span= plan.recommendations
       #planMap(style='height:300px;' lat=plan.location.coordinates[0] lng=plan.location.coordinates[1])
         .divider
     .col.m4.push-m1.s12(style='padding:10px 50px 0px 70px;')
@@ -58,23 +58,23 @@ block content
       a.waves-effect.waves-light.btn-floating.grey.darken-2.margin-left-5
         i.fa.fa-envelope(aria-hidden='true')
       a.waves-effect.waves-light.btn-floating.green.darken-1.margin-left-5
-        i.fa.fa-whatsapp(aria-hidden='true')   
+        i.fa.fa-whatsapp(aria-hidden='true')
       h6.black-text.text-700.padding-top-10 Download PDF
       a.waves-effect.waves-light.btn-floating.red.darken-1
-        i.fa.fa-file-pdf-o(aria-hidden='true')  
+        i.fa.fa-file-pdf-o(aria-hidden='true')
       h6.black-text.text-700.padding-top-10 Activities
       - const activities = plan.activities
       each activity in activities
         .chip= activity
           img(src=`/images/icons/${activity}.png` || `/images/icons/symbolBlack.png`)
-      h6.black-text.text-700.padding-top-10 Tags      
+      h6.black-text.text-700.padding-top-10 Tags
       - const tags = plan.tags
       each tag in tags
         .chip= tag
       h6.black-text.text-700.padding-top-10 Skill-Level
-      .chip=plan.skillLevel   
+      .chip=plan.skillLevel
       h6.black-text.text-700.padding-top-10 Minimum Time
-      .chip= plan.mintime 
+      .chip= plan.mintime
       h6.black-text.text-700.padding-top-10 Average Rating
       h5.grey-text.text-darken-2.padding-top-10
         = plan.averageRating
@@ -82,13 +82,13 @@ block content
           - const averageRatingInteger = Math.floor(plan.averageRating)
           = "★".repeat(averageRatingInteger)
           = "✩".repeat(5 - averageRatingInteger)
-    .col.m7.push-m1.s12.left-align  
+    .col.m7.push-m1.s12.left-align
       h4.grey-text.text-darken-2.text-700.left-align #{plan.reviews.length} Reviews
       if user
-        +reviewForm(plan) 
-      if plan.reviews 
+        +reviewForm(plan)
+      if plan.reviews
         .row
-          each review in plan.reviews      
+          each review in plan.reviews
             ul.collapsible(data-collapsible='accordion')
               li
                 .collapsible-header
@@ -97,28 +97,27 @@ block content
                     = "✩".repeat(5 - review.rating)
                   .left
                     i.fa.fa-user-o(aria-hidden='true')
-                    | Alvaro  
-                  .truncate.text-300(style='padding-left:10px;')= review.text  
+                    | Alvaro
+                  .truncate.text-300(style='padding-left:10px;')= review.text
                 .collapsible-body
                   span= review.text
                   .grey-text.right(datetime=review.created)
                     = h.moment(review.created).fromNow()
-      else              
+      else
         h4.center Be the first to leave a review!
-  .row.plan-heart 
+  .row.plan-heart
     form.heart(method="POST" action=`/api/plans/${plan._id}/heart`)
       - const heartStrings = user.hearts.map(obj => obj.toString())
       - const heartClass = heartStrings.includes(plan._id.toString()) ? 'primary-pink-text' : ''
       button.btn-floating.waves-effect.waves-light.transparent(type='submit' name='heart' )
         i.fa.fa-heart(aria-hidden='true' class=heartClass)
-  .row.plan-done         
+  .row.plan-done
     form.done(method="POST" action=`/api/plans/${plan._id}/done`)
       - const doneStrings = user.dones.map(obj => obj.toString())
       - const doneClass = doneStrings.includes(plan._id.toString()) ? 'green-text' : ''
       button.btn-floating.waves-effect.transparent.waves-light(type='submit' name='done' )
-        i.fa.fa-check(aria-hidden='true' class=doneClass)       
-  .row.plan-edit            
+        i.fa.fa-check(aria-hidden='true' class=doneClass)
+  .row.plan-edit
     if user && plan.author.equals(user._id)
       a.btn-floating.waves-effect.transparent.waves-light(href=`/plans/${plan._id}/edit`)
-        i.material-icons.right mode_edit  
-        
+        i.material-icons.right mode_edit

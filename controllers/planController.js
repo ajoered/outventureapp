@@ -4,6 +4,14 @@ const User = mongoose.model('User');
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
+const cloudinary = require('cloudinary');
+const Datauri = require('datauri');
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_ACCOUNT,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET
+});
 
 const multerOptions = {
   storage: multer.memoryStorage(),
@@ -19,7 +27,7 @@ const multerOptions = {
 
 exports.upload = multer(multerOptions).array('photos', 10);
 
-exports.resize = async (req, res, next) => {
+exports.resize = (req, res, next) => {
   // console.log(req.files);
   // console.log(req.body);
   const files = req.files
@@ -33,17 +41,16 @@ exports.resize = async (req, res, next) => {
   }
 
   files.forEach(function(file) {
-    const extension = file.mimetype.split('/')[1];
-    const photoId = `${uuid.v4()}.${extension}`
-    req.body.photos.push(photoId);
-    // now we resize
-    jimp.read(file.buffer, function (err, photo) {
-      console.log(photo);
-      if (err) throw err;
-      photo.resize(800, jimp.AUTO).write(`./public/uploads/${photoId}`);
-    });
+    var dUri = new Datauri();
+    dUri.format('.png', file.buffer);
+    var public_id = `${uuid.v4()}`;
+    var photo_url = `https://res.cloudinary.com/dx1s7kdgz/image/upload/${public_id}.jpg`
+    req.body.photos.push(photo_url);
+    cloudinary.v2.uploader.upload(dUri.content,{public_id: public_id}, function (err, image){
+      console.log(image);
+      }
+    );
   });
-  // once we have written the photo to our filesystem, keep going!
   next();
 };
 
@@ -78,6 +85,7 @@ exports.updatePlan = async (req, res) => {
   }).exec();
   req.flash('success', `Successfully updated <strong>${plan.name}</strong>. <a href="/plans/${plan.slug}">View Store →</a>`);
   res.redirect(`/plans/${plan._id}/edit`);
+  console.log(plan);
   // Redriect them the store and tell them it worked
 };
 

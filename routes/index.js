@@ -22,7 +22,7 @@ router.post('/addPlan',
 router.post('/addPlan/:id',
   authController.isLoggedIn,
   planController.upload,
-  catchErrors(planController.resize),
+  planController.resize,
   catchErrors(planController.updatePlan)
 );
 

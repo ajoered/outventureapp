@@ -9,9 +9,9 @@ const cloudinary = require('cloudinary');
 const Datauri = require('datauri');
 
 cloudinary.config({
-  cloud_name: 'dx1s7kdgz',
-  api_key: '833548386574964',
-  api_secret: 'ZU7FLeWH3LlE4B1kihFdi21sXKw'
+  cloud_name: process.env.CLOUDINARY_ACCOUNT,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET
 });
 
 const multerOptions = {
@@ -37,27 +37,15 @@ exports.resize = async (req, res, next) => {
 
   var dUri = new Datauri();
   dUri.format('.png', req.file.buffer);
-
-  cloudinary.uploader.upload(dUri.content, {tags:'basic_sample'} )
+  cloudinary.v2.uploader.upload(dUri.content, {transformation:
+       {width: 500, height: 500, crop: "fill" }} )
   .then(function(image){
-
-    const updates = {
-      photo: image.url
-    };
-
-    const user = User.findOneAndUpdate(
-      { _id: req.user._id },
-      { $set: updates },
-      { new: true, runValidators: true, context: 'query' }
-    ).exec();
+    req.body.photo = image.url
     next();
-    console.log("* "+image.url);
-    console.log(req.user);
   })
   .catch(function(err){
-    console.log();
-    console.log("** File Upload (Promise)");
-    if (err){ console.warn(err);}
+    if (err){ console.log(err);}
+    req.flash('error', err.message);
   });
 };
 
