@@ -5,6 +5,14 @@ const promisify = require('es6-promisify');
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
+const cloudinary = require('cloudinary');
+const Datauri = require('datauri');
+
+cloudinary.config({
+  cloud_name: 'dx1s7kdgz',
+  api_key: '833548386574964',
+  api_secret: 'ZU7FLeWH3LlE4B1kihFdi21sXKw'
+});
 
 const multerOptions = {
   storage: multer.memoryStorage(),
@@ -26,25 +34,31 @@ exports.resize = async (req, res, next) => {
     next(); // skip to the next middleware
     return;
   }
-  const extension = req.file.mimetype.split('/')[1];
-  req.body.photo = `${uuid.v4()}.${extension}`;
-  // now we resize
-  const photo = await jimp.read(req.file.buffer);
-  await photo.cover(800, 800);
-  await photo.write(`./public/uploads/${req.body.photo}`);
 
-  const userPhotoUrl = `/uploads/${req.body.photo}`
-  const updates = {
-    photo: `uploads/${req.body.photo}`
-  };
+  var dUri = new Datauri();
+  dUri.format('.png', req.file.buffer);
 
-  const user = await User.findOneAndUpdate(
-    { _id: req.user._id },
-    { $set: updates },
-    { new: true, runValidators: true, context: 'query' }
-  );
-  // once we have written the photo to our filesystem, keep going!
-  next();
+  cloudinary.uploader.upload(dUri.content, {tags:'basic_sample'} )
+  .then(function(image){
+
+    const updates = {
+      photo: image.url
+    };
+
+    const user = User.findOneAndUpdate(
+      { _id: req.user._id },
+      { $set: updates },
+      { new: true, runValidators: true, context: 'query' }
+    ).exec();
+    next();
+    console.log("* "+image.url);
+    console.log(req.user);
+  })
+  .catch(function(err){
+    console.log();
+    console.log("** File Upload (Promise)");
+    if (err){ console.warn(err);}
+  });
 };
 
 exports.loginForm = (req, res) => {

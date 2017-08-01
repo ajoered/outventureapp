@@ -16,10 +16,7 @@ block content
               | Edit
           .col.m2.push-m2.s4.push-s4
             if user.photo
-              if user.photo.startsWith("https://graph.facebook.com/")
-                img.circle.responsive-img(src=`${user.photo}`) 
-              else 
-                img.circle.responsive-img(src=`uploads/${user.photo}`)
+              img.circle.responsive-img(src=`${user.photo}`)
             else      
               img.circle.responsive-img(src='/images/photos/user.png')
               a(href=`/account/edit`) Add Profile Picture

@@ -38,10 +38,7 @@ mixin navbar()
               i.left.fa.fa-heart-o(aria-hidden='true')
             li(style="margin-top:8px")
               if user && user.photo
-                if user.photo.startsWith("https://graph.facebook.com/")
-                  img.avatar(src=`${user.photo}`)
-                else
-                  img.avatar(src=`../uploads/${user.photo}`)
+                img.avatar(src=`${user.photo}`)
               else
                 img.avatar(src='/images/photos/user.png')
             li
@@ -76,10 +73,7 @@ mixin navbar()
                   img(src='http://www.colorhexa.com/2b3e50.png')
                 a(href='/account' style="padding-left:104px;")
                   if user && user.photo
-                    if user.photo.startsWith("https://graph.facebook.com/")
-                      img.circle(src=`${user.photo}`)
-                    else
-                      img.circle(src=`../uploads/${user.photo}`)
+                    img.circle(src=`${user.photo}`)
                   else
                     img.circle(src='/images/photos/user.png')
                 a(href='/account' style="padding-bottom:20px;")
