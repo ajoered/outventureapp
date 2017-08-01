@@ -119,29 +119,34 @@ mixin navbar()
                 | Blog
           else
             li
+              .userView.center
+                .background.primary-blue
+                  img(src='http://www.colorhexa.com/2b3e50.png')
+                a(href='/account' style="padding-left:104px;")
+                  if user && user.photo
+                    img.circle(src=`${user.photo}`)
+                  else
+                    img.circle(src='/images/photos/user.png')
+                a(href='/account' style="padding-bottom:20px;")
+                  if user
+                    span.white-text.name= user.firstName + " " + user.lastName
               .userView
                 .background.primary-blue
                   img(src='http://www.colorhexa.com/2b3e50.png')
-                a(href='/login')
-                  img.circle(src='/images/photos/user.png')
-                a(href='#!name')
-                  a#register.waves-effect.waves-light.btn.white(href='#', style='margin-left:-10px;color:black!important;') Register
-                  a#login.waves-effect.waves-light.btn.transparent(href='/login', style='color:white!important;') Login
-                a(href='#!email')
-                  if user
-                    span.white-text.email= user.email
+                a(href='/account' style="padding-left:104px;")
+                  img.circle(src='https://res.cloudinary.com/dx1s7kdgz/image/upload/v1497369799/full_white_hkuuce.png')
             // Profile
             li
               a.subheader My Profile
             li.no-padding
             li
-              a(href='/account')
+              a(href='/register')
                 i.material-icons perm_identity
-                | My Account
+                | Register
             li
-              a(href='/addPlan')
+              a(href='/Login')
                 i.material-icons edit
-                | Create Idea
+                | Login
             // Main Menu
             li
               a.subheader Main Menu
