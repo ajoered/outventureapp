@@ -44,19 +44,26 @@ input[type="checkbox"].filled-in:checked + label:after {
 }
 
 @media screen and (max-width: 1128px) {
+
   #textMessage {
     text-align: center;
   }
+
+  .header-info-section {
+    position: relative;
+    height: 100vh;
+    z-index: 1001;
+  }
+
 }
 
 .header-info-section {
   position: relative;
   height: 100vh;
-  z-index: 1003;
 }
 
 #info-section {
-  padding-bottom: 100px;
+  padding-bottom: 20px;
 }
 
 .material-icons {
@@ -277,6 +284,10 @@ input[type="checkbox"].filled-in:checked + label:after {
   #search-bar {
   margin-left: 0px;
   margin-top: 4px;
+}
+
+.parallax-container {
+  height:auto!important;
 }
 
 .parallax-profile {

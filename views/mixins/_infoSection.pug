@@ -1,52 +1,56 @@
 mixin infoSection()
-  #info-section.container
-    br
+  #info-section
     br
     // Message section
     .row
       .col.m10.push-m1.s12.fade-in(style='opacity: 0')
-        //- h4.center.text-700
-        //-   | We spend 10+ hours a day in front of a screen.
-        //- h5.center.text-700
-        //-   | It's time for a change.
-        //- br
-        //- br
-        h3.center.text-300
-          | We make spending time outdoors as convenient as watching Netflix
+        h4.center.text-300
+          | Less Research. Less Planning.
+        h3.center.text-300(style="margin-top:0px!important")
+          | More Adventure
     br      
     // Icon Section
-    .row.center.fade-in-late(style='opacity: 0')
-      .col.s12.m5
-          h2.primary-blue-text
-            i.fa.fa-user-o(aria-hidden='true')
-          a.btn.primary-blue.white-text(data-scroll='' href="#search-nav") Guided Adventures
-          p
-          p.text-700
-            | Book adventures with local experts.
-          p.text-500
-            | Hire local experts to teach or guide you on your next adventure. No planning required. No equipment needed. The easiest way to go outdoors.
-            br 
-            a.text-300 Become an expert  
-              i.fa.fa-external-link(aria-hidden="true")
-      .col.s12.m5.push-m2
-        h2.yellow-text.text-darken-4
-          i.fa.fa-lightbulb-o(aria-hidden='true')
-        a.btn.yellow.darken-4.white-text(data-scroll='' href="#search-nav") Adventure Ideas
-        p.text-700
-          | Everything you need to plan your own adventure.
-        p
-          | Need inspiration? Discover where to go, what to do and what to bring. A global repository of outdoor plan ideas for every moment and skill-level. 
+    .parallax-container.valign-wrapper(style="background:rgba(1, 1, 1, 0.8)")
+      .parallax
+        img(src="/images/photos/canoeing.jpg", alt="")
+      .row.center.fade-in-late(style='opacity: 0')
+        .col.s12.m3.push-m2.adventure-column
+          h2.white-text
+            i.fa.fa-lg.fa-lightbulb-o(aria-hidden='true')
+          h5.grey-text.text-lighten-2(style="font-size:22px;") Adventure Ideas    
+          p.text-300.grey-text.text-lighten-2(style="font-size:16px;margin-top:5px!important")
+            | Discover the best outdoor activities near you, and all the information you need to make them happen.
+          br
+          a.btn.btn-large.col.s12.secondary-blue(text-lighten-1.data-scroll='' href="#search-nav") Explore
+        .col.s12.m3.push-m4
+          h2.white-text
+            i.fa.fa-lg.fa-user-o(aria-hidden='true')
+          h5.grey-text.text-lighten-2(style="font-size:22px;") Guided Adventures     
+          p.text-300.grey-text.text-lighten-2(style="font-size:16px;margin-top:5px!important")
+            | Hire local experts to teach or guide you on your next adventure. The easiest way to go outdoors.
+          br
+          a.btn.btn-large.col.s12.primary-blue.text-lighten-1.disabled(data-scroll='' href="#search-nav") Coming soon!
+          //- a.text-300 Become an expert  
+          //-   i.fa.fa-external-link(aria-hidden="true")
 
-    //- .row.center
-    //-   a.btn-floating.btn-large.waves-effect.waves-light.transparent(data-scroll='', href='#search-nav')
-    //-     i.fa.fa-hand-o-down.black-text(aria-hidden='true')
-
-    //- .col.s12.m5.push-m2
-    //-   h2.red-text.text-lighten-2
-    //-     i.fa.fa-users(aria-hidden='true')
-    //-   a.btn.transparent.black-text(data-scroll='' href="#search-nav") Outings
-    //-   p
-    //-   p.text-700
-    //-     | Adventure needs company.
-    //-   p
-    //-     | Connect with like-minded people to share your adventures, learn and practice together.
+    //- .row.center.fade-in-late(style='opacity: 0')
+    //-   .col.s12.m5
+    //-     h2.yellow-text.text-darken-4
+    //-       i.fa.fa-lightbulb-o(aria-hidden='true')
+    //-     a.btn.yellow.darken-4.white-text(data-scroll='' href="#search-nav") Adventure Ideas
+    //-     p(style="font-size:18px;")
+    //-       | Discover the best outdoor activities near you.
+    //-     p
+    //-       | Easily discover where to go, what to do and what to bring. Adventures for every moment and skill-level. 
+    //-   .col.s12.m5.push-m2
+    //-       h2.primary-blue-text
+    //-         i.fa.fa-user-o(aria-hidden='true')
+    //-       a.btn.primary-blue.white-text(data-scroll='' href="#search-nav") Guided Adventures
+    //-       p
+    //-       p(style="font-size:18px;")
+    //-         | Book adventures with local experts.
+    //-       p.text-500(style="padding-top:-15px;")
+    //-         | Hire local experts to teach or guide you on your next adventure. No planning required. No equipment needed. The easiest way to go outdoors.
+    //-         br 
+    //-         a.text-300 Become an expert  
+    //-           i.fa.fa-external-link(aria-hidden="true")

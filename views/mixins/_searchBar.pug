@@ -7,14 +7,7 @@ mixin searchBar()
           i.material-icons location_on
         i.material-icons close
     .col.m7.s2.hide-on-med-and-down
-      .input-field.col.m3.s12(style='margin-top:24px;')
-        .switch
-          label
-            i.fa.fa-2x.fa-lightbulb-o.yellow-text.text-darken-4(aria-hidden='true')
-            input(type='checkbox')
-            span.lever
-            i.fa.fa-2x.fa-user-o.primary-blue-text(aria-hidden='true')
-      .input-field.col.m4.s12
+      .input-field.col.m4.push-m1.s12
         select(multiple='' id='activities' onchange='updateQuery()')
           option(value='All' disabled='') All
           optgroup(label='Water')
@@ -28,7 +21,7 @@ mixin searchBar()
             option(value='Camping' name='Camping') Camping
             option(value='Hiking' name='Hiking') Hiking
         label Activities:
-      .input-field.col.m4.s12
+      .input-field.col.m4.push-m1.s12
         select(multiple='' id='skillLevel' onchange='updateQuery()')
           option(value='All' disabled='') All
           option(value='Beginner' name='Beginner') Beginner
@@ -36,7 +29,7 @@ mixin searchBar()
           option(value='Advanced' name='Advanced') Advanced
           option(value='Expert' name='Expert') Expert
         label Level:
-      .search-buttons.col.m1.hide-on-med-and-down
+      .search-buttons.col.m2.push-m1.hide-on-med-and-down
         a.waves-effect.waves-light.btn.primary-blue(href='#modal-tags')
           i.prefix.fa.fa-sliders(aria-hidden='true')
           |  +1
