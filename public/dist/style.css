@@ -5,6 +5,7 @@
  *
  * Made By MaterializeCSS.com
  */
+
 html {
   font-family: 'lato', sans-serif!important;
     font-weight: 500;
@@ -63,7 +64,8 @@ input[type="checkbox"].filled-in:checked + label:after {
 }
 
 #info-section {
-  padding-bottom: 20px;
+  padding-top: 120px;
+  padding-bottom: 120px;
 }
 
 .material-icons {
@@ -142,6 +144,14 @@ input[type="checkbox"].filled-in:checked + label:after {
 
 .secondary-blue-text {
   color: #007299!important;
+}
+
+.tertiary-blue {
+  background-color: #035b79!important
+}
+
+.tertiary-blue-text {
+  color: #035b79!important;
 }
 
 .primary-green {
