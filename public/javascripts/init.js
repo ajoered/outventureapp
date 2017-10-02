@@ -8,7 +8,6 @@ import ajaxDone from './modules/done';
 import heartPlan from './modules/heartDynamic';
 import donePlan from './modules/doneDynamic';
 import registerPopup from './modules/registerPopup';
-import mapToggleButton from './modules/mapToggleButton';
 
 $(document).ready(function(){
   $('.button-collapse').sideNav();
@@ -66,6 +65,21 @@ $(document).ready(function(){
   initPlanMap(document.getElementById('planMap'));
 });
 
+  window.mapToggleButton = function (e) {
+    if(e.innerHTML.startsWith('Map')) {
+      $(".cards-container").css("visibility", "hidden");
+      $(".map-container").css("visibility", "visible");
+      $("#map").css("visibility", "visible");
+      $(".map-container").css("width", "100%");
+      initMap(document.getElementById('map'));
+      e.innerHTML = 'Card View<i class="fa fa-picture-o left" aria-hidden="true"></i>'
+    } else {
+      $(".cards-container").css("visibility", "visible");
+      $(".map-container").css("visibility", "hidden");
+      $("#map").css("visibility", "hidden");
+      e.innerHTML = 'Map View<i class="fa fa-globe left" aria-hidden="true"></i>'
+    }
+  };
 
   registerPopup($('#register'))
   var scrollFireOptions = [ {selector: '.fade-in', offset: 300, callback: function(el) {    Materialize.fadeInImage($(el)); } }, {selector: '.fade-in-late', offset: 100, callback: function(el) { Materialize.fadeInImage($(el)); } }]

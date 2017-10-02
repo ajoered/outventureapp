@@ -1,6 +1,7 @@
 mixin heroVideo()
   .homepage-hero-module
     .video-container
+      .bg-overlay
       .filter
       video.fillWidth(autoplay='', loop='')
         source(src='images/Outventure-landing-page.m4v', type='video/mp4')
@@ -11,26 +12,27 @@ mixin heroVideo()
         img(src='', alt='')
       .section.valign-wrapper.header-info-section.center
         .container.animated.fadeInDown
-          //- h1.header.center.white-text.text-700(style="display:inline;") FEEL 
-          //- h1.header.center.white-text.text-700(style="display:inline;")#textMessage 
+          //- h1.header.center.white-text.text-700(style="display:inline;") FEEL
+          //- h1.header.center.white-text.text-700(style="display:inline;")#textMessage
           //- .textContent(style='display:none') HAPPY
           //- .textContent(style='display:none') MINDFUL
           //- .textContent(style='display:none') CREATIVE
           //- .textContent(style='display:none') FIT
           //- .textContent(style='display:none') FOCUSED
-          //- .textContent(style='display:none') ENERGIZED 
-          //- .textContent(style='display:none') RELAXED 
-          //- .textContent(style='display:none') FREE 
+          //- .textContent(style='display:none') ENERGIZED
+          //- .textContent(style='display:none') RELAXED
+          //- .textContent(style='display:none') FREE
           //- hr.hr-header
           .row.center
-            h4.header.col.s12.white-text.spaced-text 
-              | ADVENTURE,
-              br
-              | ONE CLICK AWAY.
+            h1.col.s12.white-text.text-300
+              | WE HELP YOU SPEND MORE TIME 
+              strong.blue-text.text-lighten-1 OUTDOORS
+            h5.white-text.text-500.spaced-text
+              | Discover the best ideas for outdoor adventures
           br
           br
           .row.center
-            a.btn-floating.btn-large.waves-effect.waves-light.transparent(data-scroll='', href='#info-section')
-              i.fa.fa-hand-o-down(aria-hidden='true')
+            a.btn.btn-large.blue.lighten-1(data-scroll='' href="#search-nav" style="width:200px") Explore
+              i.fa.left.fa-hand-o-down(aria-hidden='true')
           br
           br

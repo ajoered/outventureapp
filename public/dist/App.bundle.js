@@ -1406,22 +1406,7 @@ function createCards(plans) {
 exports.default = initMap;
 
 /***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-window.mapToggleButton = function (e) {
-  // $(".cards-container").css("visibility", "hidden");
-};
-
-exports.default = mapToggleButton;
-
-/***/ }),
+/* 17 */,
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2307,10 +2292,6 @@ var _registerPopup = __webpack_require__(18);
 
 var _registerPopup2 = _interopRequireDefault(_registerPopup);
 
-var _mapToggleButton = __webpack_require__(17);
-
-var _mapToggleButton2 = _interopRequireDefault(_mapToggleButton);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 $(document).ready(function () {
@@ -2367,6 +2348,22 @@ $(document).ready(function () {
     }
     (0, _initPlanMap2.default)(document.getElementById('planMap'));
 });
+
+window.mapToggleButton = function (e) {
+    if (e.innerHTML.startsWith('Map')) {
+        $(".cards-container").css("visibility", "hidden");
+        $(".map-container").css("visibility", "visible");
+        $("#map").css("visibility", "visible");
+        $(".map-container").css("width", "100%");
+        (0, _initmap2.default)(document.getElementById('map'));
+        e.innerHTML = 'Card View<i class="fa fa-picture-o left" aria-hidden="true"></i>';
+    } else {
+        $(".cards-container").css("visibility", "visible");
+        $(".map-container").css("visibility", "hidden");
+        $("#map").css("visibility", "hidden");
+        e.innerHTML = 'Map View<i class="fa fa-globe left" aria-hidden="true"></i>';
+    }
+};
 
 (0, _registerPopup2.default)($('#register'));
 var scrollFireOptions = [{ selector: '.fade-in', offset: 300, callback: function callback(el) {

@@ -61,11 +61,7 @@ input[type="checkbox"].filled-in:checked + label:after {
 .header-info-section {
   position: relative;
   height: 100vh;
-}
-
-#info-section {
-  padding-top: 120px;
-  padding-bottom: 120px;
+  z-index: 1001;
 }
 
 .material-icons {
@@ -260,6 +256,11 @@ input[type="checkbox"].filled-in:checked + label:after {
  width: 100%;
 }
 
+#mobileMap {
+ height: 100%;
+ width: 100%;
+}
+
 #search-bar {
   margin-left: 40px;
 }
@@ -280,21 +281,29 @@ input[type="checkbox"].filled-in:checked + label:after {
   }
 
   .map-container {
-  visibility: hidden;
+    visibility: hidden;
+  }
+
+  .mobile-map-container {
+      bottom: 0;
+      left: auto;
+      left: 0;
+      top: 126px;
+      width: 100%;
   }
 
   .cards-container {
-  margin-left:12px;
-}
+    margin-left:12px;
+  }
 
   #map {
-  visibility: hidden;
+    visibility: hidden;
   }
 
   #search-bar {
-  margin-left: 0px;
-  margin-top: 4px;
-}
+    margin-left: 0px;
+    margin-top: 4px;
+  }
 
 .parallax-container {
   height:auto!important;
@@ -355,6 +364,15 @@ color: #fff;
 }
 
 /*Cover video*/
+.bg-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
 
 .homepage-hero-module {
     border-right: none;
@@ -759,7 +777,7 @@ color: #fff;
 
 .parallax-profile {
     /* The image used */
-    background-image: url('https://static.pexels.com/photos/519719/pexels-photo-519719.jpeg');
+    background-image: url('https://static.pexels.com/photos/127753/pexels-photo-127753.jpeg');
     background-position: 50% 90%!important;
     /* Full height */
     height: 70vh;
